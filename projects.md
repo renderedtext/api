@@ -24,7 +24,7 @@ GET /:owner/:project
   "branches_url": "https://api.semaphoreci.com/renderedtext/semaphore/branches{/id}",
   "servers_url": "https://api.semaphoreci.com/renderedtext/semaphore/servers{/id}",
   "created_at": "",
-  "updated_at", ""
+  "updated_at": ""
 }
 
 ```
