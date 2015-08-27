@@ -32,16 +32,14 @@ GET /api/internal/:owner/:project/threads
     },
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
-    "readonly_commands": true,
-    "commands": [
-      "bundle exec rspec"
-    ]
+    "commands": []
   },
   {
     "id": 9383,
     "name": "RSpec 123/123",
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/9383",
     "type": "build_thread",
+    "turbo_thread_options": {}
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -54,6 +52,7 @@ GET /api/internal/:owner/:project/threads
     "name": "Setup",
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/23423",
     "type": "setup",
+    "turbo_thread_options": {}
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -66,6 +65,7 @@ GET /api/internal/:owner/:project/threads
     "name": "Post-thread",
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/2323",
     "type": "post_thread",
+    "turbo_thread_options": {}
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -90,6 +90,7 @@ GET /api/internal/:owner/:project/threads/:id
     "id": 2323,
     "name": "Post-thread",
     "type": "post_thread",
+    "turbo_thread_options": {}
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -110,8 +111,9 @@ POST /api/internal/:owner/:project/threads
 Name          | Type         | Description
 ------------- | -------------|--------------
 name          | string       | _Required_ Name of your thread
-type          | string       | _Required_ Type of thread. Valid options are `setup`, `build_thread`, `post_thread`
-commands      | array        | _Required_ Array of commands.
+type          | string       | _Required_ Type of thread. Valid options are `setup`, `build_thread`, `post_thread`, `turbo_thread`
+commands      | array        | _Required_ Array of commands. Not applicable for `turbo_threads`.
+turbo_thread_options | hash  | _Required_ `size` - size of turbo thread, `turbo_type` - valid options are `rspec` and `cucumber`.
 
 #### Example
 
@@ -119,9 +121,10 @@ commands      | array        | _Required_ Array of commands.
 {
   "name": "Rspec 2/4",
   "type": "build_thread",
+  "turbo_thread_options": {},
   "commands": [
     "bundle install",
-    "bundle exec rspec
+    "bundle exec rspec"
   ]
 }
 ```
@@ -141,6 +144,7 @@ Location: https://semaphoreci.com/api/internal/renderedtext/semaphore_front/123
     "id": 123,
     "name": "Rspec 2/4",
     "type": "build_thread",
+    "turbo_thread_options": {},
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -170,6 +174,7 @@ commands      | array        | _Required_ Array of commands.
 {
   "name": "Rspec 2/4",
   "type": "build_thread",
+  "turbo_thread_options": {},
   "commands": [
     "bundle install",
     "bundle exec rspec"
@@ -191,6 +196,7 @@ Status: 200 OK
     "id": 123,
     "name": "Post-thread",
     "type": "post_thread",
+    "turbo_thread_options": {},
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
