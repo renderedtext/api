@@ -106,7 +106,7 @@ Location: https://semaphoreci.com/api/internal/renderedtext/semaphore_front/123
 ## Edit
 
 ```
-PATCH /api/internal/:owner/:project/threads/:id
+PATCH /api/internal/:owner/:project/turbo_threads/:id
 ```
 
 ### Input
