@@ -39,7 +39,7 @@ GET /api/internal/:owner/:project/threads
     "name": "RSpec 123/123",
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/9383",
     "type": "build_thread",
-    "turbo_thread_options": {}
+    "turbo_thread_options": {},
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -52,7 +52,7 @@ GET /api/internal/:owner/:project/threads
     "name": "Setup",
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/23423",
     "type": "setup",
-    "turbo_thread_options": {}
+    "turbo_thread_options": {},
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -65,7 +65,7 @@ GET /api/internal/:owner/:project/threads
     "name": "Post-thread",
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/2323",
     "type": "post_thread",
-    "turbo_thread_options": {}
+    "turbo_thread_options": {},
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
@@ -90,7 +90,7 @@ GET /api/internal/:owner/:project/threads/:id
     "id": 2323,
     "name": "Post-thread",
     "type": "post_thread",
-    "turbo_thread_options": {}
+    "turbo_thread_options": {},
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
     "commands": [
