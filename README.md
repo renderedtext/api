@@ -21,6 +21,22 @@ GET /api/internal/:owner/:project/threads
 
 ```json
 [
+ {
+    "id": 2,
+    "name": "RSpec",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/2",
+    "type": "turbo_thread",
+    "turbo_thread_options": {
+      "size": 4,
+      "turbo_type": "rspec"
+    },
+    "created_at": "2012-01-01T12:00:00Z",
+    "updated_at": "2012-01-01T12:00:00Z",
+    "readonly_commands": true,
+    "commands": [
+      "bundle exec rspec"
+    ]
+  },
   {
     "id": 9383,
     "name": "RSpec 123/123",
