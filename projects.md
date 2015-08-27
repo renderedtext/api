@@ -15,7 +15,7 @@ GET /:owner/:project
   "description": "Something nice",
   "owner": {
     "id": "329u-2332-2332",
-    "name": renderedtext",
+    "name": "renderedtext",
     "type": "organization",
     "url": "https://api.semaphoreci.com/renderedtext"
   },
