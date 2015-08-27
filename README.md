@@ -112,7 +112,7 @@ Name          | Type         | Description
 ------------- | -------------|--------------
 name          | string       | _Required_ Name of your thread
 type          | string       | _Required_ Type of thread. Valid options are `setup`, `build_thread`, `post_thread`, `turbo_thread`
-commands      | array        | _Required_ Array of commands. Not applicable for `turbo_thread`.
+commands      | array of strings  | _Required_ Array of commands. Not applicable for `turbo_thread`.
 turbo_thread_options | nullable object  | Applicable for `turbo_thread` type. Format `size` - size of turbo thread, `turbo_type` - valid options are `rspec` and `cucumber`.
 
 #### Example
@@ -166,7 +166,7 @@ Name          | Type         | Description
 ------------- | -------------|--------------
 name          | string       | _Required_ Name of your thread
 type          | string       | _Required_ Type of thread. Valid options are `setup`, `build_thread`, `post_thread`, `turbo_thread`
-commands      | array        | _Required_ Array of commands. Not applicable for `turbo_thread`.
+commands      | array of strings | _Required_ Array of commands. Not applicable for `turbo_thread`.
 turbo_thread_options | nullable object  | Applicable for `turbo_thread` type. Format `size` - size of turbo thread, `turbo_type` - valid options are `rspec` and `cucumber`.
 
 #### Example
