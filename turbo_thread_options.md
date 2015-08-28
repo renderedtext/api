@@ -1,13 +1,13 @@
-# Turbo Thread Options API
+# Test Booster Options API
 
-- [List project turbo thread options ](#list-project-threads)
+- [List project test booster options ](#list-project-threads)
 
-## List project turbo threads
+## List project test boosters
 
 List all turbo threads for the project.
 
 ```
-GET /api/internal/:owner/:project/turbo_thread_options
+GET /api/internal/:owner/:project/test_booster_options
 ```
 
 ### Response
