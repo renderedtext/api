@@ -4,7 +4,7 @@
 
 ## List project test boosters
 
-List all turbo threads for the project.
+List all test boosters for the project.
 
 ```
 GET /api/internal/:owner/:project/test_booster_options
