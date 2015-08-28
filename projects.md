@@ -21,6 +21,7 @@ GET /:owner/:project
   },
   "threads_url": "https://api.semaphoreci.com/renderedtext/semaphore/threads{/id}",
   "turbo_threads_url": "https://api.semaphoreci.com/renderedtext/semaphore/turbo_threads{/id}",
+  "turbo_threads_options_url": "https://api.semaphoreci.com/renderedtext/semaphore/turbo_threads_options",
   "branches_url": "https://api.semaphoreci.com/renderedtext/semaphore/branches{/id}",
   "servers_url": "https://api.semaphoreci.com/renderedtext/semaphore/servers{/id}",
   "created_at": "",
