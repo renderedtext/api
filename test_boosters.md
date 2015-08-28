@@ -1,6 +1,6 @@
-# Turbo Threads API
+# Test Boosters API
 
-- [List project turbo threads](#list-project-threads)
+- [List project test boosters](#list-project-threads)
 - [Get](#get)
 - [Create](#create)
 - [Edit](#edit)
@@ -8,10 +8,10 @@
 
 ## List project turbo threads
 
-List all turbo threads for the project.
+List test boosters for the project.
 
 ```
-GET /api/internal/:owner/:project/turbo_threads
+GET /api/internal/:owner/:project/test_boosters
 ```
 
 ### Response
@@ -23,7 +23,7 @@ GET /api/internal/:owner/:project/turbo_threads
   {
     "id": 9383,
     "type": "rspec",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/turbo_threads/9383",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/test_boosters/9383",
     "size": 4,
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z"
@@ -31,7 +31,7 @@ GET /api/internal/:owner/:project/turbo_threads
   {
     "id": 12,
     "type": "cucumber",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/turbo_threads/12",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/test_boosters/12",
     "size": 6,
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z"
@@ -42,7 +42,7 @@ GET /api/internal/:owner/:project/turbo_threads
 ## Get
 
 ```
-GET /api/internal/:owner/:project/turbo_threads/:id
+GET /api/internal/:owner/:project/test_boosters/:id
 ```
 ### Response
 
@@ -52,7 +52,7 @@ GET /api/internal/:owner/:project/turbo_threads/:id
   {
     "id": 9383,
     "type": "rspec",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/turbo_threads/9383",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/test_boosters/9383",
     "size": 4,
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z"
@@ -62,7 +62,7 @@ GET /api/internal/:owner/:project/turbo_threads/:id
 ## Create
 
 ```
-POST /api/internal/:owner/:project/turbo_threads
+POST /api/internal/:owner/:project/test_boosters
 ```
 
 ### Input
@@ -87,7 +87,7 @@ size          | number       | _Required_ Number of regular build threads to uti
 
 ```
 Status: 201 Created
-Location: https://semaphoreci.com/api/internal/renderedtext/semaphore_front/123
+Location: https://semaphoreci.com/api/internal/renderedtext/semaphore_front/test_boosters/123
 ```
 
 #### Body
@@ -95,7 +95,7 @@ Location: https://semaphoreci.com/api/internal/renderedtext/semaphore_front/123
   {
     "id": 9383,
     "type": "rspec",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/turbo_threads/9383",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/test_boosters/9383",
     "size": 4,
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z"
@@ -105,7 +105,7 @@ Location: https://semaphoreci.com/api/internal/renderedtext/semaphore_front/123
 ## Edit
 
 ```
-PATCH /api/internal/:owner/:project/turbo_threads/:id
+PATCH /api/internal/:owner/:project/test_boosters/:id
 ```
 
 ### Input
@@ -137,7 +137,7 @@ Status: 200 OK
   {
     "id": 9383,
     "type": "rspec",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/turbo_threads/9383",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/test_boosters/9383",
     "size": 4,
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z"
@@ -147,7 +147,7 @@ Status: 200 OK
 ## Delete
 
 ```
-DELETE /api/internal/:owner/:project/turbo_threads/:id
+DELETE /api/internal/:owner/:project/test_boosters/:id
 ```
 
 ### Response
