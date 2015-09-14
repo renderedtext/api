@@ -4,7 +4,7 @@
 
 Name      | Type                                        
 ----------|---------------------------------------------
-status    | string ("pending" | "running" | "finished") 
+status    | string ("pending" / "running" / "finished") 
 commands  | array of [Commands]()
 
 ## Index
