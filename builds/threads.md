@@ -46,7 +46,7 @@ with_output   | boolean      | _Required_ Should thread commands contain their o
 
 ### Example
 
-``` json
+``` js
 {
   status: "pending",
   commands: [
