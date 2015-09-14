@@ -10,7 +10,6 @@ Name      | Type
 ----------|---------------------------------------------
 id        | HashID
 status    | string ("pending" / "queued" / "running" / "finished")
-threads   | Link
 
 ## Index
 
@@ -24,13 +23,11 @@ GET .../builds/:id
 [
   {
     id: "ee79b06a-cfbf-472e-99eb-a3d216c902d5",
-    status: "running",
-    threads: "https://semaphoreci.com/api/internal/.../builds/ee79b06a-cfbf-472e-99eb-a3d216c902d5/threads"
+    status: "running"
   },
   {
     id: "bb79b06a-cfbf-472e-99eb-a3d216c902d5",
-    status: "pending",
-    threads: "https://semaphoreci.com/api/internal/.../builds/bb79b06a-cfbf-472e-99eb-a3d216c902d5/threads"
+    status: "pending"
   }
 ]
 ```
@@ -46,7 +43,6 @@ GET .../builds/:id
 ```
 {
   id: "ee79b06a-cfbf-472e-99eb-a3d216c902d5",
-  status: "running",
-  threads: "https://semaphoreci.com/api/internal/.../builds/ee79b06a-cfbf-472e-99eb-a3d216c902d5/threads"
+  status: "running"
 }
 ```
