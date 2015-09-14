@@ -1,11 +1,16 @@
-# Threads
+# Build Threads API
+
+- [Resource format](#resource-format)
+- [Index](#index)
+- [Get](#get)
+
 
 ## Resource format
 
 Name      | Type                                        
 ----------|---------------------------------------------
 status    | string ("pending" / "running" / "finished") 
-commands  | array of [Commands]()
+commands  | array of Commands
 
 ## Index
 
