@@ -5,7 +5,7 @@
 - [Test Boosters](test_boosters.md)
 - [Test Booster Options](test_booster_options.md)
 
-# General Guidelines
+## General Guidelines
 
 - This is an internal API and every endpoint should be prefixed with:
 
@@ -19,28 +19,40 @@ https://semaphoreci.com/api/internal/
 https://sempahoreci.com/api/internal/:owner/:project_name/
 ```
 
-- Aim to create new project related Entities in the root path of
-the owner/project endpoint.
+## Resource relationship
 
-Good example for adding a Build and a Thread entity:
+Always aim to add project related entities without nesting them under
+other entities. In practice, this means that every resource must have a
+unique id, by which we can access it.
 
-```
-/:owner/:project_name/builds
-```
+### Good example
 
-```
-/:owner/:project_name/threads
-```
+[GitHub's Comments API](https://developer.github.com/v3/repos/comments/)
 
-Bad example for adding a Build and a Thread entity:
+You can access a comment directly:
 
 ```
-/:owner/:project_name/builds
+/repos/:owner/:repo/comments/:id
 ```
 
+Also, you can access a comment via a commit:
+
 ```
-/:owner/:project_name/builds/:id/threads
+/repos/:owner/:repo/commits/:ref/comments/:id
 ```
+
+### Bad example
+
+[Our public API for fetching Build Information](https://semaphoreci.com/docs/branches-and-builds-api.html#build_information).
+
+You can *only* access information about a build if you
+know the id of its branch and the number of the build.
+
+```
+/api/v1/projects/:hash_id/:id/builds/:number
+```
+
+### Conclusion
 
 By following the above example we can keep the owner/project namespace flat and
 simple.
@@ -49,7 +61,45 @@ GitHub uses a similar approach for their [Repositories API endpoint](https://dev
 
 Heroku uses a similar approach for their [Platform API](https://devcenter.heroku.com/articles/platform-api-reference).
 
-# References and Inspiration
+
+## Types of attributes
+
+Every entity should have a defined list of attributes. For example, if you are
+adding a User entity with (id, username, created_at) fields, you should provide
+the following table:
+
+Name          | Type                                   | Description
+------------- | ---------------------------------------|--------------
+id            | integer                                | Id of the user.
+username      | string                                 | The username of the user.
+created_at    | DateTime                               | Creation time.
+
+The following list contains a list of recognized types for the attributes.
+
+### Simple types
+
+Type              | Description                                         | Example
+------------------| ----------------------------------------------------| -------------
+null              | JSON null value                                     |
+boolean           | JSON boolean value                                  | true, false
+integer           | JSON whole number value                             | 1, 2, 10, 10000
+float             | JSON float number value                             | 1.12, 3.14
+string            | JSON string                                         | "bob", "a nice dog"
+"yellow", "black" | Enumeration. Not included values should be invalid. |
+[type]            | Represents a list of a type.                        | [int], [string]
+
+### Complex Types
+
+Type              | Description                   | Example
+------------------| ------------------------------| -------------
+ID                | Represents an Entity's ID     | 1, 312, 90312
+UUID              | Represents an Entity's UUID   | "de305d54-75b4-431b-adb2-eb6b9e546014"
+Date              | Represents a Date             | "2015-09-15"
+Time              | Represents a instance of Time | "08:58:18"
+DateTime          | Represents a Date and a Time  | "2015-09-15 08:58:18 UTC"
+Link              | Hypermedia link to a resource | "https://semaphoreci.com/api/internal/builds{/id}"
+
+## References and Inspiration
 
 - [API Design Methodology](http://www.infoq.com/presentations/api-design-methodology)
 - [Interview with Amundsen](http://www.infoq.com/interviews/amundsen-api)
