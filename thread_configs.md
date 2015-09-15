@@ -11,7 +11,7 @@
 
 Name          | Type                                   | Description
 ------------- | ---------------------------------------|--------------
-id            | UUID                                   | Id of a thread config.
+id            | ID                                     | Id of a thread config.
 url           | Link                                   | Link to a thread config.
 type          | "setup", "build_thread", "post_thread" | Type of thread.
 created_at    | DateTime                               | Creation time.
