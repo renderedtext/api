@@ -17,12 +17,20 @@ created_at    | DateTime                                  | Creation time.
 started_at    | DateTime                                  | Start time of the thread.
 finished_at   | DateTime                                  | Finish time of the thread.
 parent_url    | Link                                      | Link to a build or a deploy.
+commands_url  | Link                                      | Link to thread commands.
+commands      | [Command]                                 | List of commands.
 
 ## List threads on a project
 
 ```
 GET /api/internal/:owner/:project/threads
 ```
+
+### Input
+
+Name                | Type    | Description
+------------------- | --------|------------------------
+with_command_output | boolean | _optional_ Default value is `false`.
 
 ### Response
 
@@ -39,6 +47,20 @@ GET /api/internal/:owner/:project/threads
     "started_at": null,
     "finished_at": null,
     "parent_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "commands_url": "https://semaphoreci.com/renderedtext/semaphore/threads/de305d54-75b4-431b-adb2-eb6b9e546014/commands",
+    "commands" : [
+      {
+        "id": "de305d54-75b4-431b-adb2-eb6b9e546014",
+        "url": "https://semaphoreci.com/renderedtext/semaphore/commands/de305d54-75b4-431b-adb2-eb6b9e546014",
+        "type": "thread",
+        "status": "finished",
+        "result": "stopped",
+        "output": nil,
+        "started_at": "2012-01-01T12:00:00Z",
+        "finished_at": "2012-01-01T12:00:00Z",
+        "thread_url": "https://semaphoreci.com/renderedtext/semaphore/threads/de305d54-75b4-431b-adb2-eb6b9e546014"
+      }
+    ]
   }
 ]
 ```
@@ -48,6 +70,12 @@ GET /api/internal/:owner/:project/threads
 ```
 GET /api/internal/:owner/:project/threads/:id
 ```
+
+### Input
+
+Name                | Type    | Description
+------------------- | --------|------------------------
+with_command_output | boolean | _optional_ Default value is `false`.
 
 ### Response
 
@@ -63,6 +91,20 @@ GET /api/internal/:owner/:project/threads/:id
   "started_at": "2012-01-01T12:00:00Z",
   "finished_at": "2012-01-01T12:00:00Z",
   "parent_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
+  "commands_url": "https://semaphoreci.com/renderedtext/semaphore/threads/de305d54-75b4-431b-adb2-eb6b9e546014/commands",
+  "commands" : [
+    {
+      "id": "de305d54-75b4-431b-adb2-eb6b9e546014",
+      "url": "https://semaphoreci.com/renderedtext/semaphore/commands/de305d54-75b4-431b-adb2-eb6b9e546014",
+      "type": "thread",
+      "status": "finished",
+      "result": "stopped",
+      "output": nil,
+      "started_at": "2012-01-01T12:00:00Z",
+      "finished_at": "2012-01-01T12:00:00Z",
+      "thread_url": "https://semaphoreci.com/renderedtext/semaphore/threads/de305d54-75b4-431b-adb2-eb6b9e546014"
+    }
+  ]
 }
 ```
 
@@ -71,6 +113,12 @@ GET /api/internal/:owner/:project/threads/:id
 ```
 GET /api/internal/:owner/:project/builds/:id/threads
 ```
+
+### Input
+
+Name                | Type    | Description
+------------------- | --------|------------------------
+with_command_output | boolean | _optional_ Default value is `false`.
 
 ### Response
 
@@ -87,6 +135,20 @@ GET /api/internal/:owner/:project/builds/:id/threads
     "started_at": "2012-01-01T12:00:00Z",
     "finished_at": "2012-01-01T12:00:00Z",
     "parent_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "commands_url": "https://semaphoreci.com/renderedtext/semaphore/threads/de305d54-75b4-431b-adb2-eb6b9e546014/commands"
+    "commands" : [
+      {
+        "id": "de305d54-75b4-431b-adb2-eb6b9e546014",
+        "url": "https://semaphoreci.com/renderedtext/semaphore/commands/de305d54-75b4-431b-adb2-eb6b9e546014",
+        "type": "thread",
+        "status": "finished",
+        "result": "stopped",
+        "output": nil,
+        "started_at": "2012-01-01T12:00:00Z",
+        "finished_at": "2012-01-01T12:00:00Z",
+        "thread_url": "https://semaphoreci.com/renderedtext/semaphore/threads/de305d54-75b4-431b-adb2-eb6b9e546014"
+      }
+    ]
   }
 ]
 ```
