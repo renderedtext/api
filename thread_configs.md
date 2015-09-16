@@ -1,20 +1,29 @@
+# ThreadConfigs API
 
-
-
-# Threads API
-
-- [List project threads](#list-project-threads)
+- [Attributes](#attributes)
+- [Index](#index)
 - [Get](#get)
 - [Create](#create)
 - [Edit](#edit)
 - [Delete](#delete)
 
-## List project threads
+## Attributes
 
-List all threads for the project.
+Name          | Type                                   | Description
+------------- | ---------------------------------------|--------------
+id            | ID                                     | Id of a thread config.
+url           | Link                                   | Link to a thread config.
+type          | "setup", "build_thread", "post_thread" | Type of thread.
+created_at    | DateTime                               | Creation time.
+updated_at    | DateTime                               | Update time.
+commands      | [string]                               | List of commands.
+
+## Index
+
+List all ThreadConfigs for the project.
 
 ```
-GET /api/internal/:owner/:project/threads
+GET /api/internal/:owner/:project/thread_configs
 ```
 
 ### Response
@@ -26,7 +35,7 @@ GET /api/internal/:owner/:project/threads
   {
     "id": 9383,
     "name": "RSpec 123/123",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/9383",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/thread_configs/9383",
     "type": "build_thread",
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
@@ -38,7 +47,7 @@ GET /api/internal/:owner/:project/threads
   {
     "id": 23423,
     "name": "Setup",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/23423",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/thread_configs/23423",
     "type": "setup",
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
@@ -50,7 +59,7 @@ GET /api/internal/:owner/:project/threads
   {
     "id": 2323,
     "name": "Post-thread",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/threads/2323",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore_front/thread_configs/2323",
     "type": "post_thread",
     "created_at": "2012-01-01T12:00:00Z",
     "updated_at": "2012-01-01T12:00:00Z",
@@ -65,7 +74,7 @@ GET /api/internal/:owner/:project/threads
 ## Get
 
 ```
-GET /api/internal/:owner/:project/threads/:id
+GET /api/internal/:owner/:project/thread_configs/:id
 ```
 ### Response
 
@@ -88,7 +97,7 @@ GET /api/internal/:owner/:project/threads/:id
 ## Create
 
 ```
-POST /api/internal/:owner/:project/threads
+POST /api/internal/:owner/:project/thread_configs
 ```
 
 ### Input
@@ -139,7 +148,7 @@ Location: https://semaphoreci.com/api/internal/renderedtext/semaphore_front/123
 ## Edit
 
 ```
-PATCH /api/internal/:owner/:project/threads/:id
+PATCH /api/internal/:owner/:project/thread_configs/:id
 ```
 
 ### Input
@@ -189,7 +198,7 @@ Status: 200 OK
 ## Delete
 
 ```
-DELETE /api/internal/:owner/:project/threads/:id
+DELETE /api/internal/:owner/:project/thread_configs/:id
 ```
 
 ### Response
