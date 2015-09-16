@@ -18,6 +18,7 @@ created_at    | DateTime                                  | Creation time.
 started_at    | DateTime                                  | Start time of the build.
 finished_at   | DateTime                                  | Finish time of the build.
 branch_url    | Link                                      | Link to the branch.
+threads_url   | Link                                      | Link to build threads.
 
 ## List builds on a project
 
@@ -40,6 +41,7 @@ GET /api/internal/:owner/:project/builds
     "started_at": null,
     "finished_at": null,
     "branch_url": "https://semaphoreci.com/renderedtext/semaphore/branches/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "threads_url": "https://semaphoreci.com/renderedtext/semaphore/builds/de305d54-75b4-431b-adb2-eb6b9e546014/threads"
   }
 ]
 ```
@@ -64,6 +66,7 @@ GET /api/internal/:owner/:project/builds/:id
   "started_at": "2012-01-01T12:00:00Z",
   "finished_at": "2012-01-01T12:00:00Z",
   "branch_url": "https://semaphoreci.com/renderedtext/semaphore/branches/9e305d54-75b4-431b-adb2-eb6b9e546014",
+  "threads_url": "https://semaphoreci.com/renderedtext/semaphore/builds/de305d54-75b4-431b-adb2-eb6b9e546014/threads"
 }
 ```
 
@@ -88,6 +91,7 @@ GET /api/internal/:owner/:project/branches/:id/builds
     "started_at": null,
     "finished_at": null,
     "branch_url": "https://semaphoreci.com/renderedtext/semaphore/branches/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "threads_url": "https://semaphoreci.com/renderedtext/semaphore/builds/de305d54-75b4-431b-adb2-eb6b9e546014/threads"
   }
 ]
 ```
@@ -112,5 +116,6 @@ POST /api/internal/:owner/:project/branches/:id/builds
   "started_at": null,
   "finished_at": null,
   "branch_url": "https://semaphoreci.com/renderedtext/semaphore/branches/9e305d54-75b4-431b-adb2-eb6b9e546014",
+  "threads_url": "https://semaphoreci.com/renderedtext/semaphore/builds/de305d54-75b4-431b-adb2-eb6b9e546014/threads"
 }
 ```
