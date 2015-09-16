@@ -20,6 +20,7 @@ started_at    | DateTime                                  | Start time of the th
 finished_at   | DateTime                                  | Finish time of the thread.
 build_url     | Link                                      | Link to a build that this deploy belongs to.
 server_url    | Link                                      | Link to the server.
+threads_url   | Link                                      | Link to deploy threads.
 
 ## List deploys on a project
 
@@ -42,7 +43,8 @@ GET /api/internal/:owner/:project/deploys
     "started_at": null,
     "finished_at": null,
     "build_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
-    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014"
+    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "threads_url": "https://semaphoreci.com/renderedtext/semaphore/deploys/de305d54-75b4-431b-adb2-eb6b9e546014/threads
   }
 ]
 ```
@@ -67,7 +69,8 @@ GET /api/internal/:owner/:project/deploys/:id
   "started_at": "2012-01-01T12:00:00Z",
   "finished_at": "2012-01-01T12:00:00Z",
   "build_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
-  "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014"
+  "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014",
+  "threads_url": "https://semaphoreci.com/renderedtext/semaphore/deploys/de305d54-75b4-431b-adb2-eb6b9e546014/threads
 }
 ```
 
@@ -92,7 +95,8 @@ GET /api/internal/:owner/:project/build/:id/deploys
     "started_at": "2012-01-01T12:00:00Z",
     "finished_at": "2012-01-01T12:00:00Z",
     "build_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
-    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014"
+    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "threads_url": "https://semaphoreci.com/renderedtext/semaphore/deploys/de305d54-75b4-431b-adb2-eb6b9e546014/threads
   }
 ]
 ```
@@ -118,7 +122,8 @@ GET /api/internal/:owner/:project/server/:id/deploys
     "started_at": "2012-01-01T12:00:00Z",
     "finished_at": "2012-01-01T12:00:00Z",
     "build_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
-    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014"
+    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "threads_url": "https://semaphoreci.com/renderedtext/semaphore/deploys/de305d54-75b4-431b-adb2-eb6b9e546014/threads
   }
 ]
 ```
@@ -158,7 +163,8 @@ server_id     | UUID   | _required_ Hash of the server.
     "started_at": "2012-01-01T12:00:00Z",
     "finished_at": "2012-01-01T12:00:00Z",
     "build_url": "https://semaphoreci.com/renderedtext/semaphore/builds/9e305d54-75b4-431b-adb2-eb6b9e546014",
-    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014"
+    "server_url": "https://semaphoreci.com/renderedtext/semaphore/servers/9e305d54-75b4-431b-adb2-eb6b9e546014",
+    "threads_url": "https://semaphoreci.com/renderedtext/semaphore/deploys/de305d54-75b4-431b-adb2-eb6b9e546014/threads
   }
 ]
 ```
