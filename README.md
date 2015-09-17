@@ -99,6 +99,11 @@ Time              | Represents a instance of Time | "08:58:18"
 DateTime          | Represents a Date and a Time  | "2015-09-15 08:58:18 UTC"
 Link              | Hypermedia link to a resource | "https://semaphoreci.com/api/internal/builds{/id}"
 
+### Additional notes
+
+- Always use underscores to define elements in an enumeration. In other words,
+  use "post_thread" instead of "post-thread"
+
 ## References and Inspiration
 
 - [API Design Methodology](http://www.infoq.com/presentations/api-design-methodology)
