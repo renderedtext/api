@@ -1,7 +1,15 @@
 source "https://rubygems.org"
 
-gem "prmd"
 gem "rack"
 gem "rack-contrib"
-gem "github-markup"
-gem "redcarpet"
+
+group :development do
+  gem "prmd"
+  gem "github-markup"
+  gem "github-markdown"
+  gem "redcarpet"
+  gem "html-pipeline"
+  gem "github-linguist"
+  gem "pygments.rb"
+  gem "rake"
+end

@@ -1,8 +1,18 @@
-require "rack/contrib/try_static"
+use Rack::Static,
+  :urls => ["/stylesheets", "/images", "/javascripts"],
+  :root => "public"
 
-use Rack::TryStatic,
-  :root => "./",
-  :urls => %w[/],
-  :try => ['.html', 'index.html', '/index.html']
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+  [username, password] == ["rt", "samsung"]
+end
 
-  run -> { [404, {'Content-Type' => 'text/html'}, ['Not Found']]}
+run lambda { |env|
+  [
+    200,
+    {
+      'Content-Type'  => 'text/html',
+      'Cache-Control' => 'public, max-age=86400'
+    },
+    File.open('public/index.html', File::RDONLY)
+  ]
+}

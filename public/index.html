@@ -1,130 +1,141 @@
-<h2><a name="resource-build"></a>Build</h2>
+<link rel='stylesheet' href='/stylesheets/style.css'/><h2><a name="resource-build"></a>Build</h2>
 
 <p>FIXME</p>
 
 <h3>Attributes</h3>
 
-<p>| Name | Type | Description | Example |
-| ------- | ------- | ------- | ------- |
-| <strong>created_at</strong> | <em>date-time</em> | when build was created | <code>&quot;2015-01-01T12:00:00Z&quot;</code> |
-| <strong>id</strong> | <em>uuid</em> | unique identifier of build | <code>&quot;01234567-89ab-cdef-0123-456789abcdef&quot;</code> |
-| <strong>name</strong> | <em>string</em> | unique name of build | <code>&quot;example&quot;</code> |
-| <strong>updated_at</strong> | <em>date-time</em> | when build was updated | <code>&quot;2015-01-01T12:00:00Z&quot;</code> |</p>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>when build was created</td>
+<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+</tr>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of build</td>
+<td><code>&quot;01234567-89ab-cdef-0123-456789abcdef&quot;</code></td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>unique name of build</td>
+<td><code>&quot;example&quot;</code></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>when build was updated</td>
+<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+</tr>
+</tbody></table>
 
 <h3>Build Create</h3>
 
 <p>Create a new build.</p>
 
-<p><code>
-POST /builds
-</code></p>
+<pre><code>POST /builds
+</code></pre>
 
 <h4>Curl Example</h4>
 
-<p><code>bash
-$ curl -n -X POST /builds \
+<pre lang="bash"><code>$ curl -n -X POST /builds \
   -H &quot;Content-Type: application/json&quot; \
  \
   -d &#39;{
 }&#39;
-</code></p>
+</code></pre>
 
 <h4>Response Example</h4>
 
-<p><code>
-HTTP/1.1 201 Created
-</code></p>
+<pre><code>HTTP/1.1 201 Created
+</code></pre>
 
-<p><code>json
-{
+<pre lang="json"><code>{
   &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
   &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
   &quot;name&quot;: &quot;example&quot;,
   &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
 }
-</code></p>
+</code></pre>
 
 <h3>Build Delete</h3>
 
 <p>Delete an existing build.</p>
 
-<p><code>
-DELETE /builds/{build_id_or_name}
-</code></p>
+<pre><code>DELETE /builds/{build_id_or_name}
+</code></pre>
 
 <h4>Curl Example</h4>
 
-<p><code>bash
-$ curl -n -X DELETE /builds/$BUILD_ID_OR_NAME \
+<pre lang="bash"><code>$ curl -n -X DELETE /builds/$BUILD_ID_OR_NAME \
   -H &quot;Content-Type: application/json&quot; \
-</code></p>
+</code></pre>
 
 <h4>Response Example</h4>
 
-<p><code>
-HTTP/1.1 200 OK
-</code></p>
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
 
-<p><code>json
-{
+<pre lang="json"><code>{
   &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
   &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
   &quot;name&quot;: &quot;example&quot;,
   &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
 }
-</code></p>
+</code></pre>
 
 <h3>Build Info</h3>
 
 <p>Info for existing build.</p>
 
-<p><code>
-GET /builds/{build_id_or_name}
-</code></p>
+<pre><code>GET /builds/{build_id_or_name}
+</code></pre>
 
 <h4>Curl Example</h4>
 
-<p><code>bash
-$ curl -n /builds/$BUILD_ID_OR_NAME
-</code></p>
+<pre lang="bash"><code>$ curl -n /builds/$BUILD_ID_OR_NAME
+</code></pre>
 
 <h4>Response Example</h4>
 
-<p><code>
-HTTP/1.1 200 OK
-</code></p>
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
 
-<p><code>json
-{
+<pre lang="json"><code>{
   &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
   &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
   &quot;name&quot;: &quot;example&quot;,
   &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
 }
-</code></p>
+</code></pre>
 
 <h3>Build List</h3>
 
 <p>List existing builds.</p>
 
-<p><code>
-GET /builds
-</code></p>
+<pre><code>GET /builds
+</code></pre>
 
 <h4>Curl Example</h4>
 
-<p><code>bash
-$ curl -n /builds
-</code></p>
+<pre lang="bash"><code>$ curl -n /builds
+</code></pre>
 
 <h4>Response Example</h4>
 
-<p><code>
-HTTP/1.1 200 OK
-</code></p>
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
 
-<p><code>json
-[
+<pre lang="json"><code>[
   {
     &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
     &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
@@ -132,37 +143,33 @@ HTTP/1.1 200 OK
     &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
   }
 ]
-</code></p>
+</code></pre>
 
 <h3>Build Update</h3>
 
 <p>Update an existing build.</p>
 
-<p><code>
-PATCH /builds/{build_id_or_name}
-</code></p>
+<pre><code>PATCH /builds/{build_id_or_name}
+</code></pre>
 
 <h4>Curl Example</h4>
 
-<p><code>bash
-$ curl -n -X PATCH /builds/$BUILD_ID_OR_NAME \
+<pre lang="bash"><code>$ curl -n -X PATCH /builds/$BUILD_ID_OR_NAME \
   -H &quot;Content-Type: application/json&quot; \
  \
   -d &#39;{
 }&#39;
-</code></p>
+</code></pre>
 
 <h4>Response Example</h4>
 
-<p><code>
-HTTP/1.1 200 OK
-</code></p>
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
 
-<p><code>json
-{
+<pre lang="json"><code>{
   &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
   &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
   &quot;name&quot;: &quot;example&quot;,
   &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
 }
-</code></p>
+</code></pre>
