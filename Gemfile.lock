@@ -1,0 +1,28 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    erubis (2.7.0)
+    git-version-bump (0.15.1)
+    github-markup (1.4.0)
+    json_schema (0.7.0)
+    prmd (0.8.0)
+      erubis (~> 2.7)
+      json_schema (~> 0.3, >= 0.3.1)
+    rack (1.6.4)
+    rack-contrib (1.4.0)
+      git-version-bump (~> 0.15)
+      rack (~> 1.4)
+    redcarpet (3.3.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  github-markup
+  prmd
+  rack
+  rack-contrib
+  redcarpet
+
+BUNDLED WITH
+   1.10.5
