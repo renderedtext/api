@@ -4,22 +4,23 @@ h1, h2, h3, h4, h5, h6, p, blockquote {
 }
 body {
    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
-   font-size: 13px;
-   line-height: 18px;
    color: #737373;
    background-color: white;
    margin: 10px 13px 10px 13px;
+   font-size: 18px;
+   line-height: 1.5;
 }
+
 table {
    margin: 10px 0 15px 0;
    border-collapse: collapse;
+   width: 100%;
+   font-size: 14px;
 }
+
 td,th {
    border: 1px solid #ddd;
-   padding: 3px 10px;
-}
-th {
-   padding: 5px 10px;
+   padding: 1em 1em;
 }
 
 a {
@@ -32,26 +33,32 @@ a:hover {
 a img {
    border: none;
 }
+
 p {
-   margin-bottom: 9px;
+   margin: 1em 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-   color: #404040;
-   line-height: 36px;
+   line-height: 1.5;
+
+   margin-bottom: 1em;
+   margin-top: 2em;
 }
+
 h1 {
-   margin-bottom: 18px;
-   font-size: 30px;
+   font-size: 35px;
+   color: rgb(92, 92, 92);
 }
 h2 {
-   font-size: 24px;
+   font-size: 45px;
+   color: rgb(92, 92, 92);
 }
 h3 {
-   font-size: 18px;
+   font-size: 30px;
+   color: rgb(92, 92, 92);
 }
 h4 {
-   font-size: 16px;
+   font-size: 18px;
 }
 h5 {
    font-size: 14px;
@@ -59,6 +66,7 @@ h5 {
 h6 {
    font-size: 13px;
 }
+
 hr {
    margin: 0 0 19px;
    border: 0;
@@ -88,29 +96,25 @@ code, pre {
    font-family: Monaco, Andale Mono, Courier New, monospace;
 }
 code {
-   background-color: #fee9cc;
-   color: rgba(0, 0, 0, 0.75);
+   color: #444;
    padding: 1px 3px;
-   font-size: 12px;
    -webkit-border-radius: 3px;
    -moz-border-radius: 3px;
    border-radius: 3px;
 }
 pre {
    display: block;
-   padding: 14px;
-   margin: 0 0 18px;
+   padding: 20px;
+   margin: 1em 0;
    line-height: 16px;
-   font-size: 11px;
-   border: 1px solid #d9d9d9;
+   font-size: 16px;
    white-space: pre-wrap;
    word-wrap: break-word;
+   background-color: #f5f5f5;
+   border-radius: 2px;
 }
 pre code {
-   background-color: #fff;
-   color:#737373;
-   font-size: 11px;
-   padding: 0;
+  color: #5C5C5C;
 }
 sup {
    font-size: 0.83em;
