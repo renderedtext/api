@@ -8,145 +8,182 @@
   </head>
 
   <body>
-    <h2><a name="resource-owner"></a>Owner</h2>
+    <div class="table-of-content">
+      <div class="logo">
+        <img height="45" width="181" alt="Semaphore" src="https://d1dkupr86d302v.cloudfront.net/community/assets/logo-semaphore-f219995f65abb14a7760cafb0c37f909b4241debca2c82ec16e25b9a9405c77b.svg">
+      </div>
+
+      <ul class="section-nav">
+<li class="nav-h2"><a href="#owner">Owner</a></li>
+<li class="nav-h3"><a href="#attributes">Attributes</a></li>
+<li class="nav-h2"><a href="#project">Project</a></li>
+<li class="nav-h3"><a href="#attributes-1">Attributes</a></li>
+<li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
+<li class="nav-h3"><a href="#attributes-2">Attributes</a></li>
+<li class="nav-h3"><a href="#threadconfig-list">ThreadConfig List</a></li>
+<li class="nav-h3"><a href="#threadconfig-delete">ThreadConfig Delete</a></li>
+<li class="nav-h3"><a href="#threadconfig-info">ThreadConfig Info</a></li>
+<li class="nav-h3"><a href="#threadconfig-create">ThreadConfig Create</a></li>
+<li class="nav-h3"><a href="#threadconfig-update">ThreadConfig Update</a></li>
+</ul>
+    </div>
+    <div class="content">
+      <h2>
+<a id="owner" class="anchor" href="#owner" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-owner"></a>Owner</h2>
 
 <p>An Owner represents the owner of a project on SemaphoreCI.</p>
 
-<h3>Attributes</h3>
+<h3>
+<a id="attributes" class="anchor" href="#attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
 <th>Example</th>
 </tr>
-</thead><tbody>
+</thead>
+<tbody>
 <tr>
 <td><strong>id</strong></td>
 <td><em>uuid</em></td>
 <td>unique identifier of owner</td>
-<td><code>&quot;01234567-89ab-cdef-0123-456789abcdef&quot;</code></td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
 </tr>
 <tr>
 <td><strong>name</strong></td>
 <td><em>string</em></td>
 <td>unique name of owner</td>
-<td><code>&quot;renderedtext&quot;</code></td>
+<td><code>"renderedtext"</code></td>
 </tr>
 <tr>
 <td><strong>created_at</strong></td>
 <td><em>date-time</em></td>
 <td>when owner was created</td>
-<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
 </tr>
 <tr>
 <td><strong>updated_at</strong></td>
 <td><em>date-time</em></td>
 <td>when owner was updated</td>
-<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
-<h2><a name="resource-project"></a>Project</h2>
+<h2>
+<a id="project" class="anchor" href="#project" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-project"></a>Project</h2>
 
 <p>A Project represents a project on SemaphoreCI.</p>
 
-<h3>Attributes</h3>
+<h3>
+<a id="attributes-1" class="anchor" href="#attributes-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
 <th>Example</th>
 </tr>
-</thead><tbody>
+</thead>
+<tbody>
 <tr>
 <td><strong>id</strong></td>
 <td><em>uuid</em></td>
 <td>unique identifier of project</td>
-<td><code>&quot;01234567-89ab-cdef-0123-456789abcdef&quot;</code></td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
 </tr>
 <tr>
 <td><strong>name</strong></td>
 <td><em>string</em></td>
 <td>unique name of project</td>
-<td><code>&quot;semaphore&quot;</code></td>
+<td><code>"semaphore"</code></td>
 </tr>
 <tr>
 <td><strong>created_at</strong></td>
 <td><em>date-time</em></td>
 <td>when project was created</td>
-<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
 </tr>
 <tr>
 <td><strong>updated_at</strong></td>
 <td><em>date-time</em></td>
 <td>when project was updated</td>
-<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
-<h2><a name="resource-thread_config"></a>ThreadConfig</h2>
+<h2>
+<a id="threadconfig" class="anchor" href="#threadconfig" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-thread_config"></a>ThreadConfig</h2>
 
 <p>A ThreadConfig represents a list of commands that will be used for future builds.</p>
 
-<h3>Attributes</h3>
+<h3>
+<a id="attributes-2" class="anchor" href="#attributes-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
 <th>Example</th>
 </tr>
-</thead><tbody>
+</thead>
+<tbody>
 <tr>
 <td><strong>id</strong></td>
 <td><em>uuid</em></td>
 <td>unique identifier of thread_config</td>
-<td><code>&quot;01234567-89ab-cdef-0123-456789abcdef&quot;</code></td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
 </tr>
 <tr>
 <td><strong>name</strong></td>
 <td><em>string</em></td>
 <td>name of thread_config</td>
-<td><code>&quot;Rspec 2/4&quot;</code></td>
+<td><code>"Rspec 2/4"</code></td>
 </tr>
 <tr>
 <td><strong>url</strong></td>
 <td><em>string</em></td>
 <td>a link to the thread_config</td>
-<td><code>&quot;https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}&quot;</code></td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}"</code></td>
 </tr>
 <tr>
 <td><strong>type</strong></td>
 <td><em>string</em></td>
-<td>Type of a thread.<br/> <strong>one of:</strong><code>&quot;setup&quot;</code> or <code>&quot;thread&quot;</code> or <code>&quot;post_thread&quot;</code></td>
-<td><code>&quot;setup&quot;</code></td>
+<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"thread"</code> or <code>"post_thread"</code>
+</td>
+<td><code>"setup"</code></td>
 </tr>
 <tr>
 <td><strong>commands</strong></td>
 <td><em>string</em></td>
 <td>A list of commands that define a thread configuration.</td>
-<td><code>[&quot;sudo apt-get install wget -y&quot;,&quot;bundle exec rake:spec&quot;]</code></td>
+<td><code>["sudo apt-get install wget -y","bundle exec rake:spec"]</code></td>
 </tr>
 <tr>
 <td><strong>created_at</strong></td>
 <td><em>date-time</em></td>
 <td>when thread_config was created</td>
-<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
 </tr>
 <tr>
 <td><strong>updated_at</strong></td>
 <td><em>date-time</em></td>
 <td>when thread_config was updated</td>
-<td><code>&quot;2015-01-01T12:00:00Z&quot;</code></td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
-<h3>ThreadConfig List</h3>
+<h3>
+<a id="threadconfig-list" class="anchor" href="#threadconfig-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>ThreadConfig List</h3>
 
 <p>List existing thread_configs.</p>
 
@@ -165,21 +202,22 @@
 
 <pre lang="json"><code>[
   {
-    &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
-    &quot;name&quot;: &quot;Rspec 2/4&quot;,
-    &quot;url&quot;: &quot;https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}&quot;,
-    &quot;type&quot;: &quot;setup&quot;,
-    &quot;commands&quot;: [
-      &quot;sudo apt-get install wget -y&quot;,
-      &quot;bundle exec rake:spec&quot;
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "Rspec 2/4",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}",
+    "type": "setup",
+    "commands": [
+      "sudo apt-get install wget -y",
+      "bundle exec rake:spec"
     ],
-    &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
-    &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
+    "created_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
   }
 ]
 </code></pre>
 
-<h3>ThreadConfig Delete</h3>
+<h3>
+<a id="threadconfig-delete" class="anchor" href="#threadconfig-delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>ThreadConfig Delete</h3>
 
 <p>Delete an existing thread_config.</p>
 
@@ -189,7 +227,7 @@
 <h4>Curl Example</h4>
 
 <pre lang="bash"><code>$ curl -n -X DELETE https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID \
-  -H &quot;Content-Type: application/json&quot; \
+  -H "Content-Type: application/json" \
 </code></pre>
 
 <h4>Response Example</h4>
@@ -198,20 +236,21 @@
 </code></pre>
 
 <pre lang="json"><code>{
-  &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
-  &quot;name&quot;: &quot;Rspec 2/4&quot;,
-  &quot;url&quot;: &quot;https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}&quot;,
-  &quot;type&quot;: &quot;setup&quot;,
-  &quot;commands&quot;: [
-    &quot;sudo apt-get install wget -y&quot;,
-    &quot;bundle exec rake:spec&quot;
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec 2/4",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}",
+  "type": "setup",
+  "commands": [
+    "sudo apt-get install wget -y",
+    "bundle exec rake:spec"
   ],
-  &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
-  &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
 }
 </code></pre>
 
-<h3>ThreadConfig Info</h3>
+<h3>
+<a id="threadconfig-info" class="anchor" href="#threadconfig-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>ThreadConfig Info</h3>
 
 <p>Info for existing thread_config.</p>
 
@@ -229,20 +268,21 @@
 </code></pre>
 
 <pre lang="json"><code>{
-  &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
-  &quot;name&quot;: &quot;Rspec 2/4&quot;,
-  &quot;url&quot;: &quot;https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}&quot;,
-  &quot;type&quot;: &quot;setup&quot;,
-  &quot;commands&quot;: [
-    &quot;sudo apt-get install wget -y&quot;,
-    &quot;bundle exec rake:spec&quot;
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec 2/4",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}",
+  "type": "setup",
+  "commands": [
+    "sudo apt-get install wget -y",
+    "bundle exec rake:spec"
   ],
-  &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
-  &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
 }
 </code></pre>
 
-<h3>ThreadConfig Create</h3>
+<h3>
+<a id="threadconfig-create" class="anchor" href="#threadconfig-create" aria-hidden="true"><span class="octicon octicon-link"></span></a>ThreadConfig Create</h3>
 
 <p>Create a new thread_config.</p>
 
@@ -251,47 +291,51 @@
 
 <h4>Required Parameters</h4>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
 <th>Example</th>
 </tr>
-</thead><tbody>
+</thead>
+<tbody>
 <tr>
 <td><strong>name</strong></td>
 <td><em>string</em></td>
 <td>name of thread_config</td>
-<td><code>&quot;Rspec 2/4&quot;</code></td>
+<td><code>"Rspec 2/4"</code></td>
 </tr>
 <tr>
 <td><strong>type</strong></td>
 <td><em>string</em></td>
-<td>Type of a thread.<br/> <strong>one of:</strong><code>&quot;setup&quot;</code> or <code>&quot;thread&quot;</code> or <code>&quot;post_thread&quot;</code></td>
-<td><code>&quot;setup&quot;</code></td>
+<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"thread"</code> or <code>"post_thread"</code>
+</td>
+<td><code>"setup"</code></td>
 </tr>
 <tr>
 <td><strong>commands</strong></td>
 <td><em>string</em></td>
 <td>A list of commands that define a thread configuration.</td>
-<td><code>[&quot;sudo apt-get install wget -y&quot;,&quot;bundle exec rake:spec&quot;]</code></td>
+<td><code>["sudo apt-get install wget -y","bundle exec rake:spec"]</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <h4>Curl Example</h4>
 
 <pre lang="bash"><code>$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs \
-  -H &quot;Content-Type: application/json&quot; \
+  -H "Content-Type: application/json" \
  \
-  -d &#39;{
-  &quot;name&quot;: &quot;Rspec 2/4&quot;,
-  &quot;type&quot;: &quot;setup&quot;,
-  &quot;commands&quot;: [
-    &quot;sudo apt-get install wget -y&quot;,
-    &quot;bundle exec rake:spec&quot;
+  -d '{
+  "name": "Rspec 2/4",
+  "type": "setup",
+  "commands": [
+    "sudo apt-get install wget -y",
+    "bundle exec rake:spec"
   ]
-}&#39;
+}'
 </code></pre>
 
 <h4>Response Example</h4>
@@ -300,20 +344,21 @@
 </code></pre>
 
 <pre lang="json"><code>{
-  &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
-  &quot;name&quot;: &quot;Rspec 2/4&quot;,
-  &quot;url&quot;: &quot;https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}&quot;,
-  &quot;type&quot;: &quot;setup&quot;,
-  &quot;commands&quot;: [
-    &quot;sudo apt-get install wget -y&quot;,
-    &quot;bundle exec rake:spec&quot;
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec 2/4",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}",
+  "type": "setup",
+  "commands": [
+    "sudo apt-get install wget -y",
+    "bundle exec rake:spec"
   ],
-  &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
-  &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
 }
 </code></pre>
 
-<h3>ThreadConfig Update</h3>
+<h3>
+<a id="threadconfig-update" class="anchor" href="#threadconfig-update" aria-hidden="true"><span class="octicon octicon-link"></span></a>ThreadConfig Update</h3>
 
 <p>Update an existing thread_config.</p>
 
@@ -322,47 +367,51 @@
 
 <h4>Required Parameters</h4>
 
-<table><thead>
+<table>
+<thead>
 <tr>
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
 <th>Example</th>
 </tr>
-</thead><tbody>
+</thead>
+<tbody>
 <tr>
 <td><strong>name</strong></td>
 <td><em>string</em></td>
 <td>name of thread_config</td>
-<td><code>&quot;Rspec 2/4&quot;</code></td>
+<td><code>"Rspec 2/4"</code></td>
 </tr>
 <tr>
 <td><strong>type</strong></td>
 <td><em>string</em></td>
-<td>Type of a thread.<br/> <strong>one of:</strong><code>&quot;setup&quot;</code> or <code>&quot;thread&quot;</code> or <code>&quot;post_thread&quot;</code></td>
-<td><code>&quot;setup&quot;</code></td>
+<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"thread"</code> or <code>"post_thread"</code>
+</td>
+<td><code>"setup"</code></td>
 </tr>
 <tr>
 <td><strong>commands</strong></td>
 <td><em>string</em></td>
 <td>A list of commands that define a thread configuration.</td>
-<td><code>[&quot;sudo apt-get install wget -y&quot;,&quot;bundle exec rake:spec&quot;]</code></td>
+<td><code>["sudo apt-get install wget -y","bundle exec rake:spec"]</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
 <h4>Curl Example</h4>
 
 <pre lang="bash"><code>$ curl -n -X PATCH https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID \
-  -H &quot;Content-Type: application/json&quot; \
+  -H "Content-Type: application/json" \
  \
-  -d &#39;{
-  &quot;name&quot;: &quot;Rspec 2/4&quot;,
-  &quot;type&quot;: &quot;setup&quot;,
-  &quot;commands&quot;: [
-    &quot;sudo apt-get install wget -y&quot;,
-    &quot;bundle exec rake:spec&quot;
+  -d '{
+  "name": "Rspec 2/4",
+  "type": "setup",
+  "commands": [
+    "sudo apt-get install wget -y",
+    "bundle exec rake:spec"
   ]
-}&#39;
+}'
 </code></pre>
 
 <h4>Response Example</h4>
@@ -371,17 +420,18 @@
 </code></pre>
 
 <pre lang="json"><code>{
-  &quot;id&quot;: &quot;01234567-89ab-cdef-0123-456789abcdef&quot;,
-  &quot;name&quot;: &quot;Rspec 2/4&quot;,
-  &quot;url&quot;: &quot;https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}&quot;,
-  &quot;type&quot;: &quot;setup&quot;,
-  &quot;commands&quot;: [
-    &quot;sudo apt-get install wget -y&quot;,
-    &quot;bundle exec rake:spec&quot;
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec 2/4",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}",
+  "type": "setup",
+  "commands": [
+    "sudo apt-get install wget -y",
+    "bundle exec rake:spec"
   ],
-  &quot;created_at&quot;: &quot;2015-01-01T12:00:00Z&quot;,
-  &quot;updated_at&quot;: &quot;2015-01-01T12:00:00Z&quot;
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
 }
 </code></pre>
+    </div>
   </body>
 </html>
