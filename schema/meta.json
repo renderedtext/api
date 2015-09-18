@@ -1,0 +1,9 @@
+{
+  "description": "The internal API empowers developers to automate, extend and combine SemaphoreCI with other services.",
+  "id": "hello",
+  "links": [{
+    "href": "https://semaphoreci.com/api/internal",
+    "rel": "self"
+  }],
+  "title": "SemaphoreCI Internal API"
+}
