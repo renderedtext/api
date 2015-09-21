@@ -65,25 +65,25 @@ definitions:
 
 links:
  - description: List existing thread_configs.
-   href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/thread_configs"
+   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs"
    method: GET
    rel: instances
    title: List
 
  - description: Delete an existing thread_config.
-   href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/thread_configs/{(%2Fschemata%2Fthread_config%23%2Fdefinitions%2Fidentity)}"
+   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs/<%= identity(:thread_config) %>"
    method: DELETE
    rel: destroy
    title: Delete
 
  - description: Info for existing thread_config.
-   href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/thread_configs/{(%2Fschemata%2Fthread_config%23%2Fdefinitions%2Fidentity)}"
+   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs/<%= identity(:thread_config) %>"
    method: GET
    rel: self
    title: Info
 
  - description: Create a new thread_config.
-   href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/thread_configs"
+   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs"
    method: POST
    rel: create
    schema:
@@ -103,7 +103,7 @@ links:
    title: Create
 
  - description: Update an existing thread_config.
-   href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/thread_configs/{(%2Fschemata%2Fthread_config%23%2Fdefinitions%2Fidentity)}"
+   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs/<%= identity(:thread_config) %>"
    method: PATCH
    rel: update
    schema:
@@ -137,4 +137,5 @@ properties:
     "$ref": "/schemata/thread_config#/definitions/created_at"
   updated_at:
     "$ref": "/schemata/thread_config#/definitions/updated_at"
+
 id: schemata/thread_config
