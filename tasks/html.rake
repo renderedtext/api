@@ -6,8 +6,7 @@ namespace :api do
   namespace :html do
 
     task :render do
-      Rake::Task["api:schema:combine"].execute
-      Rake::Task["api:schema:doc"].execute
+      Rake::Task["api:schema:generate"].execute
 
       File.write("public/index.html", render_html)
     end

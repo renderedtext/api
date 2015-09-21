@@ -24,18 +24,10 @@ Generated entity - schema/schemata/user.yml
 
 ## Schema
 
-First you should combine all your entities into one schema.json:
+You can generate your schema by executing:
 
 ```
-bundle exec rake api:schema:combine
-```
-
-This will create a JSON schema in `public/schema.json`.
-
-After combining the schema, you should verify its validity:
-
-```
-bundle exec rake api:schema:verify
+bundle exec rake api:schema:generate
 ```
 
 ## Generating HTML and Markdown documentation
