@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ENTITY=$1
-ENTITY_PATH="schema/schemata/${ENTITY}.yml"
+ENTITY_PATH="schema/schemata/${ENTITY}.yml.erb"
 
 bundle exec prmd init --yaml $ENTITY > $ENTITY_PATH
 
