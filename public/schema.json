@@ -279,6 +279,193 @@
         }
       }
     },
+    "command": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Command",
+      "description": "Represents a command",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of command",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the command",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "thread_url": {
+          "description": "a link to the thread that contains the command",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/command/definitions/id"
+            }
+          ]
+        },
+        "type": {
+          "description": "Type of a command.",
+          "readOnly": false,
+          "example": "setup",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "setup",
+            "build_thread",
+            "post_thread"
+          ]
+        },
+        "status": {
+          "description": "status of the command",
+          "readOnly": true,
+          "example": "queued",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "pending",
+            "running",
+            "finished"
+          ]
+        },
+        "result": {
+          "description": "command result",
+          "readOnly": true,
+          "example": "failed",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "failed",
+            "passed",
+            "stopped",
+            "canceled"
+          ]
+        },
+        "exit_status": {
+          "description": "command result",
+          "readOnly": true,
+          "example": 0,
+          "type": [
+            "number"
+          ]
+        },
+        "started_at": {
+          "description": "when command was started",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "finished_at": {
+          "description": "when command was finished",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing command.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/commands/{(%23%2Fdefinitions%2Fcommand%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing commands.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/commands",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "List"
+        },
+        {
+          "description": "List commands for a thread.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/threads/{(%23%2Fdefinitions%2Fthread%2Fdefinitions%2Fidentity)}/commands",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "List for Thread"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/command/definitions/id"
+        },
+        "url": {
+          "$ref": "#/definitions/command/definitions/url"
+        },
+        "type": {
+          "$ref": "#/definitions/command/definitions/type"
+        },
+        "status": {
+          "$ref": "#/definitions/command/definitions/status"
+        },
+        "result": {
+          "$ref": "#/definitions/command/definitions/result"
+        },
+        "exit_status": {
+          "$ref": "#/definitions/command/definitions/exit_status"
+        },
+        "thread_url": {
+          "$ref": "#/definitions/command/definitions/thread_url"
+        },
+        "started_at": {
+          "$ref": "#/definitions/command/definitions/started_at"
+        },
+        "finished_at": {
+          "$ref": "#/definitions/command/definitions/finished_at"
+        }
+      }
+    },
     "deploy": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "Deploy",
@@ -782,7 +969,7 @@
           ],
           "enum": [
             "setup",
-            "thread",
+            "build_thread",
             "post_thread"
           ]
         },
@@ -922,6 +1109,9 @@
     },
     "build": {
       "$ref": "#/definitions/build"
+    },
+    "command": {
+      "$ref": "#/definitions/command"
     },
     "deploy": {
       "$ref": "#/definitions/deploy"

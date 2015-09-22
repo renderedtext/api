@@ -1,0 +1,148 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Command
+description: Represents a command
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of command
+    readOnly: true
+    format: uuid
+    type:
+    - string
+
+  url:
+    description: a link to the command
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}"
+    readOnly: true
+    type:
+      - string
+
+  thread_url:
+    description: a link to the thread that contains the command
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands"
+    readOnly: true
+    type:
+      - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/command#/definitions/id"
+
+  type:
+    description: Type of a command.
+    readOnly: false
+    example: "setup"
+    type:
+      - string
+    enum:
+      - setup
+      - build_thread
+      - post_thread
+
+  status:
+    description: status of the command
+    readOnly: true
+    example: "queued"
+    type:
+      - string
+    enum:
+      - pending
+      - running
+      - finished
+
+  result:
+    description: command result
+    readOnly: true
+    example: "failed"
+    type:
+      - string
+    enum:
+      - failed
+      - passed
+      - stopped
+      - canceled
+
+  exit_status:
+    description: command result
+    readOnly: true
+    example: 0
+    type:
+      - number
+
+  started_at:
+    description: when command was started
+    format: date-time
+    type:
+    - string
+
+  finished_at:
+    description: when command was finished
+    format: date-time
+    type:
+    - string
+
+links:
+- description: Info for existing command.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/commands/<%= identity(:command) %>"
+  method: GET
+  rel: self
+  title: Info
+
+- description: List existing commands.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/commands"
+  method: GET
+  rel: instances
+  schema:
+    properties:
+      with_output:
+        description: should the command output be included - default is false
+        example: "true"
+        default: false
+        type:
+          - boolean
+    type:
+    - object
+  title: List
+
+- description: List commands for a thread.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/threads/<%= identity(:thread) %>/commands"
+  method: GET
+  rel: instances
+  schema:
+    properties:
+      with_output:
+        description: should the command output be included - default is false
+        example: "true"
+        default: false
+        type:
+          - boolean
+    type:
+    - object
+  title: List for Thread
+
+properties:
+  id:
+    "$ref": "/schemata/command#/definitions/id"
+  url:
+    "$ref": "/schemata/command#/definitions/url"
+  type:
+    "$ref": "/schemata/command#/definitions/type"
+  status:
+    "$ref": "/schemata/command#/definitions/status"
+  result:
+    "$ref": "/schemata/command#/definitions/result"
+  exit_status:
+    "$ref": "/schemata/command#/definitions/exit_status"
+  thread_url:
+    "$ref": "/schemata/command#/definitions/thread_url"
+  started_at:
+    "$ref": "/schemata/command#/definitions/started_at"
+  finished_at:
+    "$ref": "/schemata/command#/definitions/finished_at"
+
+id: schemata/command

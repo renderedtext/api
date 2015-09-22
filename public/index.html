@@ -24,23 +24,28 @@
 <li class="nav-h3"><a href="#build-info">Build Info</a></li>
 <li class="nav-h3"><a href="#build-list">Build List</a></li>
 <li class="nav-h3"><a href="#build-list-for-branch">Build List for Branch</a></li>
-<li class="nav-h2"><a href="#deploy">Deploy</a></li>
+<li class="nav-h2"><a href="#command">Command</a></li>
 <li class="nav-h3"><a href="#attributes-2">Attributes</a></li>
+<li class="nav-h3"><a href="#command-info">Command Info</a></li>
+<li class="nav-h3"><a href="#command-list">Command List</a></li>
+<li class="nav-h3"><a href="#command-list-for-thread">Command List for Thread</a></li>
+<li class="nav-h2"><a href="#deploy">Deploy</a></li>
+<li class="nav-h3"><a href="#attributes-3">Attributes</a></li>
 <li class="nav-h3"><a href="#deploy-from-build">Deploy from build</a></li>
 <li class="nav-h3"><a href="#deploy-info">Deploy Info</a></li>
 <li class="nav-h3"><a href="#deploy-list">Deploy List</a></li>
 <li class="nav-h2"><a href="#owner">Owner</a></li>
-<li class="nav-h3"><a href="#attributes-3">Attributes</a></li>
-<li class="nav-h2"><a href="#project">Project</a></li>
 <li class="nav-h3"><a href="#attributes-4">Attributes</a></li>
-<li class="nav-h2"><a href="#thread">Thread</a></li>
+<li class="nav-h2"><a href="#project">Project</a></li>
 <li class="nav-h3"><a href="#attributes-5">Attributes</a></li>
+<li class="nav-h2"><a href="#thread">Thread</a></li>
+<li class="nav-h3"><a href="#attributes-6">Attributes</a></li>
 <li class="nav-h3"><a href="#thread-info">Thread Info</a></li>
 <li class="nav-h3"><a href="#thread-list">Thread List</a></li>
 <li class="nav-h3"><a href="#thread-for-build">Thread for Build</a></li>
 <li class="nav-h3"><a href="#thread-for-deploy">Thread for Deploy</a></li>
 <li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
-<li class="nav-h3"><a href="#attributes-6">Attributes</a></li>
+<li class="nav-h3"><a href="#attributes-7">Attributes</a></li>
 <li class="nav-h3"><a href="#threadconfig-list">ThreadConfig List</a></li>
 <li class="nav-h3"><a href="#threadconfig-delete">ThreadConfig Delete</a></li>
 <li class="nav-h3"><a href="#threadconfig-info">ThreadConfig Info</a></li>
@@ -384,12 +389,233 @@
 </code></pre>
 
 <h2>
+<a id="command" class="anchor" href="#command" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-command"></a>Command</h2>
+
+<p>Represents a command</p>
+
+<h3>
+<a id="attributes-2" class="anchor" href="#attributes-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of command</td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td><em>string</em></td>
+<td>a link to the command</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}"</code></td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td><em>string</em></td>
+<td>Type of a command.<br> <strong>one of:</strong><code>"setup"</code> or <code>"build_thread"</code> or <code>"post_thread"</code>
+</td>
+<td><code>"setup"</code></td>
+</tr>
+<tr>
+<td><strong>status</strong></td>
+<td><em>string</em></td>
+<td>status of the command<br> <strong>one of:</strong><code>"pending"</code> or <code>"running"</code> or <code>"finished"</code>
+</td>
+<td><code>"queued"</code></td>
+</tr>
+<tr>
+<td><strong>result</strong></td>
+<td><em>string</em></td>
+<td>command result<br> <strong>one of:</strong><code>"failed"</code> or <code>"passed"</code> or <code>"stopped"</code> or <code>"canceled"</code>
+</td>
+<td><code>"failed"</code></td>
+</tr>
+<tr>
+<td><strong>exit_status</strong></td>
+<td><em>number</em></td>
+<td>command result</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><strong>thread_url</strong></td>
+<td><em>string</em></td>
+<td>a link to the thread that contains the command</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands"</code></td>
+</tr>
+<tr>
+<td><strong>started_at</strong></td>
+<td><em>date-time</em></td>
+<td>when command was started</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>finished_at</strong></td>
+<td><em>date-time</em></td>
+<td>when command was finished</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="command-info" class="anchor" href="#command-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command Info</h3>
+
+<p>Info for existing command.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/commands/{command_id}
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/commands/$COMMAND_ID
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+  "type": "setup",
+  "status": "queued",
+  "result": "failed",
+  "exit_status": 0,
+  "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h3>
+<a id="command-list" class="anchor" href="#command-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command List</h3>
+
+<p>List existing commands.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/commands
+</code></pre>
+
+<h4>Optional Parameters</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>with_output</strong></td>
+<td><em>boolean</em></td>
+<td>should the command output be included - default is false</td>
+<td><code>"true"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/commands
+ -G \
+  -d with_output=true
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+    "type": "setup",
+    "status": "queued",
+    "result": "failed",
+    "exit_status": 0,
+    "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h3>
+<a id="command-list-for-thread" class="anchor" href="#command-list-for-thread" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command List for Thread</h3>
+
+<p>List commands for a thread.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/threads/{thread_id}/commands
+</code></pre>
+
+<h4>Optional Parameters</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>with_output</strong></td>
+<td><em>boolean</em></td>
+<td>should the command output be included - default is false</td>
+<td><code>"true"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/threads/$THREAD_ID/commands
+ -G \
+  -d with_output=true
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+    "type": "setup",
+    "status": "queued",
+    "result": "failed",
+    "exit_status": 0,
+    "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h2>
 <a id="deploy" class="anchor" href="#deploy" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-deploy"></a>Deploy</h2>
 
 <p>Represents a deploy.</p>
 
 <h3>
-<a id="attributes-2" class="anchor" href="#attributes-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-3" class="anchor" href="#attributes-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -535,7 +761,7 @@
 <p>An Owner represents the owner of a project on SemaphoreCI.</p>
 
 <h3>
-<a id="attributes-3" class="anchor" href="#attributes-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-4" class="anchor" href="#attributes-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -580,7 +806,7 @@
 <p>A Project represents a project on SemaphoreCI.</p>
 
 <h3>
-<a id="attributes-4" class="anchor" href="#attributes-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-5" class="anchor" href="#attributes-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -625,7 +851,7 @@
 <p>FIXME</p>
 
 <h3>
-<a id="attributes-5" class="anchor" href="#attributes-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-6" class="anchor" href="#attributes-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -899,7 +1125,7 @@
 <p>A ThreadConfig represents a list of commands that will be used for future builds.</p>
 
 <h3>
-<a id="attributes-6" class="anchor" href="#attributes-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-7" class="anchor" href="#attributes-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -932,7 +1158,7 @@
 <tr>
 <td><strong>type</strong></td>
 <td><em>string</em></td>
-<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"thread"</code> or <code>"post_thread"</code>
+<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"build_thread"</code> or <code>"post_thread"</code>
 </td>
 <td><code>"setup"</code></td>
 </tr>
@@ -1085,7 +1311,7 @@
 <tr>
 <td><strong>type</strong></td>
 <td><em>string</em></td>
-<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"thread"</code> or <code>"post_thread"</code>
+<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"build_thread"</code> or <code>"post_thread"</code>
 </td>
 <td><code>"setup"</code></td>
 </tr>
@@ -1161,7 +1387,7 @@
 <tr>
 <td><strong>type</strong></td>
 <td><em>string</em></td>
-<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"thread"</code> or <code>"post_thread"</code>
+<td>Type of a thread.<br> <strong>one of:</strong><code>"setup"</code> or <code>"build_thread"</code> or <code>"post_thread"</code>
 </td>
 <td><code>"setup"</code></td>
 </tr>

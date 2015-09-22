@@ -258,6 +258,153 @@ HTTP/1.1 200 OK
 ```
 
 
+## <a name="resource-command"></a>Command
+
+Represents a command
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **id** | *uuid* | unique identifier of command | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **url** | *string* | a link to the command | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}"` |
+| **type** | *string* | Type of a command.<br/> **one of:**`"setup"` or `"build_thread"` or `"post_thread"` | `"setup"` |
+| **status** | *string* | status of the command<br/> **one of:**`"pending"` or `"running"` or `"finished"` | `"queued"` |
+| **result** | *string* | command result<br/> **one of:**`"failed"` or `"passed"` or `"stopped"` or `"canceled"` | `"failed"` |
+| **exit_status** | *number* | command result | `0` |
+| **thread_url** | *string* | a link to the thread that contains the command | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands"` |
+| **started_at** | *date-time* | when command was started | `"2015-01-01T12:00:00Z"` |
+| **finished_at** | *date-time* | when command was finished | `"2015-01-01T12:00:00Z"` |
+
+### Command Info
+
+Info for existing command.
+
+```
+GET /{owner_id}/{project_id}/commands/{command_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/commands/$COMMAND_ID
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+  "type": "setup",
+  "status": "queued",
+  "result": "failed",
+  "exit_status": 0,
+  "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z"
+}
+```
+
+### Command List
+
+List existing commands.
+
+```
+GET /{owner_id}/{project_id}/commands
+```
+
+#### Optional Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **with_output** | *boolean* | should the command output be included - default is false | `"true"` |
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/commands
+ -G \
+  -d with_output=true
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+    "type": "setup",
+    "status": "queued",
+    "result": "failed",
+    "exit_status": 0,
+    "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+### Command List for Thread
+
+List commands for a thread.
+
+```
+GET /{owner_id}/{project_id}/threads/{thread_id}/commands
+```
+
+#### Optional Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **with_output** | *boolean* | should the command output be included - default is false | `"true"` |
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/threads/$THREAD_ID/commands
+ -G \
+  -d with_output=true
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+    "type": "setup",
+    "status": "queued",
+    "result": "failed",
+    "exit_status": 0,
+    "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+
 ## <a name="resource-deploy"></a>Deploy
 
 Represents a deploy.
@@ -610,7 +757,7 @@ A ThreadConfig represents a list of commands that will be used for future builds
 | **id** | *uuid* | unique identifier of thread_config | `"01234567-89ab-cdef-0123-456789abcdef"` |
 | **name** | *string* | name of thread_config | `"Rspec 2/4"` |
 | **url** | *string* | a link to the thread_config | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}"` |
-| **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"thread"` or `"post_thread"` | `"setup"` |
+| **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"build_thread"` or `"post_thread"` | `"setup"` |
 | **commands** | *string* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
 | **created_at** | *date-time* | when thread_config was created | `"2015-01-01T12:00:00Z"` |
 | **updated_at** | *date-time* | when thread_config was updated | `"2015-01-01T12:00:00Z"` |
@@ -742,7 +889,7 @@ POST /{owner_id}/{project_id}/thread_configs
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
 | **name** | *string* | name of thread_config | `"Rspec 2/4"` |
-| **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"thread"` or `"post_thread"` | `"setup"` |
+| **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"build_thread"` or `"post_thread"` | `"setup"` |
 | **commands** | *string* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
 
 
@@ -798,7 +945,7 @@ PATCH /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
 | **name** | *string* | name of thread_config | `"Rspec 2/4"` |
-| **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"thread"` or `"post_thread"` | `"setup"` |
+| **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"build_thread"` or `"post_thread"` | `"setup"` |
 | **commands** | *string* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
 
 
