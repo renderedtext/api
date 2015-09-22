@@ -22,7 +22,6 @@ definitions:
   identity:
     anyOf:
     - "$ref": "/schemata/owner#/definitions/id"
-    - "$ref": "/schemata/owner#/definitions/name"
   created_at:
     description: when owner was created
     format: date-time

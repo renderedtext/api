@@ -187,12 +187,12 @@
 
 <p>List existing thread_configs.</p>
 
-<pre><code>GET /{owner_id_or_name}/{project_id_or_name}/thread_configs
+<pre><code>GET /{owner_id}/{project_id}/thread_configs
 </code></pre>
 
 <h4>Curl Example</h4>
 
-<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs
 </code></pre>
 
 <h4>Response Example</h4>
@@ -221,12 +221,12 @@
 
 <p>Delete an existing thread_config.</p>
 
-<pre><code>DELETE /{owner_id_or_name}/{project_id_or_name}/thread_configs/{thread_config_id}
+<pre><code>DELETE /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 </code></pre>
 
 <h4>Curl Example</h4>
 
-<pre lang="bash"><code>$ curl -n -X DELETE https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID \
+<pre lang="bash"><code>$ curl -n -X DELETE https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs/$THREAD_CONFIG_ID \
   -H "Content-Type: application/json" \
 </code></pre>
 
@@ -254,12 +254,12 @@
 
 <p>Info for existing thread_config.</p>
 
-<pre><code>GET /{owner_id_or_name}/{project_id_or_name}/thread_configs/{thread_config_id}
+<pre><code>GET /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 </code></pre>
 
 <h4>Curl Example</h4>
 
-<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs/$THREAD_CONFIG_ID
 </code></pre>
 
 <h4>Response Example</h4>
@@ -286,7 +286,7 @@
 
 <p>Create a new thread_config.</p>
 
-<pre><code>POST /{owner_id_or_name}/{project_id_or_name}/thread_configs
+<pre><code>POST /{owner_id}/{project_id}/thread_configs
 </code></pre>
 
 <h4>Required Parameters</h4>
@@ -325,7 +325,7 @@
 
 <h4>Curl Example</h4>
 
-<pre lang="bash"><code>$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs \
+<pre lang="bash"><code>$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs \
   -H "Content-Type: application/json" \
  \
   -d '{
@@ -362,7 +362,7 @@
 
 <p>Update an existing thread_config.</p>
 
-<pre><code>PATCH /{owner_id_or_name}/{project_id_or_name}/thread_configs/{thread_config_id}
+<pre><code>PATCH /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 </code></pre>
 
 <h4>Required Parameters</h4>
@@ -401,7 +401,7 @@
 
 <h4>Curl Example</h4>
 
-<pre lang="bash"><code>$ curl -n -X PATCH https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID \
+<pre lang="bash"><code>$ curl -n -X PATCH https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs/$THREAD_CONFIG_ID \
   -H "Content-Type: application/json" \
  \
   -d '{

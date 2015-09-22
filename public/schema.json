@@ -34,9 +34,6 @@
           "anyOf": [
             {
               "$ref": "#/definitions/owner/definitions/id"
-            },
-            {
-              "$ref": "#/definitions/owner/definitions/name"
             }
           ]
         },
@@ -102,9 +99,6 @@
           "anyOf": [
             {
               "$ref": "#/definitions/project/definitions/id"
-            },
-            {
-              "$ref": "#/definitions/project/definitions/name"
             }
           ]
         },

@@ -47,14 +47,14 @@ A ThreadConfig represents a list of commands that will be used for future builds
 List existing thread_configs.
 
 ```
-GET /{owner_id_or_name}/{project_id_or_name}/thread_configs
+GET /{owner_id}/{project_id}/thread_configs
 ```
 
 
 #### Curl Example
 
 ```bash
-$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs
 ```
 
 
@@ -86,14 +86,14 @@ HTTP/1.1 200 OK
 Delete an existing thread_config.
 
 ```
-DELETE /{owner_id_or_name}/{project_id_or_name}/thread_configs/{thread_config_id}
+DELETE /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 ```
 
 
 #### Curl Example
 
 ```bash
-$ curl -n -X DELETE https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID \
+$ curl -n -X DELETE https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs/$THREAD_CONFIG_ID \
   -H "Content-Type: application/json" \
 ```
 
@@ -124,14 +124,14 @@ HTTP/1.1 200 OK
 Info for existing thread_config.
 
 ```
-GET /{owner_id_or_name}/{project_id_or_name}/thread_configs/{thread_config_id}
+GET /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 ```
 
 
 #### Curl Example
 
 ```bash
-$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs/$THREAD_CONFIG_ID
 ```
 
 
@@ -161,7 +161,7 @@ HTTP/1.1 200 OK
 Create a new thread_config.
 
 ```
-POST /{owner_id_or_name}/{project_id_or_name}/thread_configs
+POST /{owner_id}/{project_id}/thread_configs
 ```
 
 #### Required Parameters
@@ -177,7 +177,7 @@ POST /{owner_id_or_name}/{project_id_or_name}/thread_configs
 #### Curl Example
 
 ```bash
-$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs \
+$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs \
   -H "Content-Type: application/json" \
  \
   -d '{
@@ -217,7 +217,7 @@ HTTP/1.1 201 Created
 Update an existing thread_config.
 
 ```
-PATCH /{owner_id_or_name}/{project_id_or_name}/thread_configs/{thread_config_id}
+PATCH /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 ```
 
 #### Required Parameters
@@ -233,7 +233,7 @@ PATCH /{owner_id_or_name}/{project_id_or_name}/thread_configs/{thread_config_id}
 #### Curl Example
 
 ```bash
-$ curl -n -X PATCH https://semaphoreci.com/api/internal/$OWNER_ID_OR_NAME/$PROJECT_ID_OR_NAME/thread_configs/$THREAD_CONFIG_ID \
+$ curl -n -X PATCH https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/thread_configs/$THREAD_CONFIG_ID \
   -H "Content-Type: application/json" \
  \
   -d '{
