@@ -731,8 +731,8 @@
     },
     "thread": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
-      "title": "FIXME - Thread",
-      "description": "FIXME",
+      "title": "Thread",
+      "description": "Represents a Thread",
       "stability": "prototype",
       "strictProperties": true,
       "type": [
@@ -812,6 +812,15 @@
           "type": [
             "string"
           ]
+        },
+        "commands": {
+          "description": "threads commands",
+          "type": [
+            "array"
+          ],
+          "items": {
+            "$ref": "#/definitions/command"
+          }
         }
       },
       "links": [
@@ -905,6 +914,9 @@
         "commands_url": {
           "$ref": "#/definitions/thread/definitions/commands_url"
         },
+        "commands": {
+          "$ref": "#/definitions/thread/definitions/commands"
+        },
         "created_at": {
           "$ref": "#/definitions/thread/definitions/created_at"
         },
@@ -981,7 +993,7 @@
             "bundle exec rake:spec"
           ],
           "type": [
-            "string"
+            "array"
           ]
         },
         "created_at": {

@@ -1,7 +1,7 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
-title: FIXME - Thread
-description: FIXME
+title: Thread
+description: Represents a Thread
 stability: prototype
 strictProperties: true
 type:
@@ -70,6 +70,12 @@ definitions:
     type:
     - string
 
+  commands:
+    description: threads commands
+    type: array
+    items:
+      "$ref": "/schemata/command"
+
 links:
 - description: Info for existing thread.
   href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/threads/{(%2Fschemata%2Fthread%23%2Fdefinitions%2Fidentity)}"
@@ -107,6 +113,7 @@ links:
           - boolean
     type:
     - object
+
   title: for Build
 
 - description: List threads for a deploy.
@@ -136,6 +143,8 @@ properties:
     "$ref": "/schemata/thread#/definitions/parent_url"
   commands_url:
     "$ref": "/schemata/thread#/definitions/commands_url"
+  commands:
+    "$ref": "/schemata/thread#/definitions/commands"
   created_at:
     "$ref": "/schemata/thread#/definitions/created_at"
   started_at:

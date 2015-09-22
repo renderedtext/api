@@ -555,7 +555,7 @@ A Project represents a project on SemaphoreCI.
 
 ## <a name="resource-thread"></a>Thread
 
-FIXME
+Represents a Thread
 
 ### Attributes
 
@@ -600,6 +600,19 @@ HTTP/1.1 200 OK
   "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
   "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
   "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+  "commands": [
+    {
+      "id": "01234567-89ab-cdef-0123-456789abcdef",
+      "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+      "type": "setup",
+      "status": "queued",
+      "result": "failed",
+      "exit_status": 0,
+      "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+      "started_at": "2015-01-01T12:00:00Z",
+      "finished_at": "2015-01-01T12:00:00Z"
+    }
+  ],
   "created_at": "2015-01-01T12:00:00Z",
   "started_at": "2015-01-01T12:00:00Z",
   "finished_at": "2015-01-01T12:00:00Z",
@@ -645,6 +658,19 @@ HTTP/1.1 200 OK
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
     "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "commands": [
+      {
+        "id": "01234567-89ab-cdef-0123-456789abcdef",
+        "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+        "type": "setup",
+        "status": "queued",
+        "result": "failed",
+        "exit_status": 0,
+        "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+        "started_at": "2015-01-01T12:00:00Z",
+        "finished_at": "2015-01-01T12:00:00Z"
+      }
+    ],
     "created_at": "2015-01-01T12:00:00Z",
     "started_at": "2015-01-01T12:00:00Z",
     "finished_at": "2015-01-01T12:00:00Z",
@@ -691,6 +717,19 @@ HTTP/1.1 200 OK
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
     "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "commands": [
+      {
+        "id": "01234567-89ab-cdef-0123-456789abcdef",
+        "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+        "type": "setup",
+        "status": "queued",
+        "result": "failed",
+        "exit_status": 0,
+        "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+        "started_at": "2015-01-01T12:00:00Z",
+        "finished_at": "2015-01-01T12:00:00Z"
+      }
+    ],
     "created_at": "2015-01-01T12:00:00Z",
     "started_at": "2015-01-01T12:00:00Z",
     "finished_at": "2015-01-01T12:00:00Z",
@@ -737,6 +776,19 @@ HTTP/1.1 200 OK
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
     "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "commands": [
+      {
+        "id": "01234567-89ab-cdef-0123-456789abcdef",
+        "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+        "type": "setup",
+        "status": "queued",
+        "result": "failed",
+        "exit_status": 0,
+        "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+        "started_at": "2015-01-01T12:00:00Z",
+        "finished_at": "2015-01-01T12:00:00Z"
+      }
+    ],
     "created_at": "2015-01-01T12:00:00Z",
     "started_at": "2015-01-01T12:00:00Z",
     "finished_at": "2015-01-01T12:00:00Z",
@@ -758,7 +810,7 @@ A ThreadConfig represents a list of commands that will be used for future builds
 | **name** | *string* | name of thread_config | `"Rspec 2/4"` |
 | **url** | *string* | a link to the thread_config | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}"` |
 | **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"build_thread"` or `"post_thread"` | `"setup"` |
-| **commands** | *string* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
+| **commands** | *array* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
 | **created_at** | *date-time* | when thread_config was created | `"2015-01-01T12:00:00Z"` |
 | **updated_at** | *date-time* | when thread_config was updated | `"2015-01-01T12:00:00Z"` |
 
@@ -890,7 +942,7 @@ POST /{owner_id}/{project_id}/thread_configs
 | ------- | ------- | ------- | ------- |
 | **name** | *string* | name of thread_config | `"Rspec 2/4"` |
 | **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"build_thread"` or `"post_thread"` | `"setup"` |
-| **commands** | *string* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
+| **commands** | *array* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
 
 
 
@@ -946,7 +998,7 @@ PATCH /{owner_id}/{project_id}/thread_configs/{thread_config_id}
 | ------- | ------- | ------- | ------- |
 | **name** | *string* | name of thread_config | `"Rspec 2/4"` |
 | **type** | *string* | Type of a thread.<br/> **one of:**`"setup"` or `"build_thread"` or `"post_thread"` | `"setup"` |
-| **commands** | *string* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
+| **commands** | *array* | A list of commands that define a thread configuration. | `["sudo apt-get install wget -y","bundle exec rake:spec"]` |
 
 
 

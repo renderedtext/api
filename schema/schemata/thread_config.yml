@@ -47,9 +47,7 @@ definitions:
     description: A list of commands that define a thread configuration.
     readOnly: false
     example: ["sudo apt-get install wget -y", "bundle exec rake:spec"]
-    type: "array"
-    type:
-      - string
+    type: array
 
   created_at:
     description: when thread_config was created

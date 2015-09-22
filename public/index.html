@@ -848,7 +848,7 @@
 <h2>
 <a id="thread" class="anchor" href="#thread" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-thread"></a>Thread</h2>
 
-<p>FIXME</p>
+<p>Represents a Thread</p>
 
 <h3>
 <a id="attributes-6" class="anchor" href="#attributes-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
@@ -944,6 +944,19 @@
   "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
   "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
   "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+  "commands": [
+    {
+      "id": "01234567-89ab-cdef-0123-456789abcdef",
+      "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+      "type": "setup",
+      "status": "queued",
+      "result": "failed",
+      "exit_status": 0,
+      "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+      "started_at": "2015-01-01T12:00:00Z",
+      "finished_at": "2015-01-01T12:00:00Z"
+    }
+  ],
   "created_at": "2015-01-01T12:00:00Z",
   "started_at": "2015-01-01T12:00:00Z",
   "finished_at": "2015-01-01T12:00:00Z",
@@ -999,6 +1012,19 @@
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
     "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "commands": [
+      {
+        "id": "01234567-89ab-cdef-0123-456789abcdef",
+        "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+        "type": "setup",
+        "status": "queued",
+        "result": "failed",
+        "exit_status": 0,
+        "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+        "started_at": "2015-01-01T12:00:00Z",
+        "finished_at": "2015-01-01T12:00:00Z"
+      }
+    ],
     "created_at": "2015-01-01T12:00:00Z",
     "started_at": "2015-01-01T12:00:00Z",
     "finished_at": "2015-01-01T12:00:00Z",
@@ -1055,6 +1081,19 @@
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
     "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "commands": [
+      {
+        "id": "01234567-89ab-cdef-0123-456789abcdef",
+        "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+        "type": "setup",
+        "status": "queued",
+        "result": "failed",
+        "exit_status": 0,
+        "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+        "started_at": "2015-01-01T12:00:00Z",
+        "finished_at": "2015-01-01T12:00:00Z"
+      }
+    ],
     "created_at": "2015-01-01T12:00:00Z",
     "started_at": "2015-01-01T12:00:00Z",
     "finished_at": "2015-01-01T12:00:00Z",
@@ -1111,6 +1150,19 @@
     "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
     "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "commands": [
+      {
+        "id": "01234567-89ab-cdef-0123-456789abcdef",
+        "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+        "type": "setup",
+        "status": "queued",
+        "result": "failed",
+        "exit_status": 0,
+        "thread_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+        "started_at": "2015-01-01T12:00:00Z",
+        "finished_at": "2015-01-01T12:00:00Z"
+      }
+    ],
     "created_at": "2015-01-01T12:00:00Z",
     "started_at": "2015-01-01T12:00:00Z",
     "finished_at": "2015-01-01T12:00:00Z",
@@ -1164,7 +1216,7 @@
 </tr>
 <tr>
 <td><strong>commands</strong></td>
-<td><em>string</em></td>
+<td><em>array</em></td>
 <td>A list of commands that define a thread configuration.</td>
 <td><code>["sudo apt-get install wget -y","bundle exec rake:spec"]</code></td>
 </tr>
@@ -1317,7 +1369,7 @@
 </tr>
 <tr>
 <td><strong>commands</strong></td>
-<td><em>string</em></td>
+<td><em>array</em></td>
 <td>A list of commands that define a thread configuration.</td>
 <td><code>["sudo apt-get install wget -y","bundle exec rake:spec"]</code></td>
 </tr>
@@ -1393,7 +1445,7 @@
 </tr>
 <tr>
 <td><strong>commands</strong></td>
-<td><em>string</em></td>
+<td><em>array</em></td>
 <td>A list of commands that define a thread configuration.</td>
 <td><code>["sudo apt-get install wget -y","bundle exec rake:spec"]</code></td>
 </tr>
