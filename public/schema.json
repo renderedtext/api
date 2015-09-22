@@ -1,0 +1,1153 @@
+{
+  "$schema": "http://interagent.github.io/interagent-hyper-schema",
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "branch": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Branch",
+      "description": "Represents a branch.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of branch",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the branch",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "project_url": {
+          "description": "a link to the project",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "name of branch",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/branch/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when branch was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when branch was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing branch.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/branches/{(%23%2Fdefinitions%2Fbranch%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing branches.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/branches",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/branch/definitions/id"
+        },
+        "url": {
+          "$ref": "#/definitions/branch/definitions/url"
+        },
+        "project_url": {
+          "$ref": "#/definitions/branch/definitions/project_url"
+        },
+        "name": {
+          "$ref": "#/definitions/branch/definitions/name"
+        },
+        "created_at": {
+          "$ref": "#/definitions/branch/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/branch/definitions/updated_at"
+        }
+      }
+    },
+    "build": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Build",
+      "description": "Represents a build.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of build",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/build/definitions/id"
+            }
+          ]
+        },
+        "url": {
+          "description": "a link to the build",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "threads_url": {
+          "description": "a link to build's threads",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "branch_url": {
+          "description": "a link to build's branch",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "status": {
+          "description": "status of the build",
+          "readOnly": true,
+          "example": "queued",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "queued",
+            "running",
+            "finished"
+          ]
+        },
+        "result": {
+          "description": "Type of a thread",
+          "readOnly": true,
+          "example": "failed",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "failed",
+            "passed",
+            "stopped",
+            "canceled"
+          ]
+        },
+        "created_at": {
+          "description": "when build was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when build was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "started_at": {
+          "description": "when build was started",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "finished_at": {
+          "description": "when build was finished",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Create a new build.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "properties": {
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Create"
+        },
+        {
+          "description": "Info for existing build.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds/{(%23%2Fdefinitions%2Fbuild%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing builds.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "List existing builds on a branch.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/branches/{(%23%2Fdefinitions%2Fbranch%2Fdefinitions%2Fidentity)}/builds",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List for Branch"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/build/definitions/created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/build/definitions/id"
+        },
+        "url": {
+          "$ref": "#/definitions/build/definitions/url"
+        },
+        "status": {
+          "$ref": "#/definitions/build/definitions/status"
+        },
+        "result": {
+          "$ref": "#/definitions/build/definitions/result"
+        },
+        "started_at": {
+          "$ref": "#/definitions/build/definitions/started_at"
+        },
+        "finished_at": {
+          "$ref": "#/definitions/build/definitions/finished_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/build/definitions/updated_at"
+        },
+        "threads_url": {
+          "$ref": "#/definitions/build/definitions/threads_url"
+        },
+        "branch_url": {
+          "$ref": "#/definitions/build/definitions/branch_url"
+        }
+      }
+    },
+    "command": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Command",
+      "description": "Represents a command",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of command",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the command",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/commands{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "thread_url": {
+          "description": "a link to the thread that contains the command",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/command/definitions/id"
+            }
+          ]
+        },
+        "type": {
+          "description": "Type of a command.",
+          "readOnly": false,
+          "example": "setup",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "setup",
+            "build_thread",
+            "post_thread"
+          ]
+        },
+        "status": {
+          "description": "status of the command",
+          "readOnly": true,
+          "example": "queued",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "pending",
+            "running",
+            "finished"
+          ]
+        },
+        "result": {
+          "description": "command result",
+          "readOnly": true,
+          "example": "failed",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "failed",
+            "passed",
+            "stopped",
+            "canceled"
+          ]
+        },
+        "exit_status": {
+          "description": "command result",
+          "readOnly": true,
+          "example": 0,
+          "type": [
+            "number"
+          ]
+        },
+        "started_at": {
+          "description": "when command was started",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "finished_at": {
+          "description": "when command was finished",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing command.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/commands/{(%23%2Fdefinitions%2Fcommand%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing commands.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/commands",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "List"
+        },
+        {
+          "description": "List commands for a thread.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/threads/{(%23%2Fdefinitions%2Fthread%2Fdefinitions%2Fidentity)}/commands",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "List for Thread"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/command/definitions/id"
+        },
+        "url": {
+          "$ref": "#/definitions/command/definitions/url"
+        },
+        "type": {
+          "$ref": "#/definitions/command/definitions/type"
+        },
+        "status": {
+          "$ref": "#/definitions/command/definitions/status"
+        },
+        "result": {
+          "$ref": "#/definitions/command/definitions/result"
+        },
+        "exit_status": {
+          "$ref": "#/definitions/command/definitions/exit_status"
+        },
+        "thread_url": {
+          "$ref": "#/definitions/command/definitions/thread_url"
+        },
+        "started_at": {
+          "$ref": "#/definitions/command/definitions/started_at"
+        },
+        "finished_at": {
+          "$ref": "#/definitions/command/definitions/finished_at"
+        }
+      }
+    },
+    "deploy": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Deploy",
+      "description": "Represents a deploy.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of deploy",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the deploy",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/deploy/definitions/id"
+            }
+          ]
+        },
+        "status": {
+          "description": "status of deploy",
+          "readOnly": true,
+          "example": "queued",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "queued",
+            "running",
+            "finished"
+          ]
+        },
+        "result": {
+          "description": "result of deploy",
+          "readOnly": true,
+          "example": "failed",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "failed",
+            "passed",
+            "stopped",
+            "canceled"
+          ]
+        },
+        "created_at": {
+          "description": "when deploy was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when deploy was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "started_at": {
+          "description": "when deploy was started",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "finished_at": {
+          "description": "when deploy was finished",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Deploy a build.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds/{(%23%2Fdefinitions%2Fbuild%2Fdefinitions%2Fidentity)}/deploys",
+          "method": "POST",
+          "rel": "instances",
+          "title": "from build"
+        },
+        {
+          "description": "Info for existing deploy.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/deploys/{(%23%2Fdefinitions%2Fdeploy%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing deploys.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/deploys",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/deploy/definitions/id"
+        },
+        "url": {
+          "$ref": "#/definitions/deploy/definitions/url"
+        },
+        "created_at": {
+          "$ref": "#/definitions/deploy/definitions/created_at"
+        },
+        "started_at": {
+          "$ref": "#/definitions/deploy/definitions/created_at"
+        },
+        "finished_at": {
+          "$ref": "#/definitions/deploy/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/deploy/definitions/updated_at"
+        }
+      }
+    },
+    "owner": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Owner",
+      "description": "An Owner represents the owner of a project on SemaphoreCI.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of owner",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "unique name of owner",
+          "readOnly": true,
+          "example": "renderedtext",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/owner/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when owner was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when owner was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/owner/definitions/id"
+        },
+        "name": {
+          "$ref": "#/definitions/owner/definitions/name"
+        },
+        "created_at": {
+          "$ref": "#/definitions/owner/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/owner/definitions/updated_at"
+        }
+      }
+    },
+    "project": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Project",
+      "description": "A Project represents a project on SemaphoreCI.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of project",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "unique name of project",
+          "readOnly": true,
+          "example": "semaphore",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/project/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when project was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when project was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/project/definitions/id"
+        },
+        "name": {
+          "$ref": "#/definitions/project/definitions/name"
+        },
+        "created_at": {
+          "$ref": "#/definitions/project/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/project/definitions/updated_at"
+        }
+      }
+    },
+    "thread": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Thread",
+      "description": "Represents a Thread",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of thread",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "name of thread",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the build",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "parent_url": {
+          "description": "a link to the parent of the thread",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "commands_url": {
+          "description": "a link to the parent of the thread",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/thread/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when thread was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "started_at": {
+          "description": "when thread was started",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "finished_at": {
+          "description": "when thread was finished",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when thread was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "commands": {
+          "description": "threads commands",
+          "type": [
+            "array"
+          ],
+          "items": {
+            "$ref": "#/definitions/command"
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing thread.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/threads/{(%23%2Fdefinitions%2Fthread%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing threads.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/threads",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_command_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "List"
+        },
+        {
+          "description": "List threads for a build.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds/{(%23%2Fdefinitions%2Fbuild%2Fdefinitions%2Fidentity)}/threads",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_command_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "for Build"
+        },
+        {
+          "description": "List threads for a deploy.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/deploys/{(%23%2Fdefinitions%2Fdeploy%2Fdefinitions%2Fidentity)}/threads",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_command_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "for Deploy"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/thread/definitions/id"
+        },
+        "name": {
+          "$ref": "#/definitions/thread/definitions/name"
+        },
+        "url": {
+          "$ref": "#/definitions/thread/definitions/url"
+        },
+        "parent_url": {
+          "$ref": "#/definitions/thread/definitions/parent_url"
+        },
+        "commands_url": {
+          "$ref": "#/definitions/thread/definitions/commands_url"
+        },
+        "commands": {
+          "$ref": "#/definitions/thread/definitions/commands"
+        },
+        "created_at": {
+          "$ref": "#/definitions/thread/definitions/created_at"
+        },
+        "started_at": {
+          "$ref": "#/definitions/thread/definitions/started_at"
+        },
+        "finished_at": {
+          "$ref": "#/definitions/thread/definitions/finished_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/thread/definitions/updated_at"
+        }
+      }
+    },
+    "thread_config": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "ThreadConfig",
+      "description": "A ThreadConfig represents a list of commands that will be used for future builds.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of thread_config",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "name of thread_config",
+          "readOnly": false,
+          "example": "Rspec 2/4",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/thread_config/definitions/id"
+            }
+          ]
+        },
+        "url": {
+          "description": "a link to the thread_config",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/thread_configs{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "type": {
+          "description": "Type of a thread.",
+          "readOnly": false,
+          "example": "setup",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "setup",
+            "build_thread",
+            "post_thread"
+          ]
+        },
+        "commands": {
+          "description": "A list of commands that define a thread configuration.",
+          "readOnly": false,
+          "example": [
+            "sudo apt-get install wget -y",
+            "bundle exec rake:spec"
+          ],
+          "type": [
+            "array"
+          ]
+        },
+        "created_at": {
+          "description": "when thread_config was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when thread_config was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "List existing thread_configs.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/thread_configs",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "Delete an existing thread_config.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/thread_configs/{(%23%2Fdefinitions%2Fthread_config%2Fdefinitions%2Fidentity)}",
+          "method": "DELETE",
+          "rel": "destroy",
+          "title": "Delete"
+        },
+        {
+          "description": "Info for existing thread_config.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/thread_configs/{(%23%2Fdefinitions%2Fthread_config%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "Create a new thread_config.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/thread_configs",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "properties": {
+              "name": {
+                "$ref": "#/definitions/thread_config/definitions/name"
+              },
+              "type": {
+                "$ref": "#/definitions/thread_config/definitions/type"
+              },
+              "commands": {
+                "$ref": "#/definitions/thread_config/definitions/commands"
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "commands"
+            ],
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Create"
+        },
+        {
+          "description": "Update an existing thread_config.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/thread_configs/{(%23%2Fdefinitions%2Fthread_config%2Fdefinitions%2Fidentity)}",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "properties": {
+              "name": {
+                "$ref": "#/definitions/thread_config/definitions/name"
+              },
+              "type": {
+                "$ref": "#/definitions/thread_config/definitions/type"
+              },
+              "commands": {
+                "$ref": "#/definitions/thread_config/definitions/commands"
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "commands"
+            ],
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/thread_config/definitions/id"
+        },
+        "name": {
+          "$ref": "#/definitions/thread_config/definitions/name"
+        },
+        "url": {
+          "$ref": "#/definitions/thread_config/definitions/url"
+        },
+        "type": {
+          "$ref": "#/definitions/thread_config/definitions/type"
+        },
+        "commands": {
+          "$ref": "#/definitions/thread_config/definitions/commands"
+        },
+        "created_at": {
+          "$ref": "#/definitions/thread_config/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/thread_config/definitions/updated_at"
+        }
+      }
+    }
+  },
+  "properties": {
+    "branch": {
+      "$ref": "#/definitions/branch"
+    },
+    "build": {
+      "$ref": "#/definitions/build"
+    },
+    "command": {
+      "$ref": "#/definitions/command"
+    },
+    "deploy": {
+      "$ref": "#/definitions/deploy"
+    },
+    "owner": {
+      "$ref": "#/definitions/owner"
+    },
+    "project": {
+      "$ref": "#/definitions/project"
+    },
+    "thread": {
+      "$ref": "#/definitions/thread"
+    },
+    "thread_config": {
+      "$ref": "#/definitions/thread_config"
+    }
+  },
+  "description": "The internal API empowers developers to automate, extend and combine SemaphoreCI with other services.",
+  "id": "hello",
+  "links": [
+    {
+      "href": "https://semaphoreci.com/api/internal",
+      "rel": "self"
+    }
+  ],
+  "title": "SemaphoreCI Internal API"
+}

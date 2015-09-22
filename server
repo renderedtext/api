@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bundle exec rackup config.ru --host local.semaphore --port 3000

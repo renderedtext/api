@@ -1,0 +1,156 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Thread
+description: Represents a Thread
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of thread
+    readOnly: true
+    format: uuid
+    type:
+    - string
+
+  name:
+    description: name of thread
+    readOnly: true
+    type:
+    - string
+
+  url:
+    description: a link to the build
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}"
+    readOnly: true
+    type:
+      - string
+
+  parent_url:
+    description: a link to the parent of the thread
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"
+    readOnly: true
+    type:
+      - string
+
+  commands_url:
+    description: a link to the parent of the thread
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands"
+    readOnly: true
+    type:
+      - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/thread#/definitions/id"
+
+  created_at:
+    description: when thread was created
+    format: date-time
+    type:
+    - string
+
+  started_at:
+    description: when thread was started
+    format: date-time
+    type:
+    - string
+
+  finished_at:
+    description: when thread was finished
+    format: date-time
+    type:
+    - string
+
+  updated_at:
+    description: when thread was updated
+    format: date-time
+    type:
+    - string
+
+  commands:
+    description: threads commands
+    type: array
+    items:
+      "$ref": "/schemata/command"
+
+links:
+- description: Info for existing thread.
+  href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/threads/{(%2Fschemata%2Fthread%23%2Fdefinitions%2Fidentity)}"
+  method: GET
+  rel: self
+  title: Info
+
+- description: List existing threads.
+  href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/threads"
+  method: GET
+  rel: instances
+  schema:
+    properties:
+      with_command_output:
+        description: should the command output be included - default is false
+        example: "true"
+        default: false
+        type:
+          - boolean
+    type:
+    - object
+  title: List
+
+- description: List threads for a build.
+  href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/builds/{(%2Fschemata%2Fbuild%23%2Fdefinitions%2Fidentity)}/threads"
+  method: GET
+  rel: instances
+  schema:
+    properties:
+      with_command_output:
+        description: should the command output be included - default is false
+        example: "true"
+        default: false
+        type:
+          - boolean
+    type:
+    - object
+
+  title: for Build
+
+- description: List threads for a deploy.
+  href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/deploys/{(%2Fschemata%2Fdeploy%23%2Fdefinitions%2Fidentity)}/threads"
+  method: GET
+  rel: instances
+  schema:
+    properties:
+      with_command_output:
+        description: should the command output be included - default is false
+        example: "true"
+        default: false
+        type:
+          - boolean
+    type:
+    - object
+  title: for Deploy
+
+properties:
+  id:
+    "$ref": "/schemata/thread#/definitions/id"
+  name:
+    "$ref": "/schemata/thread#/definitions/name"
+  url:
+    "$ref": "/schemata/thread#/definitions/url"
+  parent_url:
+    "$ref": "/schemata/thread#/definitions/parent_url"
+  commands_url:
+    "$ref": "/schemata/thread#/definitions/commands_url"
+  commands:
+    "$ref": "/schemata/thread#/definitions/commands"
+  created_at:
+    "$ref": "/schemata/thread#/definitions/created_at"
+  started_at:
+    "$ref": "/schemata/thread#/definitions/started_at"
+  finished_at:
+    "$ref": "/schemata/thread#/definitions/finished_at"
+  updated_at:
+    "$ref": "/schemata/thread#/definitions/updated_at"
+id: schemata/thread

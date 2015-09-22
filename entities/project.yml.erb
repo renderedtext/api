@@ -1,0 +1,45 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Project
+description: A Project represents a project on SemaphoreCI.
+stability: prototype
+strictProperties: true
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of project
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  name:
+    description: unique name of project
+    readOnly: true
+    example: "semaphore"
+    type:
+    - string
+  identity:
+    anyOf:
+    - "$ref": "/schemata/project#/definitions/id"
+  created_at:
+    description: when project was created
+    format: date-time
+    type:
+    - string
+  updated_at:
+    description: when project was updated
+    format: date-time
+    type:
+    - string
+links: []
+properties:
+  id:
+    "$ref": "/schemata/project#/definitions/id"
+  name:
+    "$ref": "/schemata/project#/definitions/name"
+  created_at:
+    "$ref": "/schemata/project#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/project#/definitions/updated_at"
+id: schemata/project

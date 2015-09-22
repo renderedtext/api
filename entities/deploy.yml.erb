@@ -1,0 +1,107 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Deploy
+description: Represents a deploy.
+stability: prototype
+strictProperties: true
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of deploy
+    readOnly: true
+    format: uuid
+    type:
+    - string
+
+  url:
+    description: a link to the deploy
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}"
+    readOnly: true
+    type:
+      - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/deploy#/definitions/id"
+
+  status:
+    description: status of deploy
+    readOnly: true
+    example: "queued"
+    type:
+      - string
+    enum:
+      - queued
+      - running
+      - finished
+
+  result:
+    description: result of deploy
+    readOnly: true
+    example: "failed"
+    type:
+      - string
+    enum:
+      - failed
+      - passed
+      - stopped
+      - canceled
+
+  created_at:
+    description: when deploy was created
+    format: date-time
+    type:
+    - string
+
+  updated_at:
+    description: when deploy was updated
+    format: date-time
+    type:
+    - string
+
+  started_at:
+    description: when deploy was started
+    format: date-time
+    type:
+    - string
+
+  finished_at:
+    description: when deploy was finished
+    format: date-time
+    type:
+    - string
+
+links:
+- description: Deploy a build.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/builds/<%= identity(:build) %>/deploys"
+  method: POST
+  rel: instances
+  title: from build
+
+- description: Info for existing deploy.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/deploys/<%= identity(:deploy) %>"
+  method: GET
+  rel: self
+  title: Info
+
+- description: List existing deploys.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/deploys"
+  method: GET
+  rel: instances
+  title: List
+
+properties:
+  id:
+    "$ref": "/schemata/deploy#/definitions/id"
+  url:
+    "$ref": "/schemata/deploy#/definitions/url"
+  created_at:
+    "$ref": "/schemata/deploy#/definitions/created_at"
+  started_at:
+    "$ref": "/schemata/deploy#/definitions/created_at"
+  finished_at:
+    "$ref": "/schemata/deploy#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/deploy#/definitions/updated_at"
+id: schemata/deploy
