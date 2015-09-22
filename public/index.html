@@ -23,13 +23,18 @@
 <li class="nav-h3"><a href="#build-create">Build Create</a></li>
 <li class="nav-h3"><a href="#build-info">Build Info</a></li>
 <li class="nav-h3"><a href="#build-list">Build List</a></li>
-<li class="nav-h3"><a href="#build-list-1">Build List</a></li>
-<li class="nav-h2"><a href="#owner">Owner</a></li>
+<li class="nav-h3"><a href="#build-list-for-branch">Build List for Branch</a></li>
+<li class="nav-h2"><a href="#deploy">Deploy</a></li>
 <li class="nav-h3"><a href="#attributes-2">Attributes</a></li>
-<li class="nav-h2"><a href="#project">Project</a></li>
+<li class="nav-h3"><a href="#deploy-from-build">Deploy from build</a></li>
+<li class="nav-h3"><a href="#deploy-info">Deploy Info</a></li>
+<li class="nav-h3"><a href="#deploy-list">Deploy List</a></li>
+<li class="nav-h2"><a href="#owner">Owner</a></li>
 <li class="nav-h3"><a href="#attributes-3">Attributes</a></li>
-<li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
+<li class="nav-h2"><a href="#project">Project</a></li>
 <li class="nav-h3"><a href="#attributes-4">Attributes</a></li>
+<li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
+<li class="nav-h3"><a href="#attributes-5">Attributes</a></li>
 <li class="nav-h3"><a href="#threadconfig-list">ThreadConfig List</a></li>
 <li class="nav-h3"><a href="#threadconfig-delete">ThreadConfig Delete</a></li>
 <li class="nav-h3"><a href="#threadconfig-info">ThreadConfig Info</a></li>
@@ -339,16 +344,16 @@
 </code></pre>
 
 <h3>
-<a id="build-list-1" class="anchor" href="#build-list-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build List</h3>
+<a id="build-list-for-branch" class="anchor" href="#build-list-for-branch" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build List for Branch</h3>
 
 <p>List existing builds on a branch.</p>
 
-<pre><code>GET /{owner_id}/{project_id}/{branch_id}/builds
+<pre><code>GET /{owner_id}/{project_id}/branches/{branch_id}/builds
 </code></pre>
 
 <h4>Curl Example</h4>
 
-<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/$BRANCH_ID/builds
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/branches/$BRANCH_ID/builds
 </code></pre>
 
 <h4>Response Example</h4>
@@ -373,12 +378,158 @@
 </code></pre>
 
 <h2>
+<a id="deploy" class="anchor" href="#deploy" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-deploy"></a>Deploy</h2>
+
+<p>Represents a deploy.</p>
+
+<h3>
+<a id="attributes-2" class="anchor" href="#attributes-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of deploy</td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td><em>string</em></td>
+<td>a link to the deploy</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}"</code></td>
+</tr>
+<tr>
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>when deploy was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>started_at</strong></td>
+<td><em>date-time</em></td>
+<td>when deploy was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>finished_at</strong></td>
+<td><em>date-time</em></td>
+<td>when deploy was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>when deploy was updated</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="deploy-from-build" class="anchor" href="#deploy-from-build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deploy from build</h3>
+
+<p>Deploy a build.</p>
+
+<pre><code>POST /{owner_id}/{project_id}/builds/{build_id}/deploys
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds/$BUILD_ID/deploys \
+  -H "Content-Type: application/json" \
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h3>
+<a id="deploy-info" class="anchor" href="#deploy-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deploy Info</h3>
+
+<p>Info for existing deploy.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/deploys/{deploy_id}
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/deploys/$DEPLOY_ID
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+  "created_at": "2015-01-01T12:00:00Z",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h3>
+<a id="deploy-list" class="anchor" href="#deploy-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deploy List</h3>
+
+<p>List existing deploys.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/deploys
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/deploys
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h2>
 <a id="owner" class="anchor" href="#owner" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-owner"></a>Owner</h2>
 
 <p>An Owner represents the owner of a project on SemaphoreCI.</p>
 
 <h3>
-<a id="attributes-2" class="anchor" href="#attributes-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-3" class="anchor" href="#attributes-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -423,7 +574,7 @@
 <p>A Project represents a project on SemaphoreCI.</p>
 
 <h3>
-<a id="attributes-3" class="anchor" href="#attributes-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-4" class="anchor" href="#attributes-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -468,7 +619,7 @@
 <p>A ThreadConfig represents a list of commands that will be used for future builds.</p>
 
 <h3>
-<a id="attributes-4" class="anchor" href="#attributes-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-5" class="anchor" href="#attributes-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>

@@ -110,10 +110,10 @@ links:
   title: List
 
 - description: List existing builds on a branch.
-  href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fbranch%23%2Fdefinitions%2Fidentity)}/builds"
+  href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/branches/{(%2Fschemata%2Fbranch%23%2Fdefinitions%2Fidentity)}/builds"
   method: GET
   rel: instances
-  title: List
+  title: List for Branch
 
 properties:
   created_at:

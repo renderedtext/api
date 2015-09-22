@@ -240,10 +240,10 @@
         },
         {
           "description": "List existing builds on a branch.",
-          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fbranch%2Fdefinitions%2Fidentity)}/builds",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/branches/{(%23%2Fdefinitions%2Fbranch%2Fdefinitions%2Fidentity)}/builds",
           "method": "GET",
           "rel": "instances",
-          "title": "List"
+          "title": "List for Branch"
         }
       ],
       "properties": {
@@ -276,6 +276,139 @@
         },
         "branch_url": {
           "$ref": "#/definitions/build/definitions/branch_url"
+        }
+      }
+    },
+    "deploy": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Deploy",
+      "description": "Represents a deploy.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of deploy",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the deploy",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/deploy/definitions/id"
+            }
+          ]
+        },
+        "status": {
+          "description": "status of deploy",
+          "readOnly": true,
+          "example": "queued",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "queued",
+            "running",
+            "finished"
+          ]
+        },
+        "result": {
+          "description": "result of deploy",
+          "readOnly": true,
+          "example": "failed",
+          "type": [
+            "string"
+          ],
+          "enum": [
+            "failed",
+            "passed",
+            "stopped",
+            "canceled"
+          ]
+        },
+        "created_at": {
+          "description": "when deploy was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when deploy was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "started_at": {
+          "description": "when deploy was started",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "finished_at": {
+          "description": "when deploy was finished",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Deploy a build.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds/{(%23%2Fdefinitions%2Fbuild%2Fdefinitions%2Fidentity)}/deploys",
+          "method": "POST",
+          "rel": "instances",
+          "title": "from build"
+        },
+        {
+          "description": "Info for existing deploy.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/deploys/{(%23%2Fdefinitions%2Fdeploy%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing deploys.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/deploys",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/deploy/definitions/id"
+        },
+        "url": {
+          "$ref": "#/definitions/deploy/definitions/url"
+        },
+        "created_at": {
+          "$ref": "#/definitions/deploy/definitions/created_at"
+        },
+        "started_at": {
+          "$ref": "#/definitions/deploy/definitions/created_at"
+        },
+        "finished_at": {
+          "$ref": "#/definitions/deploy/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/deploy/definitions/updated_at"
         }
       }
     },
@@ -599,6 +732,9 @@
     },
     "build": {
       "$ref": "#/definitions/build"
+    },
+    "deploy": {
+      "$ref": "#/definitions/deploy"
     },
     "owner": {
       "$ref": "#/definitions/owner"

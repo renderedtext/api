@@ -218,19 +218,19 @@ HTTP/1.1 200 OK
 ]
 ```
 
-### Build List
+### Build List for Branch
 
 List existing builds on a branch.
 
 ```
-GET /{owner_id}/{project_id}/{branch_id}/builds
+GET /{owner_id}/{project_id}/branches/{branch_id}/builds
 ```
 
 
 #### Curl Example
 
 ```bash
-$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/$BRANCH_ID/builds
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/branches/$BRANCH_ID/builds
 ```
 
 
@@ -253,6 +253,126 @@ HTTP/1.1 200 OK
     "updated_at": "2015-01-01T12:00:00Z",
     "threads_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads",
     "branch_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"
+  }
+]
+```
+
+
+## <a name="resource-deploy"></a>Deploy
+
+Represents a deploy.
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **id** | *uuid* | unique identifier of deploy | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **url** | *string* | a link to the deploy | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}"` |
+| **created_at** | *date-time* | when deploy was created | `"2015-01-01T12:00:00Z"` |
+| **started_at** | *date-time* | when deploy was created | `"2015-01-01T12:00:00Z"` |
+| **finished_at** | *date-time* | when deploy was created | `"2015-01-01T12:00:00Z"` |
+| **updated_at** | *date-time* | when deploy was updated | `"2015-01-01T12:00:00Z"` |
+
+### Deploy from build
+
+Deploy a build.
+
+```
+POST /{owner_id}/{project_id}/builds/{build_id}/deploys
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds/$BUILD_ID/deploys \
+  -H "Content-Type: application/json" \
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+### Deploy Info
+
+Info for existing deploy.
+
+```
+GET /{owner_id}/{project_id}/deploys/{deploy_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/deploys/$DEPLOY_ID
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+  "created_at": "2015-01-01T12:00:00Z",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+```
+
+### Deploy List
+
+List existing deploys.
+
+```
+GET /{owner_id}/{project_id}/deploys
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/deploys
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
   }
 ]
 ```
