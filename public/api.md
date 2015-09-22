@@ -1,3 +1,140 @@
+## <a name="resource-build"></a>Build
+
+Represents a build.
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **created_at** | *date-time* | when build was created | `"2015-01-01T12:00:00Z"` |
+| **id** | *uuid* | unique identifier of build | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **url** | *string* | a link to the build | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}"` |
+| **status** | *string* | status of the build<br/> **one of:**`"queued"` or `"running"` or `"finished"` | `"queued"` |
+| **result** | *string* | Type of a thread<br/> **one of:**`"failed"` or `"passed"` or `"stopped"` or `"canceled"` | `"failed"` |
+| **started_at** | *date-time* | when build was started | `"2015-01-01T12:00:00Z"` |
+| **finished_at** | *date-time* | when build was finished | `"2015-01-01T12:00:00Z"` |
+| **updated_at** | *date-time* | when build was updated | `"2015-01-01T12:00:00Z"` |
+| **threads_url** | *string* | a link to build's threads | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads"` |
+| **branch_url** | *string* | a link to build's branch | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"` |
+
+### Build Create
+
+Create a new build.
+
+```
+POST /{owner_id}/{project_id}/builds
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds \
+  -H "Content-Type: application/json" \
+ \
+  -d '{
+}'
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 201 Created
+```
+
+```json
+{
+  "created_at": "2015-01-01T12:00:00Z",
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+  "status": "queued",
+  "result": "failed",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z",
+  "threads_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads",
+  "branch_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"
+}
+```
+
+### Build Info
+
+Info for existing build.
+
+```
+GET /{owner_id}/{project_id}/builds/{build_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds/$BUILD_ID
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "created_at": "2015-01-01T12:00:00Z",
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+  "status": "queued",
+  "result": "failed",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z",
+  "threads_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads",
+  "branch_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"
+}
+```
+
+### Build List
+
+List existing builds.
+
+```
+GET /builds
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/builds
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "created_at": "2015-01-01T12:00:00Z",
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+    "status": "queued",
+    "result": "failed",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z",
+    "threads_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads",
+    "branch_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"
+  }
+]
+```
+
+
 ## <a name="resource-owner"></a>Owner
 
 An Owner represents the owner of a project on SemaphoreCI.
