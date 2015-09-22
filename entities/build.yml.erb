@@ -104,7 +104,13 @@ links:
   title: Info
 
 - description: List existing builds.
-  href: "/builds"
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/builds"
+  method: GET
+  rel: instances
+  title: List
+
+- description: List existing builds on a branch.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/branches/<%= identity(:branch) %>/builds"
   method: GET
   rel: instances
   title: List

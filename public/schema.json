@@ -233,7 +233,14 @@
         },
         {
           "description": "List existing builds.",
-          "href": "/builds",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "List existing builds on a branch.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fbranch%2Fdefinitions%2Fidentity)}/builds",
           "method": "GET",
           "rel": "instances",
           "title": "List"

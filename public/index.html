@@ -23,6 +23,7 @@
 <li class="nav-h3"><a href="#build-create">Build Create</a></li>
 <li class="nav-h3"><a href="#build-info">Build Info</a></li>
 <li class="nav-h3"><a href="#build-list">Build List</a></li>
+<li class="nav-h3"><a href="#build-list-1">Build List</a></li>
 <li class="nav-h2"><a href="#owner">Owner</a></li>
 <li class="nav-h3"><a href="#attributes-2">Attributes</a></li>
 <li class="nav-h2"><a href="#project">Project</a></li>
@@ -308,12 +309,46 @@
 
 <p>List existing builds.</p>
 
-<pre><code>GET /builds
+<pre><code>GET /{owner_id}/{project_id}/builds
 </code></pre>
 
 <h4>Curl Example</h4>
 
-<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/builds
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "created_at": "2015-01-01T12:00:00Z",
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+    "status": "queued",
+    "result": "failed",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z",
+    "threads_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads",
+    "branch_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"
+  }
+]
+</code></pre>
+
+<h3>
+<a id="build-list-1" class="anchor" href="#build-list-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build List</h3>
+
+<p>List existing builds on a branch.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/{branch_id}/builds
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/$BRANCH_ID/builds
 </code></pre>
 
 <h4>Response Example</h4>

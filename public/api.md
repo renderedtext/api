@@ -184,14 +184,53 @@ HTTP/1.1 200 OK
 List existing builds.
 
 ```
-GET /builds
+GET /{owner_id}/{project_id}/builds
 ```
 
 
 #### Curl Example
 
 ```bash
-$ curl -n https://semaphoreci.com/api/internal/builds
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "created_at": "2015-01-01T12:00:00Z",
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+    "status": "queued",
+    "result": "failed",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z",
+    "threads_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads",
+    "branch_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"
+  }
+]
+```
+
+### Build List
+
+List existing builds on a branch.
+
+```
+GET /{owner_id}/{project_id}/{branch_id}/builds
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/$BRANCH_ID/builds
 ```
 
 
