@@ -1,0 +1,81 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Branch
+description: Represents a branch.
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of branch
+    readOnly: true
+    format: uuid
+    type:
+    - string
+
+  url:
+    description: a link to the branch
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id"
+    readOnly: true
+    type:
+      - string
+
+  project_url:
+    description: a link to the project
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}"
+    readOnly: true
+    type:
+      - string
+
+  name:
+    description: name of branch
+    readOnly: true
+    type:
+    - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/branch#/definitions/id"
+
+  created_at:
+    description: when branch was created
+    format: date-time
+    type:
+    - string
+
+  updated_at:
+    description: when branch was updated
+    format: date-time
+    type:
+    - string
+
+links:
+- description: Info for existing branch.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/branches/<%= identity(:branch) %>"
+  method: GET
+  rel: self
+  title: Info
+
+- description: List existing branches.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/branches"
+  method: GET
+  rel: instances
+  title: List
+
+properties:
+  id:
+    "$ref": "/schemata/branch#/definitions/id"
+  url:
+    "$ref": "/schemata/branch#/definitions/url"
+  project_url:
+    "$ref": "/schemata/branch#/definitions/project_url"
+  name:
+    "$ref": "/schemata/branch#/definitions/name"
+  created_at:
+    "$ref": "/schemata/branch#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/branch#/definitions/updated_at"
+
+id: schemata/branch

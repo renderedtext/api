@@ -1,3 +1,87 @@
+## <a name="resource-branch"></a>Branch
+
+Represents a branch.
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **id** | *uuid* | unique identifier of branch | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **url** | *string* | a link to the branch | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id"` |
+| **project_url** | *string* | a link to the project | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}"` |
+| **name** | *string* | name of branch | `"example"` |
+| **created_at** | *date-time* | when branch was created | `"2015-01-01T12:00:00Z"` |
+| **updated_at** | *date-time* | when branch was updated | `"2015-01-01T12:00:00Z"` |
+
+### Branch Info
+
+Info for existing branch.
+
+```
+GET /{owner_id}/{project_id}/branches/{branch_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/branches/$BRANCH_ID
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id",
+  "project_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}",
+  "name": "example",
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+```
+
+### Branch List
+
+List existing branches.
+
+```
+GET /{owner_id}/{project_id}/branches
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/branches
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id",
+    "project_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}",
+    "name": "example",
+    "created_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+
 ## <a name="resource-build"></a>Build
 
 Represents a build.

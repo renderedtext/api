@@ -14,17 +14,21 @@
       </div>
 
       <ul class="section-nav">
-<li class="nav-h2"><a href="#build">Build</a></li>
+<li class="nav-h2"><a href="#branch">Branch</a></li>
 <li class="nav-h3"><a href="#attributes">Attributes</a></li>
+<li class="nav-h3"><a href="#branch-info">Branch Info</a></li>
+<li class="nav-h3"><a href="#branch-list">Branch List</a></li>
+<li class="nav-h2"><a href="#build">Build</a></li>
+<li class="nav-h3"><a href="#attributes-1">Attributes</a></li>
 <li class="nav-h3"><a href="#build-create">Build Create</a></li>
 <li class="nav-h3"><a href="#build-info">Build Info</a></li>
 <li class="nav-h3"><a href="#build-list">Build List</a></li>
 <li class="nav-h2"><a href="#owner">Owner</a></li>
-<li class="nav-h3"><a href="#attributes-1">Attributes</a></li>
-<li class="nav-h2"><a href="#project">Project</a></li>
 <li class="nav-h3"><a href="#attributes-2">Attributes</a></li>
-<li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
+<li class="nav-h2"><a href="#project">Project</a></li>
 <li class="nav-h3"><a href="#attributes-3">Attributes</a></li>
+<li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
+<li class="nav-h3"><a href="#attributes-4">Attributes</a></li>
 <li class="nav-h3"><a href="#threadconfig-list">ThreadConfig List</a></li>
 <li class="nav-h3"><a href="#threadconfig-delete">ThreadConfig Delete</a></li>
 <li class="nav-h3"><a href="#threadconfig-info">ThreadConfig Info</a></li>
@@ -34,12 +38,127 @@
     </div>
     <div class="content">
       <h2>
+<a id="branch" class="anchor" href="#branch" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-branch"></a>Branch</h2>
+
+<p>Represents a branch.</p>
+
+<h3>
+<a id="attributes" class="anchor" href="#attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of branch</td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td><em>string</em></td>
+<td>a link to the branch</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id"</code></td>
+</tr>
+<tr>
+<td><strong>project_url</strong></td>
+<td><em>string</em></td>
+<td>a link to the project</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}"</code></td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>name of branch</td>
+<td><code>"example"</code></td>
+</tr>
+<tr>
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>when branch was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>when branch was updated</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="branch-info" class="anchor" href="#branch-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Branch Info</h3>
+
+<p>Info for existing branch.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/branches/{branch_id}
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/branches/$BRANCH_ID
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id",
+  "project_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}",
+  "name": "example",
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h3>
+<a id="branch-list" class="anchor" href="#branch-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Branch List</h3>
+
+<p>List existing branches.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/branches
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/branches
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id",
+    "project_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}",
+    "name": "example",
+    "created_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h2>
 <a id="build" class="anchor" href="#build" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-build"></a>Build</h2>
 
 <p>Represents a build.</p>
 
 <h3>
-<a id="attributes" class="anchor" href="#attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-1" class="anchor" href="#attributes-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -224,7 +343,7 @@
 <p>An Owner represents the owner of a project on SemaphoreCI.</p>
 
 <h3>
-<a id="attributes-1" class="anchor" href="#attributes-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-2" class="anchor" href="#attributes-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -269,7 +388,7 @@
 <p>A Project represents a project on SemaphoreCI.</p>
 
 <h3>
-<a id="attributes-2" class="anchor" href="#attributes-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-3" class="anchor" href="#attributes-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -314,7 +433,7 @@
 <p>A ThreadConfig represents a list of commands that will be used for future builds.</p>
 
 <h3>
-<a id="attributes-3" class="anchor" href="#attributes-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-4" class="anchor" href="#attributes-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
