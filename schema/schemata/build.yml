@@ -20,7 +20,7 @@ definitions:
 
   url:
     description: a link to the build
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}"
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"
     readOnly: true
     type:
       - string

@@ -33,8 +33,14 @@
 <li class="nav-h3"><a href="#attributes-3">Attributes</a></li>
 <li class="nav-h2"><a href="#project">Project</a></li>
 <li class="nav-h3"><a href="#attributes-4">Attributes</a></li>
-<li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
+<li class="nav-h2"><a href="#thread">Thread</a></li>
 <li class="nav-h3"><a href="#attributes-5">Attributes</a></li>
+<li class="nav-h3"><a href="#thread-info">Thread Info</a></li>
+<li class="nav-h3"><a href="#thread-list">Thread List</a></li>
+<li class="nav-h3"><a href="#thread-for-build">Thread for Build</a></li>
+<li class="nav-h3"><a href="#thread-for-deploy">Thread for Deploy</a></li>
+<li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
+<li class="nav-h3"><a href="#attributes-6">Attributes</a></li>
 <li class="nav-h3"><a href="#threadconfig-list">ThreadConfig List</a></li>
 <li class="nav-h3"><a href="#threadconfig-delete">ThreadConfig Delete</a></li>
 <li class="nav-h3"><a href="#threadconfig-info">ThreadConfig Info</a></li>
@@ -192,7 +198,7 @@
 <td><strong>url</strong></td>
 <td><em>string</em></td>
 <td>a link to the build</td>
-<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}"</code></td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"</code></td>
 </tr>
 <tr>
 <td><strong>status</strong></td>
@@ -266,7 +272,7 @@
 <pre lang="json"><code>{
   "created_at": "2015-01-01T12:00:00Z",
   "id": "01234567-89ab-cdef-0123-456789abcdef",
-  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
   "status": "queued",
   "result": "failed",
   "started_at": "2015-01-01T12:00:00Z",
@@ -298,7 +304,7 @@
 <pre lang="json"><code>{
   "created_at": "2015-01-01T12:00:00Z",
   "id": "01234567-89ab-cdef-0123-456789abcdef",
-  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
   "status": "queued",
   "result": "failed",
   "started_at": "2015-01-01T12:00:00Z",
@@ -331,7 +337,7 @@
   {
     "created_at": "2015-01-01T12:00:00Z",
     "id": "01234567-89ab-cdef-0123-456789abcdef",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "status": "queued",
     "result": "failed",
     "started_at": "2015-01-01T12:00:00Z",
@@ -365,7 +371,7 @@
   {
     "created_at": "2015-01-01T12:00:00Z",
     "id": "01234567-89ab-cdef-0123-456789abcdef",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "status": "queued",
     "result": "failed",
     "started_at": "2015-01-01T12:00:00Z",
@@ -614,12 +620,286 @@
 </table>
 
 <h2>
+<a id="thread" class="anchor" href="#thread" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-thread"></a>Thread</h2>
+
+<p>FIXME</p>
+
+<h3>
+<a id="attributes-5" class="anchor" href="#attributes-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of thread</td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>name of thread</td>
+<td><code>"example"</code></td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td><em>string</em></td>
+<td>a link to the build</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}"</code></td>
+</tr>
+<tr>
+<td><strong>parent_url</strong></td>
+<td><em>string</em></td>
+<td>a link to the parent of the thread</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"</code></td>
+</tr>
+<tr>
+<td><strong>commands_url</strong></td>
+<td><em>string</em></td>
+<td>a link to the parent of the thread</td>
+<td><code>"https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands"</code></td>
+</tr>
+<tr>
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>when thread was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>started_at</strong></td>
+<td><em>date-time</em></td>
+<td>when thread was started</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>finished_at</strong></td>
+<td><em>date-time</em></td>
+<td>when thread was finished</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>when thread was updated</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="thread-info" class="anchor" href="#thread-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thread Info</h3>
+
+<p>Info for existing thread.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/threads/{thread_id}
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/threads/$THREAD_ID
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "example",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+  "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+  "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+  "created_at": "2015-01-01T12:00:00Z",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h3>
+<a id="thread-list" class="anchor" href="#thread-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thread List</h3>
+
+<p>List existing threads.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/threads
+</code></pre>
+
+<h4>Optional Parameters</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>with_command_output</strong></td>
+<td><em>boolean</em></td>
+<td>should the command output be included - default is false</td>
+<td><code>"true"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/threads
+ -G \
+  -d with_command_output=true
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "example",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+    "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+    "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h3>
+<a id="thread-for-build" class="anchor" href="#thread-for-build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thread for Build</h3>
+
+<p>List threads for a build.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/builds/{build_id}/threads
+</code></pre>
+
+<h4>Optional Parameters</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>with_command_output</strong></td>
+<td><em>boolean</em></td>
+<td>should the command output be included - default is false</td>
+<td><code>"true"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds/$BUILD_ID/threads
+ -G \
+  -d with_command_output=true
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "example",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+    "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+    "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h3>
+<a id="thread-for-deploy" class="anchor" href="#thread-for-deploy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thread for Deploy</h3>
+
+<p>List threads for a deploy.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/deploys/{deploy_id}/threads
+</code></pre>
+
+<h4>Optional Parameters</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>with_command_output</strong></td>
+<td><em>boolean</em></td>
+<td>should the command output be included - default is false</td>
+<td><code>"true"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/deploys/$DEPLOY_ID/threads
+ -G \
+  -d with_command_output=true
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "example",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+    "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+    "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h2>
 <a id="threadconfig" class="anchor" href="#threadconfig" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-thread_config"></a>ThreadConfig</h2>
 
 <p>A ThreadConfig represents a list of commands that will be used for future builds.</p>
 
 <h3>
-<a id="attributes-5" class="anchor" href="#attributes-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-6" class="anchor" href="#attributes-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>

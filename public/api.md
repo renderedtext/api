@@ -92,7 +92,7 @@ Represents a build.
 | ------- | ------- | ------- | ------- |
 | **created_at** | *date-time* | when build was created | `"2015-01-01T12:00:00Z"` |
 | **id** | *uuid* | unique identifier of build | `"01234567-89ab-cdef-0123-456789abcdef"` |
-| **url** | *string* | a link to the build | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}"` |
+| **url** | *string* | a link to the build | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"` |
 | **status** | *string* | status of the build<br/> **one of:**`"queued"` or `"running"` or `"finished"` | `"queued"` |
 | **result** | *string* | Type of a thread<br/> **one of:**`"failed"` or `"passed"` or `"stopped"` or `"canceled"` | `"failed"` |
 | **started_at** | *date-time* | when build was started | `"2015-01-01T12:00:00Z"` |
@@ -131,7 +131,7 @@ HTTP/1.1 201 Created
 {
   "created_at": "2015-01-01T12:00:00Z",
   "id": "01234567-89ab-cdef-0123-456789abcdef",
-  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
   "status": "queued",
   "result": "failed",
   "started_at": "2015-01-01T12:00:00Z",
@@ -168,7 +168,7 @@ HTTP/1.1 200 OK
 {
   "created_at": "2015-01-01T12:00:00Z",
   "id": "01234567-89ab-cdef-0123-456789abcdef",
-  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
   "status": "queued",
   "result": "failed",
   "started_at": "2015-01-01T12:00:00Z",
@@ -206,7 +206,7 @@ HTTP/1.1 200 OK
   {
     "created_at": "2015-01-01T12:00:00Z",
     "id": "01234567-89ab-cdef-0123-456789abcdef",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "status": "queued",
     "result": "failed",
     "started_at": "2015-01-01T12:00:00Z",
@@ -245,7 +245,7 @@ HTTP/1.1 200 OK
   {
     "created_at": "2015-01-01T12:00:00Z",
     "id": "01234567-89ab-cdef-0123-456789abcdef",
-    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
     "status": "queued",
     "result": "failed",
     "started_at": "2015-01-01T12:00:00Z",
@@ -404,6 +404,199 @@ A Project represents a project on SemaphoreCI.
 | **name** | *string* | unique name of project | `"semaphore"` |
 | **created_at** | *date-time* | when project was created | `"2015-01-01T12:00:00Z"` |
 | **updated_at** | *date-time* | when project was updated | `"2015-01-01T12:00:00Z"` |
+
+
+## <a name="resource-thread"></a>Thread
+
+FIXME
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **id** | *uuid* | unique identifier of thread | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **name** | *string* | name of thread | `"example"` |
+| **url** | *string* | a link to the build | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}"` |
+| **parent_url** | *string* | a link to the parent of the thread | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"` |
+| **commands_url** | *string* | a link to the parent of the thread | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands"` |
+| **created_at** | *date-time* | when thread was created | `"2015-01-01T12:00:00Z"` |
+| **started_at** | *date-time* | when thread was started | `"2015-01-01T12:00:00Z"` |
+| **finished_at** | *date-time* | when thread was finished | `"2015-01-01T12:00:00Z"` |
+| **updated_at** | *date-time* | when thread was updated | `"2015-01-01T12:00:00Z"` |
+
+### Thread Info
+
+Info for existing thread.
+
+```
+GET /{owner_id}/{project_id}/threads/{thread_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/threads/$THREAD_ID
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "example",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+  "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+  "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+  "created_at": "2015-01-01T12:00:00Z",
+  "started_at": "2015-01-01T12:00:00Z",
+  "finished_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+```
+
+### Thread List
+
+List existing threads.
+
+```
+GET /{owner_id}/{project_id}/threads
+```
+
+#### Optional Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **with_command_output** | *boolean* | should the command output be included - default is false | `"true"` |
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/threads
+ -G \
+  -d with_command_output=true
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "example",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+    "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+    "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+### Thread for Build
+
+List threads for a build.
+
+```
+GET /{owner_id}/{project_id}/builds/{build_id}/threads
+```
+
+#### Optional Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **with_command_output** | *boolean* | should the command output be included - default is false | `"true"` |
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/builds/$BUILD_ID/threads
+ -G \
+  -d with_command_output=true
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "example",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+    "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+    "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+### Thread for Deploy
+
+List threads for a deploy.
+
+```
+GET /{owner_id}/{project_id}/deploys/{deploy_id}/threads
+```
+
+#### Optional Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **with_command_output** | *boolean* | should the command output be included - default is false | `"true"` |
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/deploys/$DEPLOY_ID/threads
+ -G \
+  -d with_command_output=true
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "example",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+    "parent_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+    "commands_url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+    "created_at": "2015-01-01T12:00:00Z",
+    "started_at": "2015-01-01T12:00:00Z",
+    "finished_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
 
 
 ## <a name="resource-thread_config"></a>ThreadConfig

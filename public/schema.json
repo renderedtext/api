@@ -131,7 +131,7 @@
         },
         "url": {
           "description": "a link to the build",
-          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/build{/id}",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
           "readOnly": true,
           "type": [
             "string"
@@ -542,6 +542,196 @@
         }
       }
     },
+    "thread": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "FIXME - Thread",
+      "description": "FIXME",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of thread",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "name of thread",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the build",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "parent_url": {
+          "description": "a link to the parent of the thread",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "commands_url": {
+          "description": "a link to the parent of the thread",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/thread/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when thread was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "started_at": {
+          "description": "when thread was started",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "finished_at": {
+          "description": "when thread was finished",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when thread was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing thread.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/threads/{(%23%2Fdefinitions%2Fthread%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing threads.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/threads",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_command_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "List"
+        },
+        {
+          "description": "List threads for a build.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/builds/{(%23%2Fdefinitions%2Fbuild%2Fdefinitions%2Fidentity)}/threads",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_command_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "for Build"
+        },
+        {
+          "description": "List threads for a deploy.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/deploys/{(%23%2Fdefinitions%2Fdeploy%2Fdefinitions%2Fidentity)}/threads",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "properties": {
+              "with_command_output": {
+                "description": "should the command output be included - default is false",
+                "example": "true",
+                "default": false,
+                "type": [
+                  "boolean"
+                ]
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "title": "for Deploy"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/thread/definitions/id"
+        },
+        "name": {
+          "$ref": "#/definitions/thread/definitions/name"
+        },
+        "url": {
+          "$ref": "#/definitions/thread/definitions/url"
+        },
+        "parent_url": {
+          "$ref": "#/definitions/thread/definitions/parent_url"
+        },
+        "commands_url": {
+          "$ref": "#/definitions/thread/definitions/commands_url"
+        },
+        "created_at": {
+          "$ref": "#/definitions/thread/definitions/created_at"
+        },
+        "started_at": {
+          "$ref": "#/definitions/thread/definitions/started_at"
+        },
+        "finished_at": {
+          "$ref": "#/definitions/thread/definitions/finished_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/thread/definitions/updated_at"
+        }
+      }
+    },
     "thread_config": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "ThreadConfig",
@@ -741,6 +931,9 @@
     },
     "project": {
       "$ref": "#/definitions/project"
+    },
+    "thread": {
+      "$ref": "#/definitions/thread"
     },
     "thread_config": {
       "$ref": "#/definitions/thread_config"
