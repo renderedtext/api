@@ -47,3 +47,9 @@ bundle exec rake api:html:render
 After generation the documents could be found in `public/`.
 
 **NOTE:** `api:html:render` will also generate a Markdown document.
+
+## Running a local server
+
+```
+./scripts/server
+```

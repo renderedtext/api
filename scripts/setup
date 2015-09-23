@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-bundle exec rackup config.ru --host local.semaphore --port 3000
+bundle install --path vendor/bundle -j 4
