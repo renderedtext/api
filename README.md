@@ -3,7 +3,7 @@
 ## Setup
 
 ```
-bundle install --path vendor/bundle
+./script/setup
 ```
 
 ## Generate an Entity
