@@ -135,6 +135,8 @@ sup {
   height: 100%;
   overflow: scroll;
   width: 18%;
+  min-width: 260px;
+  font-size: 16px;
 }
 
 .content {
@@ -144,7 +146,7 @@ sup {
   width: 82%;
   height: 100%;
   overflow: scroll;
-  padding: 0 100px 40px;
+  padding: 0 80px 40px;
   box-sizing: border-box;
 }
 
