@@ -1,0 +1,115 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: TestBooster
+description: A TestBooster represents configuration which will be used to parallelize test suite
+stability: prototype
+strictProperties: true
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of test_booster
+    readOnly: true
+    format: uuid
+    type:
+      - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/test_booster#/definitions/id"
+
+  type:
+    description: type of Test Booster
+    readOnly: false
+    example: "rspec"
+    type:
+      - string
+    enum:
+      - rspec
+      - cucumber
+
+  size:
+    description: size of Test Booster
+    readOnly: false
+    type:
+      - integer
+    minumum: 2
+
+  created_at:
+    description: when test_booster was created
+    format: date-time
+    type:
+    - string
+
+  updated_at:
+    description: when test_booster was updated
+    format: date-time
+    type:
+    - string
+
+links:
+- description: Create a new test_booster.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters"
+  method: POST
+  rel: create
+  schema:
+    properties:
+      type:
+        "$ref": "/schemata/test_booster#/definitions/type"
+      size:
+        "$ref": "/schemata/test_booster#/definitions/size"
+    required:
+      - type
+      - size
+    type:
+    - object
+  title: Create
+
+- description: Delete an existing test_booster.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters/<%= identity(:test_booster) %>"
+  method: DELETE
+  rel: destroy
+  title: Delete
+
+- description: Info for existing test_booster.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters/<%= identity(:test_booster) %>"
+  method: GET
+  rel: self
+  title: Info
+
+- description: List existing test_boosters.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters"
+  method: GET
+  rel: instances
+  title: List
+
+- description: Update an existing test_booster.
+  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters/<%= identity(:test_booster) %>"
+  method: PATCH
+  rel: update
+  schema:
+    properties:
+      type:
+        "$ref": "/schemata/test_booster#/definitions/type"
+      size:
+        "$ref": "/schemata/test_booster#/definitions/size"
+    required:
+      - type
+      - size
+    type:
+    - object
+  title: Update
+
+properties:
+  id:
+    "$ref": "/schemata/test_booster#/definitions/id"
+  type:
+    "$ref": "/schemata/test_booster#/definitions/type"
+  size:
+    "$ref": "/schemata/test_booster#/definitions/size"
+  created_at:
+    "$ref": "/schemata/test_booster#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/test_booster#/definitions/updated_at"
+
+id: schemata/test_booster
