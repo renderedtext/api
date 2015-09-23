@@ -9,7 +9,7 @@
 ## Generate an Entity
 
 ``` sh
-./generate <entity_name>
+./scripts/generate <entity_name>
 ```
 
 ### Example
@@ -17,7 +17,7 @@
 To generate a user entity type the following:
 
 ``` sh
-$ ./generate user
+$ ./scripts/generate user
 
 Generated entity - schema/schemata/user.yml
 ```
