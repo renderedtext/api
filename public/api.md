@@ -553,6 +553,212 @@ A Project represents a project on SemaphoreCI.
 | **updated_at** | *date-time* | when project was updated | `"2015-01-01T12:00:00Z"` |
 
 
+## <a name="resource-test_booster"></a>TestBooster
+
+A TestBooster represents configuration which will be used to parallelize test suite
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **id** | *uuid* | unique identifier of test_booster | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **type** | *string* | type of Test Booster<br/> **one of:**`"rspec"` or `"cucumber"` | `"rspec"` |
+| **size** | *integer* | size of Test Booster | `42` |
+| **created_at** | *date-time* | when test_booster was created | `"2015-01-01T12:00:00Z"` |
+| **updated_at** | *date-time* | when test_booster was updated | `"2015-01-01T12:00:00Z"` |
+
+### TestBooster Create
+
+Create a new test_booster.
+
+```
+POST /{owner_id}/{project_id}/test_boosters
+```
+
+#### Required Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **type** | *string* | type of Test Booster<br/> **one of:**`"rspec"` or `"cucumber"` | `"rspec"` |
+| **size** | *integer* | size of Test Booster | `42` |
+
+
+
+#### Curl Example
+
+```bash
+$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters \
+  -H "Content-Type: application/json" \
+ \
+  -d '{
+  "type": "rspec",
+  "size": 42
+}'
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 201 Created
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+```
+
+### TestBooster Delete
+
+Delete an existing test_booster.
+
+```
+DELETE /{owner_id}/{project_id}/test_boosters/{test_booster_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n -X DELETE https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters/$TEST_BOOSTER_ID \
+  -H "Content-Type: application/json" \
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+```
+
+### TestBooster Info
+
+Info for existing test_booster.
+
+```
+GET /{owner_id}/{project_id}/test_boosters/{test_booster_id}
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters/$TEST_BOOSTER_ID
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+```
+
+### TestBooster List
+
+List existing test_boosters.
+
+```
+GET /{owner_id}/{project_id}/test_boosters
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "type": "rspec",
+    "size": 42,
+    "created_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+### TestBooster Update
+
+Update an existing test_booster.
+
+```
+PATCH /{owner_id}/{project_id}/test_boosters/{test_booster_id}
+```
+
+#### Required Parameters
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **type** | *string* | type of Test Booster<br/> **one of:**`"rspec"` or `"cucumber"` | `"rspec"` |
+| **size** | *integer* | size of Test Booster | `42` |
+
+
+
+#### Curl Example
+
+```bash
+$ curl -n -X PATCH https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters/$TEST_BOOSTER_ID \
+  -H "Content-Type: application/json" \
+ \
+  -d '{
+  "type": "rspec",
+  "size": 42
+}'
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+```
+
+
 ## <a name="resource-thread"></a>Thread
 
 Represents a Thread

@@ -38,14 +38,21 @@
 <li class="nav-h3"><a href="#attributes-4">Attributes</a></li>
 <li class="nav-h2"><a href="#project">Project</a></li>
 <li class="nav-h3"><a href="#attributes-5">Attributes</a></li>
-<li class="nav-h2"><a href="#thread">Thread</a></li>
+<li class="nav-h2"><a href="#testbooster">TestBooster</a></li>
 <li class="nav-h3"><a href="#attributes-6">Attributes</a></li>
+<li class="nav-h3"><a href="#testbooster-create">TestBooster Create</a></li>
+<li class="nav-h3"><a href="#testbooster-delete">TestBooster Delete</a></li>
+<li class="nav-h3"><a href="#testbooster-info">TestBooster Info</a></li>
+<li class="nav-h3"><a href="#testbooster-list">TestBooster List</a></li>
+<li class="nav-h3"><a href="#testbooster-update">TestBooster Update</a></li>
+<li class="nav-h2"><a href="#thread">Thread</a></li>
+<li class="nav-h3"><a href="#attributes-7">Attributes</a></li>
 <li class="nav-h3"><a href="#thread-info">Thread Info</a></li>
 <li class="nav-h3"><a href="#thread-list">Thread List</a></li>
 <li class="nav-h3"><a href="#thread-for-build">Thread for Build</a></li>
 <li class="nav-h3"><a href="#thread-for-deploy">Thread for Deploy</a></li>
 <li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
-<li class="nav-h3"><a href="#attributes-7">Attributes</a></li>
+<li class="nav-h3"><a href="#attributes-8">Attributes</a></li>
 <li class="nav-h3"><a href="#threadconfig-list">ThreadConfig List</a></li>
 <li class="nav-h3"><a href="#threadconfig-delete">ThreadConfig Delete</a></li>
 <li class="nav-h3"><a href="#threadconfig-info">ThreadConfig Info</a></li>
@@ -846,12 +853,270 @@
 </table>
 
 <h2>
+<a id="testbooster" class="anchor" href="#testbooster" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-test_booster"></a>TestBooster</h2>
+
+<p>A TestBooster represents configuration which will be used to parallelize test suite</p>
+
+<h3>
+<a id="attributes-6" class="anchor" href="#attributes-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of test_booster</td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td><em>string</em></td>
+<td>type of Test Booster<br> <strong>one of:</strong><code>"rspec"</code> or <code>"cucumber"</code>
+</td>
+<td><code>"rspec"</code></td>
+</tr>
+<tr>
+<td><strong>size</strong></td>
+<td><em>integer</em></td>
+<td>size of Test Booster</td>
+<td><code>42</code></td>
+</tr>
+<tr>
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>when test_booster was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>when test_booster was updated</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="testbooster-create" class="anchor" href="#testbooster-create" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestBooster Create</h3>
+
+<p>Create a new test_booster.</p>
+
+<pre><code>POST /{owner_id}/{project_id}/test_boosters
+</code></pre>
+
+<h4>Required Parameters</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>type</strong></td>
+<td><em>string</em></td>
+<td>type of Test Booster<br> <strong>one of:</strong><code>"rspec"</code> or <code>"cucumber"</code>
+</td>
+<td><code>"rspec"</code></td>
+</tr>
+<tr>
+<td><strong>size</strong></td>
+<td><em>integer</em></td>
+<td>size of Test Booster</td>
+<td><code>42</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n -X POST https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters \
+  -H "Content-Type: application/json" \
+ \
+  -d '{
+  "type": "rspec",
+  "size": 42
+}'
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 201 Created
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h3>
+<a id="testbooster-delete" class="anchor" href="#testbooster-delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestBooster Delete</h3>
+
+<p>Delete an existing test_booster.</p>
+
+<pre><code>DELETE /{owner_id}/{project_id}/test_boosters/{test_booster_id}
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n -X DELETE https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters/$TEST_BOOSTER_ID \
+  -H "Content-Type: application/json" \
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h3>
+<a id="testbooster-info" class="anchor" href="#testbooster-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestBooster Info</h3>
+
+<p>Info for existing test_booster.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/test_boosters/{test_booster_id}
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters/$TEST_BOOSTER_ID
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h3>
+<a id="testbooster-list" class="anchor" href="#testbooster-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestBooster List</h3>
+
+<p>List existing test_boosters.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/test_boosters
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "type": "rspec",
+    "size": 42,
+    "created_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h3>
+<a id="testbooster-update" class="anchor" href="#testbooster-update" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestBooster Update</h3>
+
+<p>Update an existing test_booster.</p>
+
+<pre><code>PATCH /{owner_id}/{project_id}/test_boosters/{test_booster_id}
+</code></pre>
+
+<h4>Required Parameters</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>type</strong></td>
+<td><em>string</em></td>
+<td>type of Test Booster<br> <strong>one of:</strong><code>"rspec"</code> or <code>"cucumber"</code>
+</td>
+<td><code>"rspec"</code></td>
+</tr>
+<tr>
+<td><strong>size</strong></td>
+<td><em>integer</em></td>
+<td>size of Test Booster</td>
+<td><code>42</code></td>
+</tr>
+</tbody>
+</table>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n -X PATCH https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_boosters/$TEST_BOOSTER_ID \
+  -H "Content-Type: application/json" \
+ \
+  -d '{
+  "type": "rspec",
+  "size": 42
+}'
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>{
+  "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "type": "rspec",
+  "size": 42,
+  "created_at": "2015-01-01T12:00:00Z",
+  "updated_at": "2015-01-01T12:00:00Z"
+}
+</code></pre>
+
+<h2>
 <a id="thread" class="anchor" href="#thread" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-thread"></a>Thread</h2>
 
 <p>Represents a Thread</p>
 
 <h3>
-<a id="attributes-6" class="anchor" href="#attributes-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-7" class="anchor" href="#attributes-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -1177,7 +1442,7 @@
 <p>A ThreadConfig represents a list of commands that will be used for future builds.</p>
 
 <h3>
-<a id="attributes-7" class="anchor" href="#attributes-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-8" class="anchor" href="#attributes-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
