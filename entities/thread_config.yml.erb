@@ -63,25 +63,25 @@ definitions:
 
 links:
  - description: List existing thread_configs.
-   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs"
+   href: "/<%= identity(:owner, :project) %>/thread_configs"
    method: GET
    rel: instances
    title: List
 
  - description: Delete an existing thread_config.
-   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs/<%= identity(:thread_config) %>"
+   href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
    method: DELETE
    rel: destroy
    title: Delete
 
  - description: Info for existing thread_config.
-   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs/<%= identity(:thread_config) %>"
+   href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
    method: GET
    rel: self
    title: Info
 
  - description: Create a new thread_config.
-   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs"
+   href: "/<%= identity(:owner, :project) %>/thread_configs"
    method: POST
    rel: create
    schema:
@@ -101,7 +101,7 @@ links:
    title: Create
 
  - description: Update an existing thread_config.
-   href: "/<%= identity(:owner) %>/<%= identity(:project) %>/thread_configs/<%= identity(:thread_config) %>"
+   href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
    method: PATCH
    rel: update
    schema:

@@ -88,13 +88,13 @@ definitions:
 
 links:
 - description: Info for existing command.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/commands/<%= identity(:command) %>"
+  href: "/<%= identity(:owner, :project) %>/commands/<%= identity(:command) %>"
   method: GET
   rel: self
   title: Info
 
 - description: List existing commands.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/commands"
+  href: "/<%= identity(:owner, :project) %>/commands"
   method: GET
   rel: instances
   schema:
@@ -110,7 +110,7 @@ links:
   title: List
 
 - description: List commands for a thread.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/threads/<%= identity(:thread) %>/commands"
+  href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>/commands"
   method: GET
   rel: instances
   schema:

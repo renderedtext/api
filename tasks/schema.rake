@@ -42,8 +42,12 @@ namespace :api do
       t.files = { "public/schema.json" => "public/api.md" }
     end
 
-    def identity(entity)
-      "{(%2Fschemata%2F#{entity}%23%2Fdefinitions%2Fidentity)}"
+    def identity(*entities)
+      url_encoded_identities = entities.map do |entity|
+        "{(%2Fschemata%2F#{entity}%23%2Fdefinitions%2Fidentity)}"
+      end
+
+      url_encoded_identities.join("/")
     end
   end
 end

@@ -78,13 +78,13 @@ definitions:
 
 links:
 - description: Info for existing thread.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/threads/<%= identity(:thread) %>"
+  href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>"
   method: GET
   rel: self
   title: Info
 
 - description: List existing threads.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/threads"
+  href: "/<%= identity(:owner, :project) %>/threads"
   method: GET
   rel: instances
   schema:
@@ -100,7 +100,7 @@ links:
   title: List
 
 - description: List threads for a build.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/builds/<%= identity(:build) %>/threads"
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/threads"
   method: GET
   rel: instances
   schema:
@@ -117,7 +117,7 @@ links:
   title: for Build
 
 - description: List threads for a deploy.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/deploys/<%= identity(:deploy) %>/threads"
+  href: "/<%= identity(:owner, :project) %>/deploys/<%= identity(:deploy) %>/threads"
   method: GET
   rel: instances
   schema:

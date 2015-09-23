@@ -66,25 +66,25 @@ links:
   title: Create
 
 - description: Delete an existing test_booster.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters/<%= identity(:test_booster) %>"
+  href: "/<%= identity(:owner, :project) %>/test_boosters/<%= identity(:test_booster) %>"
   method: DELETE
   rel: destroy
   title: Delete
 
 - description: Info for existing test_booster.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters/<%= identity(:test_booster) %>"
+  href: "/<%= identity(:owner, :project) %>/test_boosters/<%= identity(:test_booster) %>"
   method: GET
   rel: self
   title: Info
 
 - description: List existing test_boosters.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters"
+  href: "/<%= identity(:owner, :project) %>/test_boosters"
   method: GET
   rel: instances
   title: List
 
 - description: Update an existing test_booster.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/test_boosters/<%= identity(:test_booster) %>"
+  href: "/<%= identity(:owner, :project) %>/test_boosters/<%= identity(:test_booster) %>"
   method: PATCH
   rel: update
   schema:

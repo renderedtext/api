@@ -88,7 +88,7 @@ definitions:
 
 links:
 - description: Create a new build.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/builds"
+  href: "/<%= identity(:owner, :project) %>/builds"
   method: POST
   rel: create
   schema:
@@ -98,19 +98,19 @@ links:
   title: Create
 
 - description: Info for existing build.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/builds/<%= identity(:build) %>"
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>"
   method: GET
   rel: self
   title: Info
 
 - description: List existing builds.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/builds"
+  href: "/<%= identity(:owner, :project) %>/builds"
   method: GET
   rel: instances
   title: List
 
 - description: List existing builds on a branch.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/branches/<%= identity(:branch) %>/builds"
+  href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>/builds"
   method: GET
   rel: instances
   title: List for Branch

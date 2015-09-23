@@ -74,19 +74,19 @@ definitions:
 
 links:
 - description: Deploy a build.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/builds/<%= identity(:build) %>/deploys"
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/deploys"
   method: POST
   rel: instances
   title: from build
 
 - description: Info for existing deploy.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/deploys/<%= identity(:deploy) %>"
+  href: "/<%= identity(:owner, :project) %>/deploys/<%= identity(:deploy) %>"
   method: GET
   rel: self
   title: Info
 
 - description: List existing deploys.
-  href: "/<%= identity(:owner) %>/<%= identity(:project) %>/deploys"
+  href: "/<%= identity(:owner, :project) %>/deploys"
   method: GET
   rel: instances
   title: List
