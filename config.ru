@@ -1,9 +1,9 @@
 use Rack::Static,
   :urls => ["/stylesheets", "/images", "/javascripts"],
-  :root => "public"
+  :root => "public2"
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
-  [username, password] == ["rt", "samsung"]
+  [username, password] == [ENV["API_USERNAME"], ENV["API_PASSWORD"]]
 end
 
 run lambda { |env|
@@ -13,6 +13,6 @@ run lambda { |env|
       'Content-Type'  => 'text/html',
       'Cache-Control' => 'public, max-age=86400'
     },
-    File.open('public/index.html', File::RDONLY)
+    File.open('public2/index.html', File::RDONLY)
   ]
 }
