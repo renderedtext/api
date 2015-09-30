@@ -8,11 +8,11 @@ namespace :api do
     task :render do
       Rake::Task["api:schema:generate"].execute
 
-      File.write("public/index.html", render_html)
+      File.write("static/index.html", render_html)
     end
 
     def render_html
-      markdown = File.read("public/api.md")
+      markdown = File.read("static/api.md")
 
       filters = [
         HTML::Pipeline::MarkdownFilter,

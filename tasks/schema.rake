@@ -31,15 +31,15 @@ namespace :api do
     Prmd::RakeTasks::Combine.new do |t|
       t.options[:meta] = "schema/meta.json"
       t.paths << "schema/schemata/"
-      t.output_file = "public/schema.json"
+      t.output_file = "static/schema.json"
     end
 
     Prmd::RakeTasks::Verify.new do |t|
-      t.files << "public/schema.json"
+      t.files << "static/schema.json"
     end
 
     Prmd::RakeTasks::Doc.new do |t|
-      t.files = { "public/schema.json" => "public/api.md" }
+      t.files = { "static/schema.json" => "static/api.md" }
     end
 
     def identity(*entities)
