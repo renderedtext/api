@@ -14,16 +14,16 @@ definitions:
     type:
       - string
 
+  identity:
+    anyOf:
+      - "$ref": "/schemata/thread_config#/definitions/id"
+
   name:
     description: name of thread_config
     readOnly: false
     example: "Rspec 2/4"
     type:
       - string
-
-  identity:
-    anyOf:
-      - "$ref": "/schemata/thread_config#/definitions/id"
 
   url:
     description: a link to the thread_config

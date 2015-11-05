@@ -3,7 +3,7 @@
 ## Setup
 
 ```
-./script/setup
+./scripts/setup
 ```
 
 ## Generate an Entity

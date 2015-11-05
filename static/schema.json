@@ -754,6 +754,22 @@
             }
           ]
         },
+        "name": {
+          "description": "name of test_booster",
+          "readOnly": true,
+          "example": "Rspec",
+          "type": [
+            "string"
+          ]
+        },
+        "url": {
+          "description": "a link to the test_booster",
+          "example": "https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
         "type": {
           "description": "type of Test Booster",
           "readOnly": false,
@@ -863,6 +879,12 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/test_booster/definitions/id"
+        },
+        "name": {
+          "$ref": "#/definitions/test_booster/definitions/name"
+        },
+        "url": {
+          "$ref": "#/definitions/test_booster/definitions/url"
         },
         "type": {
           "$ref": "#/definitions/test_booster/definitions/type"
@@ -1098,19 +1120,19 @@
             "string"
           ]
         },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/thread_config/definitions/id"
+            }
+          ]
+        },
         "name": {
           "description": "name of thread_config",
           "readOnly": false,
           "example": "Rspec 2/4",
           "type": [
             "string"
-          ]
-        },
-        "identity": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/thread_config/definitions/id"
-            }
           ]
         },
         "url": {

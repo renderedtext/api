@@ -18,6 +18,20 @@ definitions:
     anyOf:
     - "$ref": "/schemata/test_booster#/definitions/id"
 
+  name:
+    description: name of test_booster
+    readOnly: true
+    example: "Rspec"
+    type:
+      - string
+
+  url:
+    description: a link to the test_booster
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}"
+    readOnly: true
+    type:
+      - string
+
   type:
     description: type of Test Booster
     readOnly: false
@@ -103,6 +117,10 @@ links:
 properties:
   id:
     "$ref": "/schemata/test_booster#/definitions/id"
+  name:
+    "$ref": "/schemata/test_booster#/definitions/name"
+  url:
+    "$ref": "/schemata/test_booster#/definitions/url"
   type:
     "$ref": "/schemata/test_booster#/definitions/type"
   size:
