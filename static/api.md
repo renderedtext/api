@@ -562,6 +562,8 @@ A TestBooster represents configuration which will be used to parallelize test su
 | Name | Type | Description | Example |
 | ------- | ------- | ------- | ------- |
 | **id** | *uuid* | unique identifier of test_booster | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **name** | *string* | name of test_booster | `"Rspec"` |
+| **url** | *string* | a link to the test_booster | `"https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}"` |
 | **type** | *string* | type of Test Booster<br/> **one of:**`"rspec"` or `"cucumber"` | `"rspec"` |
 | **size** | *integer* | size of Test Booster | `42` |
 | **created_at** | *date-time* | when test_booster was created | `"2015-01-01T12:00:00Z"` |
@@ -606,6 +608,8 @@ HTTP/1.1 201 Created
 ```json
 {
   "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}",
   "type": "rspec",
   "size": 42,
   "created_at": "2015-01-01T12:00:00Z",
@@ -639,6 +643,8 @@ HTTP/1.1 200 OK
 ```json
 {
   "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}",
   "type": "rspec",
   "size": 42,
   "created_at": "2015-01-01T12:00:00Z",
@@ -671,6 +677,8 @@ HTTP/1.1 200 OK
 ```json
 {
   "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}",
   "type": "rspec",
   "size": 42,
   "created_at": "2015-01-01T12:00:00Z",
@@ -704,6 +712,8 @@ HTTP/1.1 200 OK
 [
   {
     "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "name": "Rspec",
+    "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}",
     "type": "rspec",
     "size": 42,
     "created_at": "2015-01-01T12:00:00Z",
@@ -751,6 +761,8 @@ HTTP/1.1 200 OK
 ```json
 {
   "id": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Rspec",
+  "url": "https://semaphoreci.com/api/internal/renderedtext/semaphore/test_boosters{/id}",
   "type": "rspec",
   "size": 42,
   "created_at": "2015-01-01T12:00:00Z",

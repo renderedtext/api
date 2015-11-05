@@ -2,8 +2,10 @@ use Rack::Static,
   :urls => ["/stylesheets", "/images", "/javascripts"],
   :root => "static"
 
-use Rack::Auth::Basic, "Restricted Area" do |username, password|
-  [username, password] == [ENV["API_USERNAME"], ENV["API_PASSWORD"]]
+unless ENV["UNSECURE"]
+  use Rack::Auth::Basic, "Restricted Area" do |username, password|
+    [username, password] == [ENV["API_USERNAME"], ENV["API_PASSWORD"]]
+  end
 end
 
 run lambda { |env|
