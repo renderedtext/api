@@ -900,6 +900,139 @@
         }
       }
     },
+    "test_file": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "TestFile",
+      "description": "Represents test file",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of test_file",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/test_file/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when test_file was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when test_file was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/test_file/definitions/created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/test_file/definitions/id"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/test_file/definitions/updated_at"
+        }
+      }
+    },
+    "test_file_run": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "TestFileRun",
+      "description": "Represents a test file run",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of test_file_run",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/test_file_run/definitions/id"
+            }
+          ]
+        },
+        "duration": {
+          "description": "duration of the test file run",
+          "type": [
+            "integer"
+          ]
+        },
+        "passed": {
+          "description": "whether the test file run was succeed",
+          "type": [
+            "boolean"
+          ]
+        },
+        "created_at": {
+          "description": "when test_file_run was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when test_file_run was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "List test file runs for a test file.",
+          "href": "/{(%23%2Fdefinitions%2Fowner%2Fdefinitions%2Fidentity)}/{(%23%2Fdefinitions%2Fproject%2Fdefinitions%2Fidentity)}/test_files/{(%23%2Fdefinitions%2Ftest_file%2Fdefinitions%2Fidentity)}/runs",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List for Test File"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/test_file_run/definitions/id"
+        },
+        "passed": {
+          "$ref": "#/definitions/test_file_run/definitions/passed"
+        },
+        "duration": {
+          "$ref": "#/definitions/test_file_run/definitions/duration"
+        },
+        "created_at": {
+          "$ref": "#/definitions/test_file_run/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/test_file_run/definitions/updated_at"
+        }
+      }
+    },
     "thread": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "Thread",
@@ -1307,6 +1440,12 @@
     },
     "test_booster": {
       "$ref": "#/definitions/test_booster"
+    },
+    "test_file": {
+      "$ref": "#/definitions/test_file"
+    },
+    "test_file_run": {
+      "$ref": "#/definitions/test_file_run"
     },
     "thread": {
       "$ref": "#/definitions/thread"
