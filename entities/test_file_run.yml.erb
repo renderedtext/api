@@ -1,0 +1,58 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: TestFileRun
+description: Represents a test file run
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of test_file_run
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  identity:
+    anyOf:
+    - "$ref": "/schemata/test_file_run#/definitions/id"
+  duration:
+    description: duration of the test file run
+    type:
+    - integer
+  passed:
+    description: whether the test file run was succeed
+    type:
+    - boolean
+  created_at:
+    description: when test_file_run was created
+    format: date-time
+    type:
+    - string
+  updated_at:
+    description: when test_file_run was updated
+    format: date-time
+    type:
+    - string
+
+links:
+- description: List test file runs for a test file.
+  href: "/<%= identity(:owner, :project) %>/test_files/<%= identity(:test_file) %>/runs"
+  method: GET
+  rel: instances
+  title: List for Test File
+
+properties:
+  id:
+    "$ref": "/schemata/test_file_run#/definitions/id"
+  passed:
+    "$ref": "/schemata/test_file_run#/definitions/passed"
+  duration:
+    "$ref": "/schemata/test_file_run#/definitions/duration"
+  created_at:
+    "$ref": "/schemata/test_file_run#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/test_file_run#/definitions/updated_at"
+
+id: schemata/test_file_run

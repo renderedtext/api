@@ -45,14 +45,19 @@
 <li class="nav-h3"><a href="#testbooster-info">TestBooster Info</a></li>
 <li class="nav-h3"><a href="#testbooster-list">TestBooster List</a></li>
 <li class="nav-h3"><a href="#testbooster-update">TestBooster Update</a></li>
-<li class="nav-h2"><a href="#thread">Thread</a></li>
+<li class="nav-h2"><a href="#testfile">TestFile</a></li>
 <li class="nav-h3"><a href="#attributes-7">Attributes</a></li>
+<li class="nav-h2"><a href="#testfilerun">TestFileRun</a></li>
+<li class="nav-h3"><a href="#attributes-8">Attributes</a></li>
+<li class="nav-h3"><a href="#testfilerun-list-for-test-file">TestFileRun List for Test File</a></li>
+<li class="nav-h2"><a href="#thread">Thread</a></li>
+<li class="nav-h3"><a href="#attributes-9">Attributes</a></li>
 <li class="nav-h3"><a href="#thread-info">Thread Info</a></li>
 <li class="nav-h3"><a href="#thread-list">Thread List</a></li>
 <li class="nav-h3"><a href="#thread-for-build">Thread for Build</a></li>
 <li class="nav-h3"><a href="#thread-for-deploy">Thread for Deploy</a></li>
 <li class="nav-h2"><a href="#threadconfig">ThreadConfig</a></li>
-<li class="nav-h3"><a href="#attributes-8">Attributes</a></li>
+<li class="nav-h3"><a href="#attributes-10">Attributes</a></li>
 <li class="nav-h3"><a href="#threadconfig-list">ThreadConfig List</a></li>
 <li class="nav-h3"><a href="#threadconfig-delete">ThreadConfig Delete</a></li>
 <li class="nav-h3"><a href="#threadconfig-info">ThreadConfig Info</a></li>
@@ -1133,12 +1138,131 @@
 </code></pre>
 
 <h2>
+<a id="testfile" class="anchor" href="#testfile" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-test_file"></a>TestFile</h2>
+
+<p>Represents test file</p>
+
+<h3>
+<a id="attributes-7" class="anchor" href="#attributes-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>when test_file was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of test_file</td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>when test_file was updated</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="testfilerun" class="anchor" href="#testfilerun" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-test_file_run"></a>TestFileRun</h2>
+
+<p>Represents a test file run</p>
+
+<h3>
+<a id="attributes-8" class="anchor" href="#attributes-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><em>uuid</em></td>
+<td>unique identifier of test_file_run</td>
+<td><code>"01234567-89ab-cdef-0123-456789abcdef"</code></td>
+</tr>
+<tr>
+<td><strong>passed</strong></td>
+<td><em>boolean</em></td>
+<td>whether the test file run was succeed</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><strong>duration</strong></td>
+<td><em>integer</em></td>
+<td>duration of the test file run</td>
+<td><code>42</code></td>
+</tr>
+<tr>
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>when test_file_run was created</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>when test_file_run was updated</td>
+<td><code>"2015-01-01T12:00:00Z"</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="testfilerun-list-for-test-file" class="anchor" href="#testfilerun-list-for-test-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestFileRun List for Test File</h3>
+
+<p>List test file runs for a test file.</p>
+
+<pre><code>GET /{owner_id}/{project_id}/test_files/{test_file_id}/runs
+</code></pre>
+
+<h4>Curl Example</h4>
+
+<pre lang="bash"><code>$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_files/$TEST_FILE_ID/runs
+</code></pre>
+
+<h4>Response Example</h4>
+
+<pre><code>HTTP/1.1 200 OK
+</code></pre>
+
+<pre lang="json"><code>[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "passed": true,
+    "duration": 42,
+    "created_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+</code></pre>
+
+<h2>
 <a id="thread" class="anchor" href="#thread" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="resource-thread"></a>Thread</h2>
 
 <p>Represents a Thread</p>
 
 <h3>
-<a id="attributes-7" class="anchor" href="#attributes-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-9" class="anchor" href="#attributes-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>
@@ -1464,7 +1588,7 @@
 <p>A ThreadConfig represents a list of commands that will be used for future builds.</p>
 
 <h3>
-<a id="attributes-8" class="anchor" href="#attributes-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
+<a id="attributes-10" class="anchor" href="#attributes-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attributes</h3>
 
 <table>
 <thead>

@@ -1,0 +1,37 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: TestFile
+description: Represents test file
+stability: prototype
+strictProperties: true
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of test_file
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  identity:
+    anyOf:
+    - "$ref": "/schemata/test_file#/definitions/id"
+  created_at:
+    description: when test_file was created
+    format: date-time
+    type:
+    - string
+  updated_at:
+    description: when test_file was updated
+    format: date-time
+    type:
+    - string
+links: []
+properties:
+  created_at:
+    "$ref": "/schemata/test_file#/definitions/created_at"
+  id:
+    "$ref": "/schemata/test_file#/definitions/id"
+  updated_at:
+    "$ref": "/schemata/test_file#/definitions/updated_at"
+id: schemata/test_file

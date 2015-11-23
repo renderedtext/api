@@ -771,6 +771,68 @@ HTTP/1.1 200 OK
 ```
 
 
+## <a name="resource-test_file"></a>TestFile
+
+Represents test file
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **created_at** | *date-time* | when test_file was created | `"2015-01-01T12:00:00Z"` |
+| **id** | *uuid* | unique identifier of test_file | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **updated_at** | *date-time* | when test_file was updated | `"2015-01-01T12:00:00Z"` |
+
+
+## <a name="resource-test_file_run"></a>TestFileRun
+
+Represents a test file run
+
+### Attributes
+
+| Name | Type | Description | Example |
+| ------- | ------- | ------- | ------- |
+| **id** | *uuid* | unique identifier of test_file_run | `"01234567-89ab-cdef-0123-456789abcdef"` |
+| **passed** | *boolean* | whether the test file run was succeed | `true` |
+| **duration** | *integer* | duration of the test file run | `42` |
+| **created_at** | *date-time* | when test_file_run was created | `"2015-01-01T12:00:00Z"` |
+| **updated_at** | *date-time* | when test_file_run was updated | `"2015-01-01T12:00:00Z"` |
+
+### TestFileRun List for Test File
+
+List test file runs for a test file.
+
+```
+GET /{owner_id}/{project_id}/test_files/{test_file_id}/runs
+```
+
+
+#### Curl Example
+
+```bash
+$ curl -n https://semaphoreci.com/api/internal/$OWNER_ID/$PROJECT_ID/test_files/$TEST_FILE_ID/runs
+```
+
+
+#### Response Example
+
+```
+HTTP/1.1 200 OK
+```
+
+```json
+[
+  {
+    "id": "01234567-89ab-cdef-0123-456789abcdef",
+    "passed": true,
+    "duration": 42,
+    "created_at": "2015-01-01T12:00:00Z",
+    "updated_at": "2015-01-01T12:00:00Z"
+  }
+]
+```
+
+
 ## <a name="resource-thread"></a>Thread
 
 Represents a Thread
