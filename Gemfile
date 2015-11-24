@@ -12,4 +12,6 @@ group :development do
   gem "github-linguist"
   gem "pygments.rb"
   gem "rake"
+  gem "guard"
+  gem "guard-process"
 end

@@ -22,34 +22,21 @@ $ ./scripts/generate user
 Generated entity - schema/schemata/user.yml
 ```
 
-## Schema
+## Compiling Schema, HTML and Markdown documentation
 
-You can generate your schema by executing:
-
-```
-bundle exec rake api:schema:generate
-```
-
-## Generating HTML and Markdown documentation
-
-To generate a Markdown documentation execute:
+You can generate your schema, html and markdown docs with:
 
 ```
-bundle exec rake api:schema:doc
+$ ./scripts/compile
 ```
 
-To generate a HTML documentation execute:
+## Running a development server
+
+While developing API specification guard will automatically regenerate Schema
+for you on every change and restart server after it.
 
 ```
-bundle exec rake api:html:render
+bundle exec guard
 ```
 
-After generation the documents could be found in `public/`.
-
-**NOTE:** `api:html:render` will also generate a Markdown document.
-
-## Running a local server
-
-```
-./scripts/server
-```
+-**NOTE:** To only serve static files you can run `./scripts/server`
