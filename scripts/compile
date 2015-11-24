@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+mkdir -p static
+bundle exec rake api:schema:generate api:schema:doc api:html:render

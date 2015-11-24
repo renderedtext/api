@@ -35,12 +35,14 @@ definitions:
     format: date-time
     type:
     - string
+
 links:
 - description: List test file runs for a test file.
   href: "/{(%2Fschemata%2Fowner%23%2Fdefinitions%2Fidentity)}/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/test_files/{(%2Fschemata%2Ftest_file%23%2Fdefinitions%2Fidentity)}/runs"
   method: GET
   rel: instances
   title: List for Test File
+
 properties:
   id:
     "$ref": "/schemata/test_file_run#/definitions/id"
@@ -52,4 +54,5 @@ properties:
     "$ref": "/schemata/test_file_run#/definitions/created_at"
   updated_at:
     "$ref": "/schemata/test_file_run#/definitions/updated_at"
+
 id: schemata/test_file_run

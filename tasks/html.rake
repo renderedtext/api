@@ -9,6 +9,8 @@ namespace :api do
       Rake::Task["api:schema:generate"].execute
 
       File.write("static/index.html", render_html)
+      FileUtils.mkdir_p("static/stylesheets")
+      FileUtils.cp("views/stylesheets/style.css", "static/stylesheets/style.css")
     end
 
     def render_html
