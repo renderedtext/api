@@ -30,6 +30,12 @@ definitions:
     type:
     - integer
 
+  best_option:
+    description: best option
+    readOnly: true
+    type:
+    - boolean
+
   available_on_current_plan:
     description: can user choose option, based on plan
     readOnly: true
@@ -62,6 +68,8 @@ properties:
     "$ref": "/schemata/test_booster_options#/definitions/size"
   estimated_duration:
     "$ref": "/schemata/test_booster_options#/definitions/estimated_duration"
+  best_option:
+    "$ref": "/schemata/test_booster_options#/definitions/best_option"
   available_on_current_plan:
     "$ref": "/schemata/test_booster_options#/definitions/available_on_current_plan"
   suggested_plan:
