@@ -116,8 +116,6 @@ links:
   title: List for Branch
 
 properties:
-  created_at:
-    "$ref": "/schemata/build#/definitions/created_at"
   id:
     "$ref": "/schemata/build#/definitions/id"
   url:
@@ -126,17 +124,19 @@ properties:
     "$ref": "/schemata/build#/definitions/status"
   result:
     "$ref": "/schemata/build#/definitions/result"
-  created_at:
-    "$ref": "/schemata/build#/definitions/created_at"
-  started_at:
-    "$ref": "/schemata/build#/definitions/started_at"
-  finished_at:
-    "$ref": "/schemata/build#/definitions/finished_at"
-  updated_at:
-    "$ref": "/schemata/build#/definitions/updated_at"
+  last_commit:
+    "$ref": "/schemata/commit"
   threads_url:
     "$ref": "/schemata/build#/definitions/threads_url"
   branch_url:
     "$ref": "/schemata/build#/definitions/branch_url"
+  created_at:
+    "$ref": "/schemata/build#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/build#/definitions/updated_at"
+  started_at:
+    "$ref": "/schemata/build#/definitions/started_at"
+  finished_at:
+    "$ref": "/schemata/build#/definitions/finished_at"
 
 id: schemata/build

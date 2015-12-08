@@ -15,20 +15,6 @@ definitions:
     type:
     - string
 
-  url:
-    description: a link to the branch
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/build/id"
-    readOnly: true
-    type:
-      - string
-
-  project_url:
-    description: a link to the project
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/projects/{project_id}"
-    readOnly: true
-    type:
-      - string
-
   name:
     description: name of branch
     readOnly: true
@@ -37,7 +23,28 @@ definitions:
 
   identity:
     anyOf:
-    - "$ref": "/schemata/branch#/definitions/id"
+    - "$ref": "/schemata/branch#/definitions/name"
+
+  url:
+    description: a link to the branch
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}/branch/{branch_name}"
+    readOnly: true
+    type:
+      - string
+
+  project_url:
+    description: a link to the project
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}"
+    readOnly: true
+    type:
+      - string
+
+  rebuild_url:
+    description: a link to the branch rebuild action
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}/branch/{branch_name}/rebuild"
+    readOnly: true
+    type:
+      - string
 
   created_at:
     description: when branch was created
@@ -52,27 +59,37 @@ definitions:
     - string
 
 links:
-- description: Info for existing branch.
-  href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>"
-  method: GET
-  rel: self
-  title: Info
-
 - description: List existing branches.
   href: "/<%= identity(:owner, :project) %>/branches"
   method: GET
   rel: instances
   title: List
 
+- description: Info for existing branch.
+  href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>"
+  method: GET
+  rel: self
+  title: Info
+
+- description: Re-build last revision for existing branch.
+  href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>/rebuild"
+  method: POST
+  rel: self
+  title: Rebuild
+
 properties:
   id:
     "$ref": "/schemata/branch#/definitions/id"
+  name:
+    "$ref": "/schemata/branch#/definitions/name"
+  last_build:
+    "$ref": "/schemata/build"
   url:
     "$ref": "/schemata/branch#/definitions/url"
   project_url:
     "$ref": "/schemata/branch#/definitions/project_url"
-  name:
-    "$ref": "/schemata/branch#/definitions/name"
+  rebuild_url:
+    "$ref": "/schemata/branch#/definitions/rebuild_url"
   created_at:
     "$ref": "/schemata/branch#/definitions/created_at"
   updated_at:
