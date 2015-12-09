@@ -45,17 +45,17 @@ definitions:
     type:
     - string
 
-  build_state:
-    description: last build status of the default branch
-    readOnly: true
-    example: "passed"
-    type:
-    - string
-
   message:
     description: a message regarding project's state
     readOnly: true
     example: "Master build failed."
+    type:
+    - string
+
+  toggle_star_url:
+    description: a link to star/unstar the project
+    readOnly: true
+    example: "https://semaphoreci.com/api/internal/{project_owner_username}/{project_name}/toggle_star"
     type:
     - string
 
@@ -70,20 +70,6 @@ definitions:
     description: a link to the project's owner page
     readOnly: true
     example: "https://semaphoreci.com/{project_owner_name}"
-    type:
-    - string
-
-  toggle_star_url:
-    description: a link to star/unstar the project
-    readOnly: true
-    example: "https://semaphoreci.com/api/internal/{project_owner_username}/{project_name}/toggle_star"
-    type:
-    - string
-
-  build_html_url:
-    description: a link to the last build page of the default branch
-    readOnly: true
-    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/branches/{default_branch_name}/builds/{build_id}"
     type:
     - string
 
@@ -112,6 +98,24 @@ properties:
     "$ref": "/schemata/project#/definitions/id"
   name:
     "$ref": "/schemata/project#/definitions/name"
+  owner:
+    "$ref": "/schemata/project#/definitions/owner"
+  starred:
+    "$ref": "/schemata/project#/definitions/starred"
+  default_branch:
+    "$ref": "/schemata/project#/definitions/default_branch"
+  message:
+    "$ref": "/schemata/project#/definitions/message"
+  last_build:
+    "$ref": "/schemata/build"
+  toggle_star_url:
+    "$ref": "/schemata/project#/definitions/toggle_star_url"
+  project_html_url:
+    "$ref": "/schemata/project#/definitions/project_html_url"
+  owner_html_url:
+    "$ref": "/schemata/project#/definitions/owner_html_url"
+  settings_html_url:
+    "$ref": "/schemata/project#/definitions/settings_html_url"
   created_at:
     "$ref": "/schemata/project#/definitions/created_at"
   updated_at:
