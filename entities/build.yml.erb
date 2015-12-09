@@ -19,22 +19,36 @@ definitions:
     - "$ref": "/schemata/build#/definitions/id"
 
   url:
-    description: a link to the build
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"
+    description: a link to the build in API
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds{/id}"
+    readOnly: true
+    type:
+      - string
+
+  html_url:
+    description: a link to the build in applicaiton
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds{/id}"
     readOnly: true
     type:
       - string
 
   threads_url:
     description: a link to build's threads
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds/{build_id}/threads"
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id}/threads"
     readOnly: true
     type:
       - string
 
   branch_url:
-    description: a link to build's branch
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/branches/{branch_id}"
+    description: a link to build's branch in API
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/branches/{branch_id}"
+    readOnly: true
+    type:
+      - string
+
+  branch_html_url:
+    description: a link to build's branch in applicaiton
+    example: "https://semaphoreci.com/{project_owner_name/{project_name}/branches/{branch_id}"
     readOnly: true
     type:
       - string
@@ -118,18 +132,22 @@ links:
 properties:
   id:
     "$ref": "/schemata/build#/definitions/id"
-  url:
-    "$ref": "/schemata/build#/definitions/url"
   status:
     "$ref": "/schemata/build#/definitions/status"
   result:
     "$ref": "/schemata/build#/definitions/result"
   last_commit:
     "$ref": "/schemata/commit"
+  url:
+    "$ref": "/schemata/build#/definitions/url"
+  html_url:
+    "$ref": "/schemata/build#/definitions/html_url"
   threads_url:
     "$ref": "/schemata/build#/definitions/threads_url"
   branch_url:
     "$ref": "/schemata/build#/definitions/branch_url"
+  branch_html_url:
+    "$ref": "/schemata/build#/definitions/branch_html_url"
   created_at:
     "$ref": "/schemata/build#/definitions/created_at"
   updated_at:

@@ -39,4 +39,24 @@ for you on every change and restart server after it.
 bundle exec guard
 ```
 
+After starting server, documentation site can be found on port `3000`.
+
 -**NOTE:** To only serve static files you can run `./scripts/server`
+
+## Conventions
+
+### Entity properties
+
+  - Attributes which ends with `*_url` should point to API actions
+  - Attributes which ends with `*_html_url` should point to pages in application
+
+### Entity actions
+
+  - Please sort entity actions (links) in the following order:
+    - entity attributes
+    - nested entities
+    - urls
+    - dates
+
+  - Mark not implemented API actions with `✖` at the end of action name
+
