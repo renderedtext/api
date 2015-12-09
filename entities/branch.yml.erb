@@ -63,19 +63,19 @@ links:
   href: "/<%= identity(:owner, :project) %>/branches"
   method: GET
   rel: instances
-  title: List
+  title: List ✖
 
 - description: Info for existing branch.
   href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>"
   method: GET
   rel: self
-  title: Info
+  title: Info ✖
 
 - description: Re-build last revision for existing branch.
   href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>/rebuild"
   method: POST
   rel: self
-  title: Rebuild
+  title: Rebuild ✖
 
 properties:
   id:

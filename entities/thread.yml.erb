@@ -77,12 +77,6 @@ definitions:
       "$ref": "/schemata/command"
 
 links:
-- description: Info for existing thread.
-  href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>"
-  method: GET
-  rel: self
-  title: Info
-
 - description: List existing threads.
   href: "/<%= identity(:owner, :project) %>/threads"
   method: GET
@@ -97,7 +91,13 @@ links:
           - boolean
     type:
     - object
-  title: List
+  title: List ✖
+
+- description: Info for existing thread.
+  href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>"
+  method: GET
+  rel: self
+  title: Info ✖
 
 - description: List threads for a build.
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/threads"
@@ -114,7 +114,7 @@ links:
     type:
     - object
 
-  title: for Build
+  title: List for Build ✖
 
 - description: List threads for a deploy.
   href: "/<%= identity(:owner, :project) %>/deploys/<%= identity(:deploy) %>/threads"
@@ -130,7 +130,7 @@ links:
           - boolean
     type:
     - object
-  title: for Deploy
+  title: List for Deploy ✖
 
 properties:
   id:

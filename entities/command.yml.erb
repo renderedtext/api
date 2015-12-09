@@ -87,12 +87,6 @@ definitions:
     - string
 
 links:
-- description: Info for existing command.
-  href: "/<%= identity(:owner, :project) %>/commands/<%= identity(:command) %>"
-  method: GET
-  rel: self
-  title: Info
-
 - description: List existing commands.
   href: "/<%= identity(:owner, :project) %>/commands"
   method: GET
@@ -107,7 +101,13 @@ links:
           - boolean
     type:
     - object
-  title: List
+  title: List ✖
+
+- description: Info for existing command.
+  href: "/<%= identity(:owner, :project) %>/commands/<%= identity(:command) %>"
+  method: GET
+  rel: self
+  title: Info ✖
 
 - description: List commands for a thread.
   href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>/commands"
@@ -123,7 +123,7 @@ links:
           - boolean
     type:
     - object
-  title: List for Thread
+  title: List for Thread ✖
 
 properties:
   id:
