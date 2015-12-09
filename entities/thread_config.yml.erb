@@ -68,18 +68,6 @@ links:
    rel: instances
    title: List
 
- - description: Delete an existing thread_config.
-   href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
-   method: DELETE
-   rel: destroy
-   title: Delete
-
- - description: Info for existing thread_config.
-   href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
-   method: GET
-   rel: self
-   title: Info
-
  - description: Create a new thread_config.
    href: "/<%= identity(:owner, :project) %>/thread_configs"
    method: POST
@@ -100,6 +88,12 @@ links:
      - object
    title: Create
 
+ - description: Info for existing thread_config.
+   href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
+   method: GET
+   rel: self
+   title: Info
+
  - description: Update an existing thread_config.
    href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
    method: PATCH
@@ -119,6 +113,13 @@ links:
      type:
      - object
    title: Update
+
+ - description: Delete an existing thread_config.
+   href: "/<%= identity(:owner, :project) %>/thread_configs/<%= identity(:thread_config) %>"
+   method: DELETE
+   rel: destroy
+   title: Delete
+
 
 properties:
   id:

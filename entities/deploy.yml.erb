@@ -73,23 +73,23 @@ definitions:
     - string
 
 links:
-- description: Deploy a build.
-  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/deploys"
-  method: POST
+- description: List existing deploys.
+  href: "/<%= identity(:owner, :project) %>/deploys"
+  method: GET
   rel: instances
-  title: from build
+  title: List ✖
 
 - description: Info for existing deploy.
   href: "/<%= identity(:owner, :project) %>/deploys/<%= identity(:deploy) %>"
   method: GET
   rel: self
-  title: Info
+  title: Info ✖
 
-- description: List existing deploys.
-  href: "/<%= identity(:owner, :project) %>/deploys"
-  method: GET
+- description: Deploy a build.
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/deploys"
+  method: POST
   rel: instances
-  title: List
+  title: List for Build ✖
 
 properties:
   id:

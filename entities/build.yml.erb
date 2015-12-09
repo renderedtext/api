@@ -87,6 +87,12 @@ definitions:
     - string
 
 links:
+- description: List existing builds.
+  href: "/<%= identity(:owner, :project) %>/builds"
+  method: GET
+  rel: instances
+  title: List ✖
+
 - description: Create a new build.
   href: "/<%= identity(:owner, :project) %>/builds"
   method: POST
@@ -95,25 +101,19 @@ links:
     properties: {}
     type:
     - object
-  title: Create
+  title: Create ✖
 
 - description: Info for existing build.
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>"
   method: GET
   rel: self
-  title: Info
-
-- description: List existing builds.
-  href: "/<%= identity(:owner, :project) %>/builds"
-  method: GET
-  rel: instances
-  title: List
+  title: Info ✖
 
 - description: List existing builds on a branch.
   href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>/builds"
   method: GET
   rel: instances
-  title: List for Branch
+  title: List for Branch ✖
 
 properties:
   id:
