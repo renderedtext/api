@@ -13,31 +13,109 @@ definitions:
     format: uuid
     type:
     - string
+
   name:
     description: unique name of project
     readOnly: true
     example: "semaphore"
     type:
     - string
+
   identity:
     anyOf:
     - "$ref": "/schemata/project#/definitions/id"
+
+  owner:
+    description: project owner's username
+    readOnly: true
+    example: "renderedtext"
+    type:
+    - string
+
+  starred:
+    description: indicates whether the current user has starred the project
+    readOnly: true
+    type:
+    - boolean
+
+  default_branch_name:
+    description: name of the project's default branch
+    readOnly: true
+    example: "master"
+    type:
+    - string
+
+  message:
+    description: a message regarding project's state
+    readOnly: true
+    example: "Master build failed."
+    type:
+    - string
+
+  toggle_star_url:
+    description: a link to star/unstar the project
+    readOnly: true
+    example: "https://semaphoreci.com/api/internal/{project_owner_username}/{project_name}/toggle_star"
+    type:
+    - string
+
+  project_html_url:
+    description: a link to the project page
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_name}/{project_name}"
+    type:
+    - string
+
+  owner_html_url:
+    description: a link to the project's owner page
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_name}"
+    type:
+    - string
+
+  settings_html_url:
+    description: a link to project's settings page
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/settings"
+    type:
+    - string
+
   created_at:
     description: when project was created
     format: date-time
     type:
     - string
+
   updated_at:
     description: when project was updated
     format: date-time
     type:
     - string
+
 links: []
 properties:
   id:
     "$ref": "/schemata/project#/definitions/id"
   name:
     "$ref": "/schemata/project#/definitions/name"
+  owner:
+    "$ref": "/schemata/project#/definitions/owner"
+  starred:
+    "$ref": "/schemata/project#/definitions/starred"
+  default_branch_name:
+    "$ref": "/schemata/project#/definitions/default_branch"
+  message:
+    "$ref": "/schemata/project#/definitions/message"
+  last_build:
+    "$ref": "/schemata/build"
+  toggle_star_url:
+    "$ref": "/schemata/project#/definitions/toggle_star_url"
+  project_html_url:
+    "$ref": "/schemata/project#/definitions/project_html_url"
+  owner_html_url:
+    "$ref": "/schemata/project#/definitions/owner_html_url"
+  settings_html_url:
+    "$ref": "/schemata/project#/definitions/settings_html_url"
   created_at:
     "$ref": "/schemata/project#/definitions/created_at"
   updated_at:
