@@ -1,5 +1,9 @@
 # API
 
+While working on this API, you should consider how the end user would
+interact with the endpoints. Even though it is called internal, it may be
+published in the future.
+
 ## Setup
 
 ```
