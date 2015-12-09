@@ -39,6 +39,8 @@ for you on every change and restart server after it.
 bundle exec guard
 ```
 
+After starting server, documentation site can be found on port `3000`.
+
 -**NOTE:** To only serve static files you can run `./scripts/server`
 
 ## Conventions
