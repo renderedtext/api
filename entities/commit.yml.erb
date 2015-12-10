@@ -24,6 +24,27 @@ definitions:
     type:
     - string
 
+  message:
+    description: commit message
+    example: "Fix all the bugs"
+    readOnly: true
+    type:
+    - string
+
+  author_name:
+    description: name of the author
+    example: "Monalisa Octocat"
+    readOnly: true
+    type:
+    - string
+
+  author_email:
+    description: email address of the author
+    example: "support@github.com"
+    readOnly: true
+    type:
+    - string
+
   url:
     description: a link to the commit on repo host service
     example: "https://api.github.com/repos/octocat/Hello-World/git/trees/691272480426f78a0138979dd3ce63b77f706feb"
@@ -50,6 +71,12 @@ properties:
     "$ref": "/schemata/commit#/definitions/id"
   sha:
     "$ref": "/schemata/commit#/definitions/sha"
+  message:
+    "$ref": "/schemata/commit#/definitions/message"
+  author_name:
+    "$ref": "/schemata/commit#/definitions/author_name"
+  author_email:
+    "$ref": "/schemata/commit#/definitions/author_email"
   url:
     "$ref": "/schemata/commit#/definitions/url"
   created_at:
