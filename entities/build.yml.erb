@@ -18,6 +18,12 @@ definitions:
     anyOf:
     - "$ref": "/schemata/build#/definitions/id"
 
+  number:
+    description: a number of the build on branch
+    readOnly: true
+    type:
+      - integer
+
   url:
     description: a link to the build in API
     example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds{/id}"
@@ -132,6 +138,8 @@ links:
 properties:
   id:
     "$ref": "/schemata/build#/definitions/id"
+  number:
+    "$ref": "/schemata/build#/definitions/number"
   status:
     "$ref": "/schemata/build#/definitions/status"
   result:
