@@ -45,20 +45,6 @@ definitions:
     type:
       - string
 
-  branch_url:
-    description: a link to build's branch in API
-    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/branches/{branch_id}"
-    readOnly: true
-    type:
-      - string
-
-  branch_html_url:
-    description: a link to build's branch in applicaiton
-    example: "https://semaphoreci.com/{project_owner_name/{project_name}/branches/{branch_id}"
-    readOnly: true
-    type:
-      - string
-
   status:
     description: status of the build
     readOnly: true
@@ -152,10 +138,6 @@ properties:
     "$ref": "/schemata/build#/definitions/html_url"
   threads_url:
     "$ref": "/schemata/build#/definitions/threads_url"
-  branch_url:
-    "$ref": "/schemata/build#/definitions/branch_url"
-  branch_html_url:
-    "$ref": "/schemata/build#/definitions/branch_html_url"
   created_at:
     "$ref": "/schemata/build#/definitions/created_at"
   updated_at:

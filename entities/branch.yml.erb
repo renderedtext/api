@@ -25,6 +25,13 @@ definitions:
     anyOf:
     - "$ref": "/schemata/branch#/definitions/name"
 
+  builds_url:
+    description: url for creating a new build via API
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name/builds"
+    readOnly: true
+    type:
+      - string
+
   url:
     description: a link to the branch in API
     example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}/branch/{branch_name}"
@@ -35,27 +42,6 @@ definitions:
   html_url:
     description: a link to the branch in applicaiton
     example: "https://semaphoreci.com/{project_owner_name}/{project_name}/branch/{branch_name}"
-    readOnly: true
-    type:
-      - string
-
-  project_url:
-    description: a link to the project in API
-    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}"
-    readOnly: true
-    type:
-      - string
-
-  project_html_url:
-    description: a link to the project in application
-    example: "https://semaphoreci.com/{project_owner_name/{project_name}"
-    readOnly: true
-    type:
-      - string
-
-  rebuild_url:
-    description: a link to the branch rebuild action
-    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}/branch/{branch_name}/rebuild"
     readOnly: true
     type:
       - string
@@ -98,16 +84,12 @@ properties:
     "$ref": "/schemata/branch#/definitions/name"
   last_build:
     "$ref": "/schemata/build"
+  builds_url:
+    "$ref": "/schemata/branch#/definitions/builds_url"
   url:
     "$ref": "/schemata/branch#/definitions/url"
   html_url:
     "$ref": "/schemata/branch#/definitions/html_url"
-  project_url:
-    "$ref": "/schemata/branch#/definitions/project_url"
-  project_html_url:
-    "$ref": "/schemata/branch#/definitions/project_html_url"
-  rebuild_url:
-    "$ref": "/schemata/branch#/definitions/rebuild_url"
   created_at:
     "$ref": "/schemata/branch#/definitions/created_at"
   updated_at:
