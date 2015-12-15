@@ -31,7 +31,7 @@ definitions:
     type:
     - boolean
 
-  message:
+  status_error:
     description: a message regarding project's state
     readOnly: true
     example: "Master build failed."
@@ -86,20 +86,20 @@ properties:
     "$ref": "/schemata/project#/definitions/name"
   starred:
     "$ref": "/schemata/project#/definitions/starred"
-  message:
-    "$ref": "/schemata/project#/definitions/message"
+  status_error:
+    "$ref": "/schemata/project#/definitions/status_error"
   owner:
     "$ref": "/schemata/owner"
   default_branch:
     "$ref": "/schemata/branch"
-  toggle_star_url:
-    "$ref": "/schemata/project#/definitions/toggle_star_url"
+  url:
+    "$ref": "/schemata/project#/definitions/url"
   html_url:
-    "$ref": "/schemata/project#/definitions/project_html_url"
-  owner_html_url:
-    "$ref": "/schemata/project#/definitions/owner_html_url"
+    "$ref": "/schemata/project#/definitions/html_url"
   settings_html_url:
     "$ref": "/schemata/project#/definitions/settings_html_url"
+  toggle_star_url:
+    "$ref": "/schemata/project#/definitions/toggle_star_url"
   created_at:
     "$ref": "/schemata/project#/definitions/created_at"
   updated_at:
