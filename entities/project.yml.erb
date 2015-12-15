@@ -25,25 +25,11 @@ definitions:
     anyOf:
     - "$ref": "/schemata/project#/definitions/id"
 
-  owner:
-    description: project owner's username
-    readOnly: true
-    example: "renderedtext"
-    type:
-    - string
-
   starred:
     description: indicates whether the current user has starred the project
     readOnly: true
     type:
     - boolean
-
-  default_branch_name:
-    description: name of the project's default branch
-    readOnly: true
-    example: "master"
-    type:
-    - string
 
   message:
     description: a message regarding project's state
@@ -98,16 +84,14 @@ properties:
     "$ref": "/schemata/project#/definitions/id"
   name:
     "$ref": "/schemata/project#/definitions/name"
-  owner:
-    "$ref": "/schemata/project#/definitions/owner"
   starred:
     "$ref": "/schemata/project#/definitions/starred"
-  default_branch_name:
-    "$ref": "/schemata/project#/definitions/default_branch_name"
   message:
     "$ref": "/schemata/project#/definitions/message"
-  last_build:
-    "$ref": "/schemata/build"
+  owner:
+    "$ref": "/schemata/owner"
+  default_branch:
+    "$ref": "/schemata/branch"
   toggle_star_url:
     "$ref": "/schemata/project#/definitions/toggle_star_url"
   project_html_url:
