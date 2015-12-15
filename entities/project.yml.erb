@@ -38,24 +38,17 @@ definitions:
     type:
     - string
 
-  toggle_star_url:
-    description: a link to star/unstar the project
+  url:
+    description: a link to the project in API
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}"
     readOnly: true
-    example: "https://semaphoreci.com/api/internal/{project_owner_username}/{project_name}/toggle_star"
     type:
     - string
 
-  project_html_url:
+  html_url:
     description: a link to the project page
     readOnly: true
     example: "https://semaphoreci.com/{project_owner_name}/{project_name}"
-    type:
-    - string
-
-  owner_html_url:
-    description: a link to the project's owner page
-    readOnly: true
-    example: "https://semaphoreci.com/{project_owner_name}"
     type:
     - string
 
@@ -63,6 +56,13 @@ definitions:
     description: a link to project's settings page
     readOnly: true
     example: "https://semaphoreci.com/{project_owner_username}/{project_name}/settings"
+    type:
+    - string
+
+  toggle_star_url:
+    description: a link to star/unstar the project
+    readOnly: true
+    example: "https://semaphoreci.com/api/internal/{project_owner_username}/{project_name}/toggle_star"
     type:
     - string
 
@@ -94,7 +94,7 @@ properties:
     "$ref": "/schemata/branch"
   toggle_star_url:
     "$ref": "/schemata/project#/definitions/toggle_star_url"
-  project_html_url:
+  html_url:
     "$ref": "/schemata/project#/definitions/project_html_url"
   owner_html_url:
     "$ref": "/schemata/project#/definitions/owner_html_url"
