@@ -1,0 +1,27 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Star
+description: A Star indicates whether a project is starred.
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of star
+    readOnly: true
+    format: uuid
+    type:
+    - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/star#/definitions/id"
+
+
+links: []
+
+properties: {}
+
+id: schemata/star
