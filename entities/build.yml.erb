@@ -99,15 +99,21 @@ links:
   rel: instances
   title: List ✖
 
-- description: Create a new build.
+- description: Create a new build. If `commit_sha` is not present, last commit on branch will be used.
   href: "/<%= identity(:owner, :project) %>/builds"
   method: POST
   rel: create
   schema:
-    properties: {}
+    properties:
+      branch_id:
+        "$ref": "/schemata/branch#/definitions/id"
+      commit_sha:
+        "$ref": "/schemata/commit#/definitions/sha"
+    required:
+      - branch_id
     type:
     - object
-  title: Create ✖
+  title: Create
 
 - description: Info for existing build.
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>"
