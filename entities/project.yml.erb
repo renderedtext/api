@@ -25,51 +25,24 @@ definitions:
     anyOf:
     - "$ref": "/schemata/project#/definitions/id"
 
-  owner:
-    description: project owner's username
-    readOnly: true
-    example: "renderedtext"
-    type:
-    - string
-
-  starred:
-    description: indicates whether the current user has starred the project
-    readOnly: true
-    type:
-    - boolean
-
-  default_branch_name:
-    description: name of the project's default branch
-    readOnly: true
-    example: "master"
-    type:
-    - string
-
-  message:
+  status_error:
     description: a message regarding project's state
     readOnly: true
     example: "Master build failed."
     type:
     - string
 
-  toggle_star_url:
-    description: a link to star/unstar the project
+  url:
+    description: a link to the project in API
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}"
     readOnly: true
-    example: "https://semaphoreci.com/api/internal/{project_owner_username}/{project_name}/toggle_star"
     type:
     - string
 
-  project_html_url:
+  html_url:
     description: a link to the project page
     readOnly: true
     example: "https://semaphoreci.com/{project_owner_name}/{project_name}"
-    type:
-    - string
-
-  owner_html_url:
-    description: a link to the project's owner page
-    readOnly: true
-    example: "https://semaphoreci.com/{project_owner_name}"
     type:
     - string
 
@@ -92,28 +65,54 @@ definitions:
     type:
     - string
 
-links: []
+links:
+- description: Info for existing project.
+  href: "/<%= identity(:owner, :project) %>"
+  method: GET
+  rel: self
+  title: Info ✖
+
+- description: List existing projects.
+  href: "/<%= identity(:owner) %>/projects"
+  method: GET
+  rel: instances
+  title: List ✖
+
+- description: Check whether you have starred the project.
+  href: "/<%= identity(:owner, :project) %>/star"
+  method: GET
+  rel: self
+  title: Starred ✖
+
+- description: Star the project.
+  href: "/<%= identity(:owner, :project) %>/star"
+  method: PUT
+  rel: create
+  title: Star ✖
+
+- description: Unstar the project.
+  href: "/<%= identity(:owner, :project) %>/star"
+  method: DELETE
+  rel: destroy
+  title: Unstar ✖
+
 properties:
   id:
     "$ref": "/schemata/project#/definitions/id"
   name:
     "$ref": "/schemata/project#/definitions/name"
+  status_error:
+    "$ref": "/schemata/project#/definitions/status_error"
   owner:
-    "$ref": "/schemata/project#/definitions/owner"
-  starred:
-    "$ref": "/schemata/project#/definitions/starred"
-  default_branch_name:
-    "$ref": "/schemata/project#/definitions/default_branch_name"
-  message:
-    "$ref": "/schemata/project#/definitions/message"
-  last_build:
-    "$ref": "/schemata/build"
-  toggle_star_url:
-    "$ref": "/schemata/project#/definitions/toggle_star_url"
-  project_html_url:
-    "$ref": "/schemata/project#/definitions/project_html_url"
-  owner_html_url:
-    "$ref": "/schemata/project#/definitions/owner_html_url"
+    "$ref": "/schemata/owner"
+  default_branch:
+    "$ref": "/schemata/branch"
+  star:
+    "$ref": "/schemata/star"
+  url:
+    "$ref": "/schemata/project#/definitions/url"
+  html_url:
+    "$ref": "/schemata/project#/definitions/html_url"
   settings_html_url:
     "$ref": "/schemata/project#/definitions/settings_html_url"
   created_at:

@@ -21,6 +21,13 @@ definitions:
     type:
     - string
 
+  pusher_channel:
+    description: pusher channel where the branch publishes build changes
+    example: "branch-020822a75484bc915eb77c6b9e8618f6"
+    readOnly: true
+    type:
+    - string
+
   identity:
     anyOf:
     - "$ref": "/schemata/branch#/definitions/name"
@@ -82,6 +89,8 @@ properties:
     "$ref": "/schemata/branch#/definitions/id"
   name:
     "$ref": "/schemata/branch#/definitions/name"
+  pusher_channel:
+    "$ref": "/schemata/branch#/definitions/pusher_channel"
   last_build:
     "$ref": "/schemata/build"
   builds_url:
