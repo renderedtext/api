@@ -32,6 +32,13 @@ definitions:
     type:
       - string
 
+  html_url:
+    description: a link to the test_booster page
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_name}/{project_name}/test_boosters/rspec"
+    type:
+    - string
+
   type:
     description: type of Test Booster
     readOnly: false
@@ -119,12 +126,14 @@ properties:
     "$ref": "/schemata/test_booster#/definitions/id"
   name:
     "$ref": "/schemata/test_booster#/definitions/name"
-  url:
-    "$ref": "/schemata/test_booster#/definitions/url"
   type:
     "$ref": "/schemata/test_booster#/definitions/type"
   size:
     "$ref": "/schemata/test_booster#/definitions/size"
+  url:
+    "$ref": "/schemata/test_booster#/definitions/url"
+  html_url:
+    "$ref": "/schemata/test_booster#/definitions/html_url"
   created_at:
     "$ref": "/schemata/test_booster#/definitions/created_at"
   updated_at:
