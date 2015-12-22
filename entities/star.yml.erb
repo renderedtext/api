@@ -33,10 +33,30 @@ definitions:
     - "$ref": "/schemata/star#/definitions/id"
 
 
-links: []
+links:
+- description: Check whether you have starred the project.
+  href: "/<%= identity(:owner, :project) %>/star"
+  method: GET
+  rel: self
+  title: Info
+
+- description: Star the project.
+  href: "/<%= identity(:owner, :project) %>/star"
+  method: PUT
+  rel: create
+  title: Star
+
+- description: Unstar the project.
+  href: "/<%= identity(:owner, :project) %>/star"
+  method: DELETE
+  rel: destroy
+  title: Unstar
+
 
 properties:
   starred:
     "$ref": "/schemata/star#/definitions/starred"
+  url:
+    "$ref": "/schemata/star#/definitions/url"
 
 id: schemata/star
