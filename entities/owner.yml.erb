@@ -13,31 +13,66 @@ definitions:
     format: uuid
     type:
     - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/owner#/definitions/id"
+
   name:
     description: unique name of owner
     readOnly: true
     example: "renderedtext"
     type:
     - string
-  identity:
-    anyOf:
-    - "$ref": "/schemata/owner#/definitions/id"
+
+  type:
+    description: owner type
+    readOnly: true
+    example: "user"
+    type:
+    - string
+    enum:
+    - user
+    - organization
+
+  url:
+    description: a link to the owner in API
+    example: "https://semaphoreci.com/api/internal/{owner_name}"
+    readOnly: true
+    type:
+      - string
+
+  html_url:
+    description: a link to the owner in applicaiton
+    example: "https://semaphoreci.com/{owner_username}"
+    readOnly: true
+    type:
+      - string
+
   created_at:
     description: when owner was created
     format: date-time
     type:
     - string
+
   updated_at:
     description: when owner was updated
     format: date-time
     type:
     - string
+
 links: []
 properties:
   id:
     "$ref": "/schemata/owner#/definitions/id"
   name:
     "$ref": "/schemata/owner#/definitions/name"
+  type:
+    "$ref": "/schemata/owner#/definitions/type"
+  url:
+    "$ref": "/schemata/owner#/definitions/url"
+  html_url:
+    "$ref": "/schemata/owner#/definitions/html_url"
   created_at:
     "$ref": "/schemata/owner#/definitions/created_at"
   updated_at:
