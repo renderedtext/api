@@ -21,6 +21,13 @@ definitions:
     type:
     - boolean
 
+  url:
+    description: a link to the star in API
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}/star"
+    readOnly: true
+    type:
+    - string
+
   identity:
     anyOf:
     - "$ref": "/schemata/star#/definitions/id"
