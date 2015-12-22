@@ -70,31 +70,13 @@ links:
   href: "/<%= identity(:owner, :project) %>"
   method: GET
   rel: self
-  title: Info ✖
+  title: Info
 
 - description: List existing projects.
   href: "/<%= identity(:owner) %>/projects"
   method: GET
   rel: instances
   title: List ✖
-
-- description: Check whether you have starred the project.
-  href: "/<%= identity(:owner, :project) %>/star"
-  method: GET
-  rel: self
-  title: Starred ✖
-
-- description: Star the project.
-  href: "/<%= identity(:owner, :project) %>/star"
-  method: PUT
-  rel: create
-  title: Star ✖
-
-- description: Unstar the project.
-  href: "/<%= identity(:owner, :project) %>/star"
-  method: DELETE
-  rel: destroy
-  title: Unstar ✖
 
 properties:
   id:
