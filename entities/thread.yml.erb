@@ -108,11 +108,6 @@ definitions:
     - string
 
 links:
-- description: List existing threads.
-  href: "/<%= identity(:owner, :project) %>/threads"
-  method: GET
-  rel: instances
-  title: List ✖
 
 - description: Info for existing thread.
   href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>"
@@ -134,7 +129,6 @@ links:
           - boolean
     type:
     - object
-
   title: List for Build ✖
 
 - description: List threads for a deploy.
