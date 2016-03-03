@@ -68,6 +68,21 @@ definitions:
       - stopped
       - canceled
 
+  status_icon:
+    description: status icon css class
+    readOnly: true
+    example: "c-filter-projects_icon_passed"
+    type:
+      - string
+    enum:
+      - c-filter-projects_icon_passed
+      - c-filter-projects_icon_failed
+      - c-filter-projects_icon_canceled
+      - c-filter-projects_icon_stopped
+      - c-filter-projects_icon_cant-build
+      - c-filter-projects_icon_building
+      - c-filter-projects_icon_queued
+
   created_at:
     description: when build was created
     format: date-time
@@ -136,6 +151,8 @@ properties:
     "$ref": "/schemata/build#/definitions/status"
   result:
     "$ref": "/schemata/build#/definitions/result"
+  status_icon:
+    "$ref": "/schemata/build#/definitions/status_icon"
   last_commit:
     "$ref": "/schemata/commit"
   url:

@@ -15,42 +15,73 @@ definitions:
     type:
     - string
 
+  identity:
+    anyOf:
+    - "$ref": "/schemata/thread#/definitions/id"
+
   name:
     description: name of thread
     readOnly: true
     type:
     - string
 
+  status:
+    description: status of the thread
+    readOnly: true
+    example: "queued"
+    type:
+      - string
+    enum:
+      - queued
+      - running
+      - finished
+
+  result:
+    description: Type of a thread
+    readOnly: true
+    example: "failed"
+    type:
+      - string
+    enum:
+      - failed
+      - passed
+      - stopped
+      - canceled
+
+  status_icon:
+    description: status icon css class
+    readOnly: true
+    example: "c-filter-projects_icon_passed"
+    type:
+      - string
+    enum:
+      - c-filter-projects_icon_passed
+      - c-filter-projects_icon_failed
+      - c-filter-projects_icon_canceled
+      - c-filter-projects_icon_stopped
+      - c-filter-projects_icon_cant-build
+      - c-filter-projects_icon_building
+      - c-filter-projects_icon_queued
+
+  commands:
+    description: threads commands
+    type: array
+    items:
+      "$ref": "/schemata/command"
+
   url:
-    description: a link to the build
+    description: a link to the thread
     example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads{/id}"
     readOnly: true
     type:
       - string
 
-  parent_url:
-    description: a link to the parent of the thread
+  build_url:
+    description: a link to the parent build of the thread
     example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/builds{/id}"
     readOnly: true
     type:
       - string
-
-  commands_url:
-    description: a link to the parent of the thread
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/threads/{thread_id}/commands"
-    readOnly: true
-    type:
-      - string
-
-  identity:
-    anyOf:
-    - "$ref": "/schemata/thread#/definitions/id"
-
-  created_at:
-    description: when thread was created
-    format: date-time
-    type:
-    - string
 
   started_at:
     description: when thread was started
@@ -64,34 +95,19 @@ definitions:
     type:
     - string
 
+  created_at:
+    description: when thread was created
+    format: date-time
+    type:
+    - string
+
   updated_at:
     description: when thread was updated
     format: date-time
     type:
     - string
 
-  commands:
-    description: threads commands
-    type: array
-    items:
-      "$ref": "/schemata/command"
-
 links:
-- description: List existing threads.
-  href: "/<%= identity(:owner, :project) %>/threads"
-  method: GET
-  rel: instances
-  schema:
-    properties:
-      with_command_output:
-        description: should the command output be included - default is false
-        example: "true"
-        default: false
-        type:
-          - boolean
-    type:
-    - object
-  title: List ✖
 
 - description: Info for existing thread.
   href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>"
@@ -113,7 +129,6 @@ links:
           - boolean
     type:
     - object
-
   title: List for Build ✖
 
 - description: List threads for a deploy.
@@ -137,20 +152,24 @@ properties:
     "$ref": "/schemata/thread#/definitions/id"
   name:
     "$ref": "/schemata/thread#/definitions/name"
-  url:
-    "$ref": "/schemata/thread#/definitions/url"
-  parent_url:
-    "$ref": "/schemata/thread#/definitions/parent_url"
-  commands_url:
-    "$ref": "/schemata/thread#/definitions/commands_url"
+  status:
+    "$ref": "/schemata/thread#/definitions/status"
+  result:
+    "$ref": "/schemata/thread#/definitions/result"
+  status_icon:
+    "$ref": "/schemata/thread#/definitions/status_icon"
   commands:
     "$ref": "/schemata/thread#/definitions/commands"
-  created_at:
-    "$ref": "/schemata/thread#/definitions/created_at"
+  url:
+    "$ref": "/schemata/thread#/definitions/url"
+  build_url:
+    "$ref": "/schemata/thread#/definitions/build_url"
   started_at:
     "$ref": "/schemata/thread#/definitions/started_at"
   finished_at:
     "$ref": "/schemata/thread#/definitions/finished_at"
   updated_at:
     "$ref": "/schemata/thread#/definitions/updated_at"
+  created_at:
+    "$ref": "/schemata/thread#/definitions/created_at"
 id: schemata/thread
