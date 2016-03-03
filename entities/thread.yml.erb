@@ -112,16 +112,6 @@ links:
   href: "/<%= identity(:owner, :project) %>/threads"
   method: GET
   rel: instances
-  schema:
-    properties:
-      with_command_output:
-        description: should the command output be included - default is false
-        example: "true"
-        default: false
-        type:
-          - boolean
-    type:
-    - object
   title: List ✖
 
 - description: Info for existing thread.
