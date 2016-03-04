@@ -14,6 +14,10 @@ definitions:
     type:
     - string
 
+  identity:
+    anyOf:
+    - "$ref": "/schemata/project#/definitions/id"
+
   name:
     description: unique name of project
     readOnly: true
@@ -21,20 +25,16 @@ definitions:
     type:
     - string
 
-  identity:
-    anyOf:
-    - "$ref": "/schemata/project#/definitions/id"
-
-  status_error:
-    description: a message regarding project's state
-    readOnly: true
-    example: "Master build failed."
-    type:
-    - string
-
   url:
     description: a link to the project in API
     example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}"
+    readOnly: true
+    type:
+    - string
+
+  default_branch_url:
+    description: a link to the project's default branch
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}/{branch_name}"
     readOnly: true
     type:
     - string
@@ -83,16 +83,14 @@ properties:
     "$ref": "/schemata/project#/definitions/id"
   name:
     "$ref": "/schemata/project#/definitions/name"
-  status_error:
-    "$ref": "/schemata/project#/definitions/status_error"
-  owner:
-    "$ref": "/schemata/owner"
-  default_branch:
-    "$ref": "/schemata/branch"
   star:
     "$ref": "/schemata/star"
+  owner:
+    "$ref": "/schemata/owner"
   url:
     "$ref": "/schemata/project#/definitions/url"
+  default_branch_url:
+    "$ref": "/schemata/project#/definitions/default_branch_url"
   html_url:
     "$ref": "/schemata/project#/definitions/html_url"
   settings_html_url:
