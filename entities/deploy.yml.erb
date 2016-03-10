@@ -20,6 +20,24 @@ definitions:
     type:
       - integer
 
+  url:
+    description: a link to the deploy
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys/{id}"
+    readOnly: true
+    type:
+      - string
+
+  html_url:
+    description: a link to the deploy in applicaiton
+    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/deploys/{deploy_id}"
+    readOnly: true
+    type:
+      - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/deploy#/definitions/id"
+
   status:
     description: status of the deploy
     readOnly: true
@@ -32,7 +50,7 @@ definitions:
       - finished
 
   result:
-    description: Type of a thread
+    description: result of the deploy
     readOnly: true
     example: "failed"
     type:
@@ -43,46 +61,40 @@ definitions:
       - stopped
       - canceled
 
-  url:
-    description: a link to the deploy
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}"
+  author_id:
+    description: ID of the deploy author
     readOnly: true
+    example: 4
     type:
-      - string
+    - integer
 
-  html_url:
-    description: a link to the build in applicaiton
-    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/deploys/{deploy_id}"
+  author_email:
+    description: email of the deploy author
     readOnly: true
+    example: "johnsmith@example.com"
     type:
-      - string
+    - string
 
-  identity:
-    anyOf:
-    - "$ref": "/schemata/deploy#/definitions/id"
-
-  status:
-    description: status of deploy
+  message:
+    description: deploy message
     readOnly: true
-    example: "queued"
+    example: "Bunch of bug fixes and performance optimization"
     type:
-      - string
-    enum:
-      - queued
-      - running
-      - finished
+    - string
 
-  result:
-    description: result of deploy
+  server_name:
+    description: name of the server from which deploy was launched
     readOnly: true
-    example: "failed"
+    example: "production"
     type:
-      - string
-    enum:
-      - failed
-      - passed
-      - stopped
-      - canceled
+    - string
+
+  server_url:
+    description: URL of the server from which deploy was launched
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/servers/{server_name}"
+    type:
+    - string
 
   created_at:
     description: when deploy was created
@@ -130,14 +142,32 @@ links:
 properties:
   id:
     "$ref": "/schemata/deploy#/definitions/id"
+  message:
+    "$ref": "/schemata/deploy#/definitions/message"
+  number:
+    "$ref": "/schemata/deploy#/definitions/number"
+  status:
+    "$ref": "/schemata/deploy#/definitions/status"
+  result:
+    "$ref": "/schemata/deploy#/definitions/result"
   url:
     "$ref": "/schemata/deploy#/definitions/url"
+  html_url:
+    "$ref": "/schemata/deploy#/definitions/html_url"
+  author_id:
+    "$ref": "/schemata/deploy#/definitions/author_id"
+  author_email:
+    "$ref": "/schemata/deploy#/definitions/author_email"
+  server_name:
+    "$ref": "/schemata/deploy#/definitions/server_name"
+  server_url:
+    "$ref": "/schemata/deploy#/definitions/server_url"
   created_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/deploy#/definitions/updated_at"
   started_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
   finished_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
-  updated_at:
-    "$ref": "/schemata/deploy#/definitions/updated_at"
 id: schemata/deploy
