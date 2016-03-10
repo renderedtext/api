@@ -14,9 +14,45 @@ definitions:
     type:
     - string
 
+  number:
+    description: a number of the deploy
+    readOnly: true
+    type:
+      - integer
+
+  status:
+    description: status of the deploy
+    readOnly: true
+    example: "queued"
+    type:
+      - string
+    enum:
+      - queued
+      - running
+      - finished
+
+  result:
+    description: Type of a thread
+    readOnly: true
+    example: "failed"
+    type:
+      - string
+    enum:
+      - failed
+      - passed
+      - stopped
+      - canceled
+
   url:
     description: a link to the deploy
     example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}"
+    readOnly: true
+    type:
+      - string
+
+  html_url:
+    description: a link to the build in applicaiton
+    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/deploys/{deploy_id}"
     readOnly: true
     type:
       - string
