@@ -49,6 +49,21 @@ definitions:
       - running
       - finished
 
+  status_icon:
+    description: status icon css class
+    readOnly: true
+    example: "c-filter-projects_icon_passed"
+    type:
+      - string
+    enum:
+      - c-filter-projects_icon_passed
+      - c-filter-projects_icon_failed
+      - c-filter-projects_icon_canceled
+      - c-filter-projects_icon_stopped
+      - c-filter-projects_icon_cant-build
+      - c-filter-projects_icon_building
+      - c-filter-projects_icon_queued
+
   result:
     description: result of the deploy
     readOnly: true
@@ -89,7 +104,7 @@ definitions:
     type:
     - string
 
-  server_url:
+  server_html_url:
     description: URL of the server from which deploy was launched
     readOnly: true
     example: "https://semaphoreci.com/{project_owner_username}/{project_name}/servers/{server_name}"
@@ -135,7 +150,7 @@ links:
 
 - description: Deploy a build.
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/deploys"
-  method: POST
+  method: GET
   rel: instances
   title: List for Build ✖
 
@@ -148,6 +163,8 @@ properties:
     "$ref": "/schemata/deploy#/definitions/number"
   status:
     "$ref": "/schemata/deploy#/definitions/status"
+  status_icon:
+    "$ref": "/schemata/deploy#/definitions/status_icon"
   result:
     "$ref": "/schemata/deploy#/definitions/result"
   url:
@@ -160,8 +177,8 @@ properties:
     "$ref": "/schemata/deploy#/definitions/author_email"
   server_name:
     "$ref": "/schemata/deploy#/definitions/server_name"
-  server_url:
-    "$ref": "/schemata/deploy#/definitions/server_url"
+  server_html_url:
+    "$ref": "/schemata/deploy#/definitions/server_html_url"
   created_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
   updated_at:
