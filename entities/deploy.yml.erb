@@ -147,19 +147,19 @@ links:
   href: "/<%= identity(:owner, :project) %>/deploys"
   method: GET
   rel: instances
-  title: List ✖
+  title: List
 
 - description: Info for existing deploy.
   href: "/<%= identity(:owner, :project) %>/deploys/<%= identity(:deploy) %>"
   method: GET
   rel: self
-  title: Info ✖
+  title: Info
 
 - description: Deploy a build.
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/deploys"
   method: GET
   rel: instances
-  title: List for Build ✖
+  title: List for Build
 
 properties:
   id:
