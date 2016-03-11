@@ -14,9 +14,22 @@ definitions:
     type:
     - string
 
+  number:
+    description: a number of the deploy
+    readOnly: true
+    type:
+      - integer
+
   url:
     description: a link to the deploy
-    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys{/id}"
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/deploys/{id}"
+    readOnly: true
+    type:
+      - string
+
+  html_url:
+    description: a link to the deploy in applicaiton
+    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/deploys/{deploy_id}"
     readOnly: true
     type:
       - string
@@ -26,7 +39,7 @@ definitions:
     - "$ref": "/schemata/deploy#/definitions/id"
 
   status:
-    description: status of deploy
+    description: status of the deploy
     readOnly: true
     example: "queued"
     type:
@@ -36,8 +49,23 @@ definitions:
       - running
       - finished
 
+  status_icon:
+    description: status icon css class
+    readOnly: true
+    example: "c-filter-projects_icon_passed"
+    type:
+      - string
+    enum:
+      - c-filter-projects_icon_passed
+      - c-filter-projects_icon_failed
+      - c-filter-projects_icon_canceled
+      - c-filter-projects_icon_stopped
+      - c-filter-projects_icon_cant-build
+      - c-filter-projects_icon_building
+      - c-filter-projects_icon_queued
+
   result:
-    description: result of deploy
+    description: result of the deploy
     readOnly: true
     example: "failed"
     type:
@@ -47,6 +75,48 @@ definitions:
       - passed
       - stopped
       - canceled
+
+  author_name:
+    description: name of the deploy author
+    readOnly: true
+    example: "johnsmith"
+    type:
+    - string
+
+  author_email:
+    description: email of the deploy author
+    readOnly: true
+    example: "johnsmith@example.com"
+    type:
+    - string
+
+  author_html_url:
+    description: in app URL of the deploy author
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_username}"
+    type:
+    - string
+
+  message:
+    description: deploy message
+    readOnly: true
+    example: "Bunch of bug fixes and performance optimization"
+    type:
+    - string
+
+  server_name:
+    description: name of the server from which deploy was launched
+    readOnly: true
+    example: "production"
+    type:
+    - string
+
+  server_html_url:
+    description: URL of the server from which deploy was launched
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_username}/{project_name}/servers/{server_name}"
+    type:
+    - string
 
   created_at:
     description: when deploy was created
@@ -87,21 +157,43 @@ links:
 
 - description: Deploy a build.
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/deploys"
-  method: POST
+  method: GET
   rel: instances
   title: List for Build ✖
 
 properties:
   id:
     "$ref": "/schemata/deploy#/definitions/id"
+  message:
+    "$ref": "/schemata/deploy#/definitions/message"
+  number:
+    "$ref": "/schemata/deploy#/definitions/number"
+  status:
+    "$ref": "/schemata/deploy#/definitions/status"
+  status_icon:
+    "$ref": "/schemata/deploy#/definitions/status_icon"
+  result:
+    "$ref": "/schemata/deploy#/definitions/result"
   url:
     "$ref": "/schemata/deploy#/definitions/url"
+  html_url:
+    "$ref": "/schemata/deploy#/definitions/html_url"
+  author_email:
+    "$ref": "/schemata/deploy#/definitions/author_email"
+  author_name:
+    "$ref": "/schemata/deploy#/definitions/author_name"
+  author_html_url:
+    "$ref": "/schemata/deploy#/definitions/author_html_url"
+  server_name:
+    "$ref": "/schemata/deploy#/definitions/server_name"
+  server_html_url:
+    "$ref": "/schemata/deploy#/definitions/server_html_url"
   created_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/deploy#/definitions/updated_at"
   started_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
   finished_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
-  updated_at:
-    "$ref": "/schemata/deploy#/definitions/updated_at"
 id: schemata/deploy
