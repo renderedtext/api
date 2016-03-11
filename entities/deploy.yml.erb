@@ -76,17 +76,24 @@ definitions:
       - stopped
       - canceled
 
-  author_id:
-    description: ID of the deploy author
+  author_name:
+    description: name of the deploy author
     readOnly: true
-    example: 4
+    example: "johnsmith"
     type:
-    - integer
+    - string
 
   author_email:
     description: email of the deploy author
     readOnly: true
     example: "johnsmith@example.com"
+    type:
+    - string
+
+  author_html_url:
+    description: in app URL of the deploy author
+    readOnly: true
+    example: "https://semaphoreci.com/{project_owner_username}"
     type:
     - string
 
@@ -171,10 +178,12 @@ properties:
     "$ref": "/schemata/deploy#/definitions/url"
   html_url:
     "$ref": "/schemata/deploy#/definitions/html_url"
-  author_id:
-    "$ref": "/schemata/deploy#/definitions/author_id"
   author_email:
     "$ref": "/schemata/deploy#/definitions/author_email"
+  author_name:
+    "$ref": "/schemata/deploy#/definitions/author_name"
+  author_html_url:
+    "$ref": "/schemata/deploy#/definitions/author_html_url"
   server_name:
     "$ref": "/schemata/deploy#/definitions/server_name"
   server_html_url:
