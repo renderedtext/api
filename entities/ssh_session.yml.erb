@@ -1,0 +1,102 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: SshSession
+description: FIXME
+stability: prototype
+strictProperties: true
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of the ssh_session
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  source_job_hash_id:
+    description: unique identifier of the ssh_session's source job
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  identity:
+    anyOf:
+    - "$ref": "/schemata/ssh_session#/definitions/id"
+  collaborators_with_sessions:
+    description: collaborators with active ssh sessions on thread
+    readOnly: true
+    type:
+    - array
+  missing_ssh_key_html_url:
+    description: a link to the page to add public ssh keys
+    readOnly: true
+    type:
+    - string
+  start_ssh_session_url:
+    description: a link to start an ssh session
+    readOnly: true
+    type:
+    - string
+  stop_ssh_session_url:
+    description: a link to stop an ssh session
+    readOnly: true
+    type:
+    - string
+  pusher_chanel:
+    description: name of pusher chanel
+    readOnly: true
+    type:
+    - string
+  ready_at:
+    description: when ssh_session started
+    format: date-time
+    type:
+    - string
+  ssh_command:
+    description: command to enter build server
+    readOnly: true
+    type:
+    - string
+  state:
+    description: state of ssh_session
+    readOnly: true
+    type:
+    - string
+    enum:
+      - missing_ssh_key
+      - ready
+      - penging
+      - starting
+      - stopping
+      - not_created
+links:
+- description: Create a new ssh_session.
+  href: "/ssh_sessions"
+  method: POST
+  rel: self
+  title: Create ✖
+- description: Stop an existing ssh_session.
+  href: "/ssh_sessions/<%= identity(:ssh_session) %>/stop"
+  method: POST
+  rel: self
+  title: Stop ✖
+properties:
+  source_job_hash_id:
+    "$ref": "/schemata/ssh_session#/definitions/source_job_hash_id"
+  collaborators_with_sessions:
+    "$ref": "/schemata/ssh_session#/definitions/collaborators_with_sessions"
+  missing_ssh_key_html_url:
+    "$ref": "/schemata/ssh_session#/definitions/missing_ssh_key_html_url"
+  start_ssh_session_url:
+    "$ref": "/schemata/ssh_session#/definitions/start_ssh_session_url"
+  stop_ssh_session_url:
+    "$ref": "/schemata/ssh_session#/definitions/stop_ssh_session_url"
+  pusher_chanel:
+    "$ref": "/schemata/ssh_session#/definitions/pusher_chanel"
+  ready_at:
+    "$ref": "/schemata/ssh_session#/definitions/ready_at"
+  ssh_command:
+    "$ref": "/schemata/ssh_session#/definitions/ssh_command"
+  state:
+    "$ref": "/schemata/ssh_session#/definitions/state"
+id: schemata/ssh_session
