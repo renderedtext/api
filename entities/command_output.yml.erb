@@ -1,0 +1,42 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: CommandOutput
+description: Represents a output for command
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of command_output
+    readOnly: true
+    format: uuid
+    type:
+    - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/command#/definitions/id"
+
+  output:
+    description: command output
+    readOnly: true
+    example: "This is command output"
+    type:
+      - string
+
+links:
+- description: Output for command.
+  href: "/<%= identity(:owner, :project) %>/command_output/<%= identity(:command) %>"
+  method: GET
+  rel: self
+  title: Info ✖
+
+properties:
+  id:
+    "$ref": "/schemata/command_output#/definitions/id"
+  output:
+    "$ref": "/schemata/command_output#/definitions/output"
+
+id: schemata/command_output
