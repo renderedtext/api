@@ -29,6 +29,13 @@ definitions:
     type:
       - string
 
+  command_output_url:
+    description: a link to the command output
+    example: "https://semaphoreci.com/api/internal/renderedtext/semaphore/command_output/{id}"
+    readOnly: true
+    type:
+      - string
+
   identity:
     anyOf:
     - "$ref": "/schemata/command#/definitions/id"
@@ -113,6 +120,8 @@ properties:
     "$ref": "/schemata/command#/definitions/result"
   thread_url:
     "$ref": "/schemata/command#/definitions/thread_url"
+  command_output_url:
+    "$ref": "/schemata/command#/definitions/command_output_url"
   started_at:
     "$ref": "/schemata/command#/definitions/started_at"
   finished_at:
