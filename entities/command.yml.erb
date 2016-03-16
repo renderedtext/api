@@ -44,30 +44,7 @@ definitions:
       - build_thread
       - post_thread
 
-  status:
-    description: status of the command
-    readOnly: true
-    example: "queued"
-    type:
-      - string
-    enum:
-      - pending
-      - running
-      - finished
-
   result:
-    description: command result
-    readOnly: true
-    example: "failed"
-    type:
-      - string
-    enum:
-      - failed
-      - passed
-      - stopped
-      - canceled
-
-  exit_status:
     description: command result
     readOnly: true
     example: 0
@@ -132,12 +109,8 @@ properties:
     "$ref": "/schemata/command#/definitions/url"
   type:
     "$ref": "/schemata/command#/definitions/type"
-  status:
-    "$ref": "/schemata/command#/definitions/status"
   result:
     "$ref": "/schemata/command#/definitions/result"
-  exit_status:
-    "$ref": "/schemata/command#/definitions/exit_status"
   thread_url:
     "$ref": "/schemata/command#/definitions/thread_url"
   started_at:
