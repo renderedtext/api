@@ -13,15 +13,15 @@ definitions:
     format: uuid
     type:
     - string
-  source_job_hash_id:
-    description: unique identifier of the ssh_session's source job
+  identity:
+    anyOf:
+    - "$ref": "/schemata/ssh_session#/definitions/id"
+  source_thread_id:
+    description: unique identifier of the ssh_session's source thread
     readOnly: true
     format: uuid
     type:
     - string
-  identity:
-    anyOf:
-    - "$ref": "/schemata/ssh_session#/definitions/id"
   collaborators_with_sessions:
     description: collaborators with active ssh sessions on thread
     readOnly: true
@@ -81,8 +81,10 @@ links:
   rel: self
   title: Stop ✖
 properties:
-  source_job_hash_id:
-    "$ref": "/schemata/ssh_session#/definitions/source_job_hash_id"
+  id:
+    "$ref": "/schemata/ssh_session#/definitions/id"
+  source_thread_id:
+    "$ref": "/schemata/ssh_session#/definitions/source_thread_id"
   collaborators_with_sessions:
     "$ref": "/schemata/ssh_session#/definitions/collaborators_with_sessions"
   missing_ssh_key_html_url:
