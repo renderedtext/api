@@ -24,6 +24,20 @@ definitions:
     type:
       - integer
 
+  stopper_name:
+    description: name of the person who stopped the build
+    example: "Monalisa Octocat"
+    readOnly: true
+    type:
+    - string
+
+  stopper_email:
+    description: email address of the person who stopped the build
+    example: "support@github.com"
+    readOnly: true
+    type:
+    - string
+
   url:
     description: a link to the build in API
     example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds{/id}"
@@ -51,6 +65,42 @@ definitions:
     readOnly: true
     type:
       - string
+
+  next_build_html_url:
+    description: a link to next build on the same branch
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id + 1}"
+    readOnly: true
+    type:
+      - string
+
+  previous_build_html_url:
+    description: a link to previous build on the same branch
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id - 1}"
+    readOnly: true
+    type:
+      - string
+
+  actions:
+    description: build actions
+    type:
+    - object
+    properties:
+      remove_from_queue_html_url:
+        description: a link to remove the build from queue
+        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}"
+        type: string
+      stop_html_url:
+        description: a link to stop the build
+        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/stop"
+        type: string
+      rebuild_html_url:
+        description: a link for triggering rebuild
+        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/rebuild"
+        type: string
+      manual_deploy_html_url:
+        description: a link for triggering manual deploy
+        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/manual_deploy"
+        type: string
 
   status:
     description: status of the build
@@ -89,6 +139,19 @@ definitions:
       - c-filter-projects_icon_cant-build
       - c-filter-projects_icon_building
       - c-filter-projects_icon_queued
+
+  status_label:
+    description: build lablel css class
+    readOnly: true
+    example: "label-primary"
+    type:
+      - string
+    enum:
+      - label-primary
+      - label-danger
+      - label-queued
+      - label-building
+      - label-canceled
 
   created_at:
     description: when build was created
@@ -160,10 +223,22 @@ properties:
     "$ref": "/schemata/build#/definitions/result"
   status_icon:
     "$ref": "/schemata/build#/definitions/status_icon"
+  status_label:
+    "$ref": "/schemata/build#/definitions/status_label"
   last_commit:
     "$ref": "/schemata/commit"
+  stopper_name:
+    "$ref": "/schemata/build#/definitions/stopper_name"
+  stopper_email:
+    "$ref": "/schemata/build#/definitions/stopper_email"
+  actions:
+    "$ref": "/schemata/build#/definitions/actions"
   url:
     "$ref": "/schemata/build#/definitions/url"
+  next_build_html_url:
+    "$ref": "/schemata/build#/definitions/next_build_html_url"
+  previous_build_html_url:
+    "$ref": "/schemata/build#/definitions/previous_build_html_url"
   html_url:
     "$ref": "/schemata/build#/definitions/html_url"
   threads_url:
