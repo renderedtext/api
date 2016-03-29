@@ -80,27 +80,12 @@ definitions:
     type:
       - string
 
-  actions:
-    description: build actions
+  manual_deploy_html_url:
+    description: a link for triggering manual deploy
+    example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/manual_deploy"
+    readOnly: true
     type:
-    - object
-    properties:
-      remove_from_queue_html_url:
-        description: a link to remove the build from queue
-        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}"
-        type: string
-      stop_html_url:
-        description: a link to stop the build
-        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/stop"
-        type: string
-      rebuild_html_url:
-        description: a link for triggering rebuild
-        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/rebuild"
-        type: string
-      manual_deploy_html_url:
-        description: a link for triggering manual deploy
-        example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/manual_deploy"
-        type: string
+      - string
 
   status:
     description: status of the build
@@ -141,6 +126,21 @@ definitions:
       - c-filter-projects_icon_queued
 
   status_label:
+    description: build status lablel(could contain html)
+    readOnly: true
+    example: "passed"
+    type:
+      - string
+    enum:
+      - failed
+      - queued
+      - passed
+      - stopped
+      - canceled
+      - "::html-spinner:: building"
+      - "::html-spinner:: stopping"
+
+  status_label_class:
     description: build lablel css class
     readOnly: true
     example: "label-primary"
@@ -212,6 +212,29 @@ links:
   rel: instances
   title: List for Branch ✖
 
+- description: Update an existing build. (Stop or re-run build)
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>"
+  method: PATCH
+  rel: update
+  schema:
+    properties:
+      status:
+        "$ref": "/schemata/build#/definitions/status"
+        enum:
+          - queued
+          - stopping
+    required:
+      - status
+    type:
+    - object
+  title: Update
+
+- description: Delete an existing build. (Remove from queue)
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>"
+  method: DELETE
+  rel: destroy
+  title: Delete
+
 properties:
   id:
     "$ref": "/schemata/build#/definitions/id"
@@ -225,14 +248,14 @@ properties:
     "$ref": "/schemata/build#/definitions/status_icon"
   status_label:
     "$ref": "/schemata/build#/definitions/status_label"
+  status_label_class:
+    "$ref": "/schemata/build#/definitions/status_label_class"
   last_commit:
     "$ref": "/schemata/commit"
   stopper_name:
     "$ref": "/schemata/build#/definitions/stopper_name"
   stopper_email:
     "$ref": "/schemata/build#/definitions/stopper_email"
-  actions:
-    "$ref": "/schemata/build#/definitions/actions"
   url:
     "$ref": "/schemata/build#/definitions/url"
   next_build_html_url:
@@ -241,8 +264,6 @@ properties:
     "$ref": "/schemata/build#/definitions/previous_build_html_url"
   html_url:
     "$ref": "/schemata/build#/definitions/html_url"
-  threads_url:
-    "$ref": "/schemata/build#/definitions/threads_url"
   created_at:
     "$ref": "/schemata/build#/definitions/created_at"
   updated_at:

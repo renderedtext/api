@@ -78,12 +78,6 @@ links:
   rel: self
   title: Info
 
-- description: Re-build last revision for existing branch.
-  href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>/rebuild"
-  method: POST
-  rel: self
-  title: Rebuild ✖
-
 properties:
   id:
     "$ref": "/schemata/branch#/definitions/id"
