@@ -45,6 +45,13 @@ definitions:
     type:
       - string
 
+  tips_url:
+    description: a link to build's tips
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id}/tips"
+    readOnly: true
+    type:
+      - string
+
   status:
     description: status of the build
     readOnly: true
