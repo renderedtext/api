@@ -52,13 +52,6 @@ definitions:
     type:
       - string
 
-  threads_url:
-    description: a link to build's threads
-    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id}/threads"
-    readOnly: true
-    type:
-      - string
-
   tips_url:
     description: a link to build's tips
     example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id}/tips"
@@ -258,6 +251,8 @@ properties:
     "$ref": "/schemata/build#/definitions/stopper_email"
   url:
     "$ref": "/schemata/build#/definitions/url"
+  tips_url:
+    "$ref": "/schemata/build#/definitions/tips_url"
   next_build_html_url:
     "$ref": "/schemata/build#/definitions/next_build_html_url"
   previous_build_html_url:
