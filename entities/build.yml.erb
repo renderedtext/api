@@ -24,6 +24,20 @@ definitions:
     type:
       - integer
 
+  stopper_name:
+    description: name of the person who stopped the build
+    example: "Monalisa Octocat"
+    readOnly: true
+    type:
+    - string
+
+  stopper_email:
+    description: email address of the person who stopped the build
+    example: "support@github.com"
+    readOnly: true
+    type:
+    - string
+
   url:
     description: a link to the build in API
     example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds{/id}"
@@ -38,16 +52,30 @@ definitions:
     type:
       - string
 
-  threads_url:
-    description: a link to build's threads
-    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id}/threads"
+  tips_url:
+    description: a link to build's tips
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id}/tips"
     readOnly: true
     type:
       - string
 
-  tips_url:
-    description: a link to build's tips
-    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id}/tips"
+  next_build_html_url:
+    description: a link to next build on the same branch
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id + 1}"
+    readOnly: true
+    type:
+      - string
+
+  previous_build_html_url:
+    description: a link to previous build on the same branch
+    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/builds/{build_id - 1}"
+    readOnly: true
+    type:
+      - string
+
+  manual_deploy_html_url:
+    description: a link for triggering manual deploy
+    example: "https://semaphoreci.com/{project_owner_name/{project_name}/builds/{build_id}/manual_deploy"
     readOnly: true
     type:
       - string
@@ -89,6 +117,34 @@ definitions:
       - c-filter-projects_icon_cant-build
       - c-filter-projects_icon_building
       - c-filter-projects_icon_queued
+
+  status_label:
+    description: build status lablel(could contain html)
+    readOnly: true
+    example: "passed"
+    type:
+      - string
+    enum:
+      - failed
+      - queued
+      - passed
+      - stopped
+      - canceled
+      - "::html-spinner:: building"
+      - "::html-spinner:: stopping"
+
+  status_label_class:
+    description: build lablel css class
+    readOnly: true
+    example: "label-primary"
+    type:
+      - string
+    enum:
+      - label-primary
+      - label-danger
+      - label-queued
+      - label-building
+      - label-canceled
 
   created_at:
     description: when build was created
@@ -149,6 +205,29 @@ links:
   rel: instances
   title: List for Branch ✖
 
+- description: Update an existing build. (Stop or re-run build)
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>"
+  method: PATCH
+  rel: update
+  schema:
+    properties:
+      status:
+        "$ref": "/schemata/build#/definitions/status"
+        enum:
+          - queued
+          - stopping
+    required:
+      - status
+    type:
+    - object
+  title: Update
+
+- description: Delete an existing build. (Remove from queue)
+  href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>"
+  method: DELETE
+  rel: destroy
+  title: Delete
+
 properties:
   id:
     "$ref": "/schemata/build#/definitions/id"
@@ -160,14 +239,26 @@ properties:
     "$ref": "/schemata/build#/definitions/result"
   status_icon:
     "$ref": "/schemata/build#/definitions/status_icon"
+  status_label:
+    "$ref": "/schemata/build#/definitions/status_label"
+  status_label_class:
+    "$ref": "/schemata/build#/definitions/status_label_class"
   last_commit:
     "$ref": "/schemata/commit"
+  stopper_name:
+    "$ref": "/schemata/build#/definitions/stopper_name"
+  stopper_email:
+    "$ref": "/schemata/build#/definitions/stopper_email"
   url:
     "$ref": "/schemata/build#/definitions/url"
+  tips_url:
+    "$ref": "/schemata/build#/definitions/tips_url"
+  next_build_html_url:
+    "$ref": "/schemata/build#/definitions/next_build_html_url"
+  previous_build_html_url:
+    "$ref": "/schemata/build#/definitions/previous_build_html_url"
   html_url:
     "$ref": "/schemata/build#/definitions/html_url"
-  threads_url:
-    "$ref": "/schemata/build#/definitions/threads_url"
   created_at:
     "$ref": "/schemata/build#/definitions/created_at"
   updated_at:

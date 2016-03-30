@@ -120,7 +120,7 @@ links:
   href: "/<%= identity(:owner, :project) %>/threads/<%= identity(:thread) %>"
   method: GET
   rel: self
-  title: Info ✖
+  title: Info
 
 - description: List threads for a build.
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/threads"
@@ -136,7 +136,7 @@ links:
           - boolean
     type:
     - object
-  title: List for Build ✖
+  title: List for Build
 
 - description: List threads for a deploy.
   href: "/<%= identity(:owner, :project) %>/deploys/<%= identity(:deploy) %>/threads"
