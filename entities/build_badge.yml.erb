@@ -15,6 +15,16 @@ definitions:
     type:
     - string
 
+  type:
+    description: Badge style
+    readOnly: true
+    example: "semaphore"
+    type:
+      - string
+    enum:
+      - semaphore
+      - shield
+
   markdown:
     description: A markdown version of the badge
     example: "[![Build Status](https://semaphoreci.com/api/v1/projects/123/456/badge.svg)](https://semaphoreci.com/j-keravica/color-reader)"
@@ -55,6 +65,8 @@ links:
   title: Info ✖
 
 properties:
+  type:
+    "$ref": "/schemata/build_badge#/definitions/type"
   markdown:
     "$ref": "/schemata/build_badge#/definitions/markdown"
   html:
