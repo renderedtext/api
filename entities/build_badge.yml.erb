@@ -8,16 +8,12 @@ type:
 - object
 
 definitions:
-  id:
-    description: unique identifier of a badge
-    readOnly: true
-    format: uuid
-    type:
-    - string
-
   identity:
     anyOf:
-    - "$ref": "/schemata/build_badge#/definitions/id"
+    - "$ref": "/schemata/build_badge#/definitions/markdown"
+    - "$ref": "/schemata/build_badge#/definitions/html"
+    - "$ref": "/schemata/build_badge#/definitions/textile"
+    - "$ref": "/schemata/build_badge#/definitions/svg"
 
   type:
     description: Badge style
