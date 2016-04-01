@@ -1,0 +1,67 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Build badge
+description: A build badge is a set of embeddable code options for displaying build status of a Semaphore project
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of a badge
+    readOnly: true
+    format: uuid
+    type:
+    - string
+
+  markdown:
+    description: A markdown version of the badge
+    example: "[![Build Status](https://semaphoreci.com/api/v1/projects/123/456/badge.svg)](https://semaphoreci.com/j-keravica/color-reader)"
+    readOnly: true
+    type:
+    - string
+
+  html:
+    description: An HTML version of the badge
+    example: "<a href='https://semaphoreci.com/j-keravica/color-reader'> <img src='https://semaphoreci.com/api/v1/projects/123/456/badge.svg' alt='Build Status'></a>"
+    readOnly: true
+    type:
+    - string
+
+  textile:
+    description: A textile version of the badge
+    example: "!https://semaphoreci.com/api/v1/projects/123/456/badge.svg(Build Status)!:https://semaphoreci.com/j-keravica/color-reader"
+    readOnly: true
+    type:
+    - string
+
+  svg:
+    description: An SVG version of the badge
+    example: "https://semaphoreci.com/api/v1/projects/123/456/badge.svg"
+    readOnly: true
+    type:
+    - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/build_badge#/definitions/id"
+
+links:
+- description: Get embedding options for a build badge
+  href: "/<%= identity(:owner, :project) %>"
+  method: GET
+  rel: self
+  title: Info ✖
+
+properties:
+  markdown:
+    "$ref": "/schemata/build_badge#/definitions/markdown"
+  html:
+    "$ref": "/schemata/build_badge#/definitions/html"
+  textile:
+    "$ref": "/schemata/build_badge#/definitions/textile"
+  svg:
+    "$ref": "/schemata/build_badge#/definitions/svg"
+
+id: schemata/build_badge
