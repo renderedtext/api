@@ -15,6 +15,10 @@ definitions:
     type:
     - string
 
+  identity:
+    anyOf:
+    - "$ref": "/schemata/build_badge#/definitions/id"
+
   type:
     description: Badge style
     readOnly: true
@@ -53,16 +57,18 @@ definitions:
     type:
     - string
 
-  identity:
-    anyOf:
-    - "$ref": "/schemata/build_badge#/definitions/id"
-
 links:
-- description: Get embedding options for a build badge
-  href: "/<%= identity(:owner, :project) %>"
+- description: Get a list of badges for all branches
+  href: "/<%= identity(:owner, :project) %>/badges"
   method: GET
   rel: self
-  title: Info ✖
+  title: List badges ✖
+
+- description: Get a list of badges for a branch
+  href: "/<%= identity(:owner, :project) %>/branches/<%= identity(:branch) %>/badges"
+  method: GET
+  rel: self
+  title: List badges for branch ✖
 
 properties:
   type:
