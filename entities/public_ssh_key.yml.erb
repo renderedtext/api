@@ -1,0 +1,51 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: PublicSshKey
+description: User's public SSH key on Semaphore
+stability: prototype
+strictProperties: true
+type:
+- object
+
+definitions:
+  id:
+    description: unique identifier of a public SSH key
+    readOnly: true
+    type:
+    - integer
+
+  name:
+    description: public SSH key's name
+    example: "devbox"
+    readOnly: true
+    type:
+    - string
+
+  value:
+    description: public SSH key's value
+    example: "ssh-rsa Ii+Awun4Xv2htpUq0x5e9gxDMU3ho276Ls8+nKLvTi+499DCl1l0xNhGAFG6cXOGKycOCathkjptHFjqX1VvQQYK/Akl2UNBs2YYOWd2KNjq831RBCUcznMhW0hYNaN"
+    readOnly: true
+    type:
+    - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/public_ssh_key#/definitions/id"
+
+
+links:
+- description: List user's public SSH keys
+  href: "/<%= identity(:owner) %>/public_ssh_keys"
+  method: GET
+  rel: instances
+  title: List
+
+properties:
+  id:
+    "$ref": "/schemata/public_ssh_key#/definitions/id"
+  name:
+    "$ref": "/schemata/public_ssh_key#/definitions/name"
+  value:
+    "$ref": "/schemata/public_ssh_key#/definitions/value"
+
+id: schemata/public_ssh_key
