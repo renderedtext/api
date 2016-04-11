@@ -21,9 +21,9 @@ definitions:
     type:
     - string
 
-  value:
-    description: public SSH key's value
-    example: "ssh-rsa Ii+Awun4Xv2htpUq0x5e9gxDMU3ho276Ls8+nKLvTi+499DCl1l0xNhGAFG6cXOGKycOCathkjptHFjqX1VvQQYK/Akl2UNBs2YYOWd2KNjq831RBCUcznMhW0hYNaN"
+  fingerprint:
+    description: public SSH key's MD5 hash
+    example: "ff:16:5d:bf:09:25:9b:a2:ae:cc:19:49:bc:87:7b:e9"
     readOnly: true
     type:
     - string
@@ -45,7 +45,7 @@ properties:
     "$ref": "/schemata/public_ssh_key#/definitions/id"
   name:
     "$ref": "/schemata/public_ssh_key#/definitions/name"
-  value:
-    "$ref": "/schemata/public_ssh_key#/definitions/value"
+  fingerprint:
+    "$ref": "/schemata/public_ssh_key#/definitions/fingerprint"
 
 id: schemata/public_ssh_key
