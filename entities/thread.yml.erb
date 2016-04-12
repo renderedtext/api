@@ -126,32 +126,12 @@ links:
   href: "/<%= identity(:owner, :project) %>/builds/<%= identity(:build) %>/threads"
   method: GET
   rel: instances
-  schema:
-    properties:
-      with_command_output:
-        description: should the command output be included - default is false
-        example: "true"
-        default: false
-        type:
-          - boolean
-    type:
-    - object
   title: List for Build
 
 - description: List threads for a deploy.
   href: "/<%= identity(:owner, :project) %>/deploys/<%= identity(:deploy) %>/threads"
   method: GET
   rel: instances
-  schema:
-    properties:
-      with_command_output:
-        description: should the command output be included - default is false
-        example: "true"
-        default: false
-        type:
-          - boolean
-    type:
-    - object
   title: List for Deploy ✖
 
 properties:
