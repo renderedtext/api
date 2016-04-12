@@ -66,6 +66,11 @@ definitions:
     type:
     - array
 links:
+- description: Get existing ssh_session.
+  href: "/<%= identity(:owner, :project) %>/ssh_sessions/<%= identity(:ssh_session) %>"
+  method: GET
+  rel: self
+  title: Show
 - description: Create a new ssh_session.
   href: "/<%= identity(:owner, :project) %>/ssh_sessions"
   method: POST
