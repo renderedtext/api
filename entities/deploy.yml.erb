@@ -118,6 +118,13 @@ definitions:
     type:
     - string
 
+  pusher_channel:
+    description: pusher channel for deploy's builds
+    readOnly: true
+    example: "build-aaaec5ddac7c61e3e77ed0f9bd78774e"
+    type:
+    - string
+
   created_at:
     description: when deploy was created
     format: date-time
@@ -188,6 +195,8 @@ properties:
     "$ref": "/schemata/deploy#/definitions/server_name"
   server_html_url:
     "$ref": "/schemata/deploy#/definitions/server_html_url"
+  pusher_channel:
+    "$ref": "/schemata/deploy#/definitions/pusher_channel"
   created_at:
     "$ref": "/schemata/deploy#/definitions/created_at"
   updated_at:
