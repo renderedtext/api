@@ -1,7 +1,7 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
 title: SshSession
-description: Users active ssh sessions
+description: User's active ssh sessions
 stability: prototype
 strictProperties: true
 type:
@@ -24,7 +24,7 @@ definitions:
     - string
   url:
     description: link to the ssh_sessions in the API
-    example: "https://semaphoreci.com/api/internal/{project_owner_name/{project_name}/ssh_sessions{/id}"
+    example: "https://semaphoreci.com/api/internal/{project_owner_name}/{project_name}/ssh_sessions{/id}"
     readOnly: true
     type:
       - string
