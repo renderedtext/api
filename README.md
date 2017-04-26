@@ -1,8 +1,7 @@
 # API
 
 While working on this API, you should consider how the end user would
-interact with the endpoints. Even though it is called internal, it may be
-published in the future.
+interact with the endpoints.
 
 ## Setup
 
@@ -10,10 +9,10 @@ published in the future.
 ./scripts/setup
 ```
 
-## Generate an Entity
+## Generate an Resource
 
 ``` sh
-./scripts/generate <entity_name>
+./scripts/generate <resource_name>
 ```
 
 ### Example
@@ -23,7 +22,7 @@ To generate a user entity type the following:
 ``` sh
 $ ./scripts/generate user
 
-Generated entity - schema/schemata/user.yml
+Generated resource - schemata/user.yml
 ```
 
 ## Compiling Schema, HTML and Markdown documentation
@@ -61,6 +60,3 @@ After starting server, documentation site can be found on port `3000`.
     - nested entities
     - urls
     - dates
-
-  - Mark not implemented API actions with `✖` at the end of action name
-
