@@ -5,4 +5,4 @@ RESOURCE_PATH="schemata/${RESOURCE}.yml"
 
 bundle exec prmd init --yaml $RESOURCE > $RESOURCE_PATH
 
-echo "Generated entity - $RESOURCE_PATH"
+echo "Generated resource - $RESOURCE_PATH"
