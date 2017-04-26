@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir -p static
-bundle exec rake api:schema:generate api:schema:doc api:html:render
+bundle exec prmd combine --meta meta.json schemata/ | bundle exec prmd verify | bundle exec prmd doc --prepend overview.md --settings config.json > schema.md
+
+bundle exec rake render_html
