@@ -43,7 +43,7 @@ definitions:
     - string
 links:
 - description: Create a new team.
-  href: "/teams"
+  href: "/orgs/{(%2Fschemata%2Forg%23%2Fdefinitions%2Fidentity)}/teams"
   method: POST
   rel: create
   schema:
