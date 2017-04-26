@@ -1,6 +1,6 @@
 use Rack::Static,
   :urls => ["/stylesheets", "/images", "/javascripts"],
-  :root => "static"
+  :root => "./"
 
 unless ENV["UNSECURE"]
   use Rack::Auth::Basic, "Restricted Area" do |username, password|
@@ -15,6 +15,6 @@ run lambda { |env|
       "Content-Type"  => "text/html",
       "Cache-Control" => "public, max-age=86400"
     },
-    File.open("static/index.html", File::RDONLY)
+    File.open("index.html", File::RDONLY)
   ]
 }

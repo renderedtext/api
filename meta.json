@@ -1,0 +1,9 @@
+{
+ "description": "Semaphore",
+ "id": "hello-prmd",
+ "links": [{
+   "href": "https://api.semaphoreci.com/api/v2",
+   "rel": "self"
+ }],
+ "title": "Hello Prmd"
+}
