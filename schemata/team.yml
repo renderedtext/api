@@ -13,6 +13,11 @@ definitions:
     format: uuid
     type:
     - string
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/team#/definitions/id"
+
   permission:
     description: unique name of team
     readOnly: true
@@ -23,26 +28,34 @@ definitions:
     - read
     - write
     - admin
+
   name:
     description: name of team
     readOnly: true
     type:
     - string
+
   description:
     description: team description
     readOnly: true
     type:
     - string
-  identity:
-    anyOf:
-    - "$ref": "/schemata/team#/definitions/id"
-  created_at:
-    description: when team was created
+
+  url:
+    description: a link to the team
+    example: "https://api.semaphoreci.com/api/v2/teams/{team_id}"
+    readOnly: true
+    type:
+      - string
+
+  updated_at:
+    description: when team was updated
     format: date-time
     type:
     - string
-  updated_at:
-    description: when team was updated
+
+  created_at:
+    description: when team was created
     format: date-time
     type:
     - string
@@ -92,15 +105,14 @@ links:
         "$ref": "/schemata/team#/definitions/description"
       permission:
         "$ref": "/schemata/team#/definitions/permission"
-    required:
-      - name
-      - permission
     type:
     - object
   title: Update
 properties:
   id:
     "$ref": "/schemata/team#/definitions/id"
+  url:
+    "$ref": "/schemata/team#/definitions/url"
   name:
     "$ref": "/schemata/team#/definitions/name"
   description:
