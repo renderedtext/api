@@ -92,9 +92,6 @@ links:
         "$ref": "/schemata/team#/definitions/description"
       permission:
         "$ref": "/schemata/team#/definitions/permission"
-    required:
-      - name
-      - permission
     type:
     - object
   title: Update
