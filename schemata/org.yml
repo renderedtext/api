@@ -1,25 +1,25 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
-title: FIXME - Org
-description: FIXME
+title: Organizations
+description: Get basic information about your organizations
 stability: prototype
 strictProperties: true
 type:
 - object
 definitions:
   id:
-    description: unique identifier of org
+    description: unique identifier of organization
     readOnly: true
     format: uuid
     type:
     - string
   name:
-    description: name of org
+    description: name of organization
     readOnly: true
     type:
     - string
   username:
-    description: unique username of org
+    description: unique username of organization
     readOnly: true
     type:
     - string
@@ -27,29 +27,27 @@ definitions:
     anyOf:
     - "$ref": "/schemata/org#/definitions/username"
   created_at:
-    description: when org was created
+    description: when organization was created
     format: date-time
     type:
     - string
   updated_at:
-    description: when org was updated
+    description: when organization was updated
     format: date-time
     type:
     - string
 links:
-- description: Info for existing org.
+- description: Info for existing organization.
   href: "/orgs/{(%2Fschemata%2Forg%23%2Fdefinitions%2Fidentity)}"
   method: GET
   rel: self
   title: Info
-- description: List existing orgs.
+- description: List existing organizations.
   href: "/orgs"
   method: GET
   rel: instances
   title: List
 properties:
-  created_at:
-    "$ref": "/schemata/org#/definitions/created_at"
   id:
     "$ref": "/schemata/org#/definitions/id"
   username:
@@ -58,4 +56,6 @@ properties:
     "$ref": "/schemata/org#/definitions/name"
   updated_at:
     "$ref": "/schemata/org#/definitions/updated_at"
+  created_at:
+    "$ref": "/schemata/org#/definitions/created_at"
 id: schemata/org
