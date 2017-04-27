@@ -52,7 +52,16 @@ links:
   method: POST
   rel: create
   schema:
-    properties: {}
+    properties:
+      name:
+        "$ref": "/schemata/team#/definitions/name"
+      description:
+        "$ref": "/schemata/team#/definitions/description"
+      permission:
+        "$ref": "/schemata/team#/definitions/permission"
+    required:
+      - name
+      - permission
     type:
     - object
   title: Create
@@ -76,13 +85,20 @@ links:
   method: PATCH
   rel: update
   schema:
-    properties: {}
+    properties:
+      name:
+        "$ref": "/schemata/team#/definitions/name"
+      description:
+        "$ref": "/schemata/team#/definitions/description"
+      permission:
+        "$ref": "/schemata/team#/definitions/permission"
+    required:
+      - name
+      - permission
     type:
     - object
   title: Update
 properties:
-  created_at:
-    "$ref": "/schemata/team#/definitions/created_at"
   id:
     "$ref": "/schemata/team#/definitions/id"
   name:
@@ -93,4 +109,6 @@ properties:
     "$ref": "/schemata/team#/definitions/permission"
   updated_at:
     "$ref": "/schemata/team#/definitions/updated_at"
+  created_at:
+    "$ref": "/schemata/team#/definitions/created_at"
 id: schemata/team
