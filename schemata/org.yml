@@ -13,26 +13,38 @@ definitions:
     format: uuid
     type:
     - string
-  name:
-    description: name of organization
+
+  identity:
+    anyOf:
+    - "$ref": "/schemata/org#/definitions/username"
+
+  url:
+    description: a link to the organization
+    example: "https://api.semaphoreci.com/api/v2/orgs/{org_username}"
     readOnly: true
     type:
     - string
+
   username:
     description: unique username of organization
     readOnly: true
     type:
     - string
-  identity:
-    anyOf:
-    - "$ref": "/schemata/org#/definitions/username"
-  created_at:
-    description: when organization was created
+
+  name:
+    description: name of organization
+    readOnly: true
+    type:
+    - string
+
+  updated_at:
+    description: when organization was updated
     format: date-time
     type:
     - string
-  updated_at:
-    description: when organization was updated
+
+  created_at:
+    description: when organization was created
     format: date-time
     type:
     - string
@@ -50,6 +62,8 @@ links:
 properties:
   id:
     "$ref": "/schemata/org#/definitions/id"
+  url:
+    "$ref": "/schemata/org#/definitions/url"
   username:
     "$ref": "/schemata/org#/definitions/username"
   name:
