@@ -1,7 +1,7 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
-title: FIXME - Team
-description: FIXME
+title: Team
+description: All aspects of team management
 stability: prototype
 strictProperties: true
 type:
@@ -24,7 +24,12 @@ definitions:
     - write
     - admin
   name:
-    description: unique name of team
+    description: name of team
+    readOnly: true
+    type:
+    - string
+  description:
+    description: team description
     readOnly: true
     type:
     - string
@@ -82,6 +87,8 @@ properties:
     "$ref": "/schemata/team#/definitions/id"
   name:
     "$ref": "/schemata/team#/definitions/name"
+  description:
+    "$ref": "/schemata/team#/definitions/description"
   permission:
     "$ref": "/schemata/team#/definitions/permission"
   updated_at:
