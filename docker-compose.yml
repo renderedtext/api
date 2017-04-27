@@ -1,0 +1,15 @@
+version: "2.0"
+
+volumes:
+  gems:
+    driver: local
+
+services:
+  api:
+    build: .
+    volumes:
+      - .:/app
+      - gems:/gems
+    ports:
+      - 3000:3000
+    command: "bundle exec guard"
