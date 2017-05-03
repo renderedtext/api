@@ -1,8 +1,3 @@
 #!/usr/bin/env bash
 
-RESOURCE=$1
-RESOURCE_PATH="schemata/${RESOURCE}.yml"
-
-bundle exec prmd init --yaml $RESOURCE > $RESOURCE_PATH
-
-echo "Generated resource - $RESOURCE_PATH"
+make generate RESOURCE=$1
