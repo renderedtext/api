@@ -5,11 +5,11 @@ require "html/pipeline"
 require "erb"
 
 task :render_html do
-  File.write("index.html", render_html)
+  File.write("generated/index.html", render_html)
 end
 
 def render_html
-  markdown = File.read("schema.md")
+  markdown = File.read("generated/schema.md")
 
   filters = [ HTML::Pipeline::MarkdownFilter ]
 

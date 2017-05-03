@@ -2,13 +2,16 @@ SHELL=/bin/bash
 
 .PHONY: all compile setup generate server
 
+DEST_DIR=generated/
+
 
 all: compile
 
 compile:
-	bundle exec prmd combine --meta meta.json schemata/ > schema.json
-	cat schema.json | bundle exec prmd verify | \
-          bundle exec prmd doc --prepend overview.md --settings config.json > schema.md
+	mkdir -p $(DEST_DIR)
+	bundle exec prmd combine --meta meta.json schemata/ > $(DEST_DIR)/schema.json
+	cat $(DEST_DIR)/schema.json | bundle exec prmd verify | \
+          bundle exec prmd doc --prepend overview.md --settings config.json > $(DEST_DIR)/schema.md
 	bundle exec rake render_html
 
 setup:
