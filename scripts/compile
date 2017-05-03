@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
 
-bundle exec prmd combine --meta meta.json schemata/ > schema.json
-
-cat schema.json | bundle exec prmd verify | bundle exec prmd doc --prepend overview.md --settings config.json > schema.md
-
-bundle exec rake render_html
+make compile
