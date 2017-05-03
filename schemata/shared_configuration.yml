@@ -46,8 +46,8 @@ links:
   method: POST
   rel: create
   schema:
-    properties: 
-      name: 
+    properties:
+      name:
         "$ref": "/schemata/shared_configuration#/definitions/name"
       description:
         "$ref": "/schemata/shared_configuration#/definitions/description"
@@ -61,8 +61,8 @@ links:
   method: DELETE
   rel: destroy
   schema:
-    properties: 
-      name: 
+    properties:
+      name:
         "$ref": "/schemata/shared_configuration#/definitions/id"
     required:
     - name
@@ -74,8 +74,8 @@ links:
   method: GET
   rel: self
   schema:
-    properties: 
-      name: 
+    properties:
+      name:
         "$ref": "/schemata/shared_configuration#/definitions/id"
     required:
     - name
@@ -92,8 +92,8 @@ links:
   method: PATCH
   rel: update
   schema:
-    properties: 
-      name: 
+    properties:
+      name:
         "$ref": "/schemata/shared_configuration#/definitions/name"
       description:
         "$ref": "/schemata/shared_configuration#/definitions/description"
@@ -110,6 +110,21 @@ links:
   method: DELETE
   rel: unlink
   title: \- Unlink from the Team
+- description: Attach shared configuration to the project.
+  href: "/projects/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/shared_configuration/{(%2Fschemata%2Fshared_configuration%23%2Fdefinitions%2Fidentity)}"
+  method: POST
+  rel: link
+  title: \- Attach to Project
+- description: Dettach shared configuration from the project.
+  href: "/projects/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/shared_configuration/{(%2Fschemata%2Fshared_configuration%23%2Fdefinitions%2Fidentity)}"
+  method: DELETE
+  rel: unlink
+  title: \- Dettach from Project
+- description: List shared configurations attached to the project.
+  href: "/projects/{(%2Fschemata%2Fproject%23%2Fdefinitions%2Fidentity)}/shared_configurations"
+  method: GET
+  rel: instances
+  title: \- Attached to Project
 
 properties:
   created_at:
