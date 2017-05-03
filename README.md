@@ -9,6 +9,23 @@ interact with the endpoints.
 ./scripts/setup
 ```
 
+## (alternative) Setup with docker compose for OSX based development
+
+Install gems and build docker image:
+
+``` sh
+dc build
+dc run api bundle install --jobs 2
+```
+
+Run web server and guard file to recompile on every change:
+
+``` sh
+dc up
+```
+
+Open `locahost:3000` in browser
+
 ## Generate an Resource
 
 ``` sh
