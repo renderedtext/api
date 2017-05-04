@@ -98,6 +98,7 @@ traits:
       description: Delete {user_id} user
 
 /orgs:
+  description: Manage Semaphore organizations
   get:
     description: Get list of all organizations
     is: [withResponseItems: {item : Org}]
@@ -117,39 +118,77 @@ traits:
              withPreconditionFailedError]
 
 /teams/{team_id}:
+  description: Manage Semaphore teams
   get:
+    description: Get team details
   delete:
+    description: Delete team
   patch:
+    description: Update team
   /users:
+    description: Manage relations between {team_id} team and itc members
     get:
+      description: List {team_id} team members
     /{user_id}:
       post:
+        description: Grant {user_id} user membership in {team_id} team
+      delete:
+        description: Revoke {user_id} user membership in {team_id} team
   /projects:
+    description: Manage relations between {team_id} team and itc projects
     get:
+      description: List all projects belonging to {team_id} team
     post:
+      description: Create a project belonging to {team_id} team
   /shared-configurations/{sc_id}:
+    description: Manage relations between {team_id} team and
+                  {sc_id} shared configuration
     post:
+      description: Add {sc_id} shared configuration to {team_id} team
     delete:
+      description: Remove {sc_id} shared configuration from {team_id} team
 
 /projects/{project_id}:
+  description: Manage Semaphore projects
   get:
+    description: Show {project_id} project details
   delete:
+    description: Delete {project_id} project
   patch:
+    description: Update {project_id} project
   /shared-configurations:
     get:
+      description: List all shared configurations attached to
+                    {project_id} project
     /{sc_id}:
       post:
+        description: Attach {sc_id} shared configurations attached to
+                      {project_id} project
       delete:
+        description: Dettach {sc_id} shared configurations attached from
+                      {project_id} project
   /shared-environment-variables:
     get:
+      description: List all shared env variables connected to
+                    {project_id} project
     /{sev_id}:
       post:
+        description: Connect {sev_id} shared env var to
+                      {project_id} project
       delete:
+        description: Dissconnect {sev_id} shared env var from
+                      {project_id} project
   /shared-configuration-files:
     get:
-    /{sev_id}:
+      description: List all shared conf files connected to
+                    {project_id} project
+    /{scf_id}:
       post:
+        description: Connect {scf_id} shared conf file to
+                      {project_id} project
       delete:
+        description: Dissconnect {scf_id} shared conf file from
+                      {project_id} project
 
 /shared-configurations:
   get:
