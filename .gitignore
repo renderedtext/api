@@ -1,4 +1,3 @@
-.bundle
-schema.md
-schema.json
-index.html
+/node_modules
+/doc
+/.bundle
