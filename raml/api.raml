@@ -9,6 +9,14 @@ types:
     type: object
     properties:
       message: string
+  UserPost:
+    type: object
+    properties:
+      name: string
+  User:
+    type: UserPost
+    properties:
+      id: integer
   Org:
     type: object
     properties:
@@ -27,12 +35,56 @@ types:
       id: integer
       url: string
 
+traits:
+  hasRequestItem:
+    body:
+      application/json:
+        type: <<item>>
+  hasResponseItem:
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<item>>
+  hasResponseItems:
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<item>>[]
+
+  hasCreateResponse:
+    responses:
+      201:
+        body:
+          application/json:
+            type: <<item>>
+  hasClientError:
+    responses:
+      400:
+        body:
+          application/json:
+            type: Error
+
 /users:
+  description: Manage Semaphore users
   get:
+    description: List all users
+    is: [ hasResponseItems: {item : User}, hasClientError ]
+
   post:
+    description: Create new user
+    is: [ hasRequestItem: {item : UserPost},
+          hasCreateResponse: {item : User},
+          hasClientError ]
+    body:
+      example: {name: jon}
+            # example: { "message" : "User 'jon' already exists" }
   /{user_id}:
     get:
+      description: Show {user_id} user
     delete:
+      description: Delete {user_id} user
 
 /orgs:
   get:
@@ -42,7 +94,6 @@ types:
         body:
           application/json:
             type: Org[]
-
   /{org_name}:
     get:
       description: Get organization details
@@ -53,7 +104,6 @@ types:
               type: Org[]
         404:
           description: Organization with {org_name} not found
-
     /teams:
       get:
         responses:
@@ -61,7 +111,6 @@ types:
             body:
               application/json:
                 type: Team[]
-
       post:
         description: Create team in the organization
         body:
@@ -82,68 +131,54 @@ types:
               application/json:
                 type: Error
 
-
 /teams/{team_id}:
   get:
   delete:
   patch:
-
   /users:
     get:
-
     /{user_id}:
       post:
-
   /projects:
     get:
     post:
-
   /shared-configurations/{sc_id}:
     post:
-
     delete:
 
 /projects/{project_id}:
   get:
   delete:
   patch:
-
   /shared-configurations:
     get:
     /{sc_id}:
       post:
       delete:
-
   /shared-environment-variables:
     get:
     /{sev_id}:
       post:
       delete:
-
   /shared-configuration-files:
     get:
     /{sev_id}:
       post:
       delete:
 
-
 /shared-configurations:
   get:
   post:
-
   /{sc_id}:
     get:
     delete:
     patch:
-
     /shared-environment-variables:
       get:
       post:
-
     /shared-configuration-files:
       get:
       post:
-
 
 /shared-environment-variables:
   /{sev_id}:

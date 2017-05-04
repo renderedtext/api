@@ -6,7 +6,7 @@ all: doc
 doc:
 	mkdir -p doc
 	./node_modules/raml2html/bin/raml2html --input raml/api.raml --validate --output doc/api.html
-	cd doc ; ln -s api.html index.html
+	cd doc ; ln -sf api.html index.html
 	./node_modules/raml2html/bin/raml2html --theme raml2html-markdown-theme raml/api.raml --output doc/api.md
 	./node_modules/raml2html/bin/raml2html --theme raml2html-slate-theme raml/api.raml --output doc/api-slate.html
 
