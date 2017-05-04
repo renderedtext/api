@@ -36,32 +36,43 @@ types:
       url: string
 
 traits:
-  hasRequestItem:
+  withRequestItem:
     body:
       application/json:
         type: <<item>>
-  hasResponseItem:
+  withResponseItem:
     responses:
       200:
         body:
           application/json:
             type: <<item>>
-  hasResponseItems:
+  withResponseItems:
     responses:
       200:
         body:
           application/json:
             type: <<item>>[]
-
-  hasCreateResponse:
+  withCreateResponse:
     responses:
       201:
         body:
           application/json:
             type: <<item>>
-  hasClientError:
+  withClientError:
     responses:
       400:
+        body:
+          application/json:
+            type: Error
+  withNotFoundError:
+    responses:
+      404:
+        body:
+          application/json:
+            type: Error
+  withPreconditionFailedError:
+    responses:
+      412:
         body:
           application/json:
             type: Error
@@ -70,13 +81,13 @@ traits:
   description: Manage Semaphore users
   get:
     description: List all users
-    is: [ hasResponseItems: {item : User}, hasClientError ]
+    is: [ withResponseItems: {item : User}, withClientError ]
 
   post:
     description: Create new user
-    is: [ hasRequestItem: {item : UserPost},
-          hasCreateResponse: {item : User},
-          hasClientError ]
+    is: [ withRequestItem: {item : UserPost},
+          withCreateResponse: {item : User},
+          withClientError ]
     body:
       example: {name: jon}
             # example: { "message" : "User 'jon' already exists" }
@@ -89,47 +100,21 @@ traits:
 /orgs:
   get:
     description: Get list of all organizations
-    responses:
-      200:
-        body:
-          application/json:
-            type: Org[]
+    is: [withResponseItems: {item : Org}]
   /{org_name}:
     get:
       description: Get organization details
-      responses:
-        200:
-          body:
-            application/json:
-              type: Org[]
-        404:
-          description: Organization with {org_name} not found
+      is: [withResponseItem: {item : Org}, withNotFoundError]
     /teams:
       get:
-        responses:
-          200:
-            body:
-              application/json:
-                type: Team[]
+        description: List teams that belong to {org_name} organisation
+        is: [withResponseItems: {item : Team}]
       post:
-        description: Create team in the organization
-        body:
-          type: TeamPost
-        responses:
-          201:
-            body:
-              application/json:
-                type: Team
-          404:
-            description: Organization with {org_name} not found
-            body:
-              application/json:
-                type: Error
-          412:
-            description: Precondition failed - details in the body.
-            body:
-              application/json:
-                type: Error
+        description: Create team within the {org_name} organization
+        is: [withRequestItem: {item : TeamPost},
+             withResponseItem: {item : Team},
+             withNotFoundError,
+             withPreconditionFailedError]
 
 /teams/{team_id}:
   get:
