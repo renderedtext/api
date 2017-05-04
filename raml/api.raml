@@ -1,0 +1,158 @@
+#%RAML 1.0
+title: Semaphore
+version: v2
+baseUri: https://api.semaphoreci.com
+mediaType: application/json
+
+types:
+  Error:
+    type: object
+    properties:
+      message: string
+  Org:
+    type: object
+    properties:
+      id: integer
+      name: string
+  TeamPost:
+    type: object
+    properties:
+      name: string
+      permission:
+        enum: [read, write, admin]
+      description?: string
+  Team:
+    type: TeamPost
+    properties:
+      id: integer
+      url: string
+
+/users:
+  get:
+  post:
+  /{user_id}:
+    get:
+    delete:
+
+/orgs:
+  get:
+    description: Get list of all organizations
+    responses:
+      200:
+        body:
+          application/json:
+            type: Org[]
+
+  /{org_name}:
+    get:
+      description: Get organization details
+      responses:
+        200:
+          body:
+            application/json:
+              type: Org[]
+        404:
+          description: Organization with {org_name} not found
+
+    /teams:
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                type: Team[]
+
+      post:
+        description: Create team in the organization
+        body:
+          type: TeamPost
+        responses:
+          201:
+            body:
+              application/json:
+                type: Team
+          404:
+            description: Organization with {org_name} not found
+            body:
+              application/json:
+                type: Error
+          412:
+            description: Precondition failed - details in the body.
+            body:
+              application/json:
+                type: Error
+
+
+/teams/{team_id}:
+  get:
+  delete:
+  patch:
+
+  /users:
+    get:
+
+    /{user_id}:
+      post:
+
+  /projects:
+    get:
+    post:
+
+  /shared-configurations/{sc_id}:
+    post:
+
+    delete:
+
+/projects/{project_id}:
+  get:
+  delete:
+  patch:
+
+  /shared-configurations:
+    get:
+    /{sc_id}:
+      post:
+      delete:
+
+  /shared-environment-variables:
+    get:
+    /{sev_id}:
+      post:
+      delete:
+
+  /shared-configuration-files:
+    get:
+    /{sev_id}:
+      post:
+      delete:
+
+
+/shared-configurations:
+  get:
+  post:
+
+  /{sc_id}:
+    get:
+    delete:
+    patch:
+
+    /shared-environment-variables:
+      get:
+      post:
+
+    /shared-configuration-files:
+      get:
+      post:
+
+
+/shared-environment-variables:
+  /{sev_id}:
+    get:
+    delete:
+    patch:
+
+/shared-configuration-files:
+  /{scf_id}:
+    get:
+    delete:
+    patch:

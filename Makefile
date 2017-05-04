@@ -1,29 +1,21 @@
-SHELL=/bin/bash
-
-.PHONY: all compile setup generate server
-
-DEST_DIR=generated/
+.PHONY: all doc setup
 
 
-all: compile
+all: doc
 
-compile:
-	mkdir -p $(DEST_DIR)
-	bundle exec prmd combine --meta meta.json schemata/ > $(DEST_DIR)/schema.json
-	cat $(DEST_DIR)/schema.json | bundle exec prmd verify | \
-          bundle exec prmd doc --prepend overview.md --settings config.json > $(DEST_DIR)/schema.md
-	bundle exec rake render_html
+doc:
+	mkdir -p doc
+	./node_modules/raml2html/bin/raml2html --input raml/api.raml --validate --output doc/api.html
+	cd doc ; ln -s api.html index.html
+	./node_modules/raml2html/bin/raml2html --theme raml2html-markdown-theme raml/api.raml --output doc/api.md
+	./node_modules/raml2html/bin/raml2html --theme raml2html-slate-theme raml/api.raml --output doc/api-slate.html
 
 setup:
 	bundle install --path .bundle -j 4
+	npm i raml2html
+	npm i raml2html-markdown-theme
+	npm i raml2html-slate-theme
 
-RESOURCE_PATH="schemata/$(RESOURCE).yml"
-generate:
-ifndef RESOURCE
-	$(error RESOURCE is undefined)
-endif
-	bundle exec prmd init --yaml $(RESOURCE) > $(RESOURCE_PATH)
-	echo "Generated resource - $(RESOURCE_PATH)"
-
-server:
-	UNSECURE='true' bundle exec rackup config.ru --host local.semaphore --port 3000
+# Watch source dir and recompile as needed
+guard:
+	bundle exec guard

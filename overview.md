@@ -1,1 +1,0 @@
-# SemaphoreCI API v2
