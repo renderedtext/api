@@ -55,6 +55,11 @@ types:
     type: ProjectPost
     properties:
       id: integer
+  SharedConfigPatch:
+    type: object
+    properties:
+      name?: string
+      description?: string
   SharedConfigPost:
     type: object
     properties:
@@ -64,6 +69,11 @@ types:
     type: SharedConfigPost
     properties:
       id: integer
+  SharedEnvVarPatch:
+    type: object
+    properties:
+      key?: string
+      value?: string
   SharedEnvVarPost:
     type: object
     properties:
@@ -73,6 +83,11 @@ types:
     type: SharedConfigPost
     properties:
       id: integer
+  SharedConfFilePatch:
+    type: object
+    properties:
+      name?: string
+      content?: string
   SharedConfFilePost:
     type: object
     properties:
@@ -284,37 +299,55 @@ traits:
   /{sc_id}:
     get:
       description: Show {sc_id} shared config details
+      is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
     delete:
       description: Delete {sc_id} shared config
+      is: [withNoBodyResponse, withNotFoundError]
     patch:
       description: Update {sc_id} shared config
+      is: [withRequestItem: {item : SharedConfigPatch},
+          withResponseItem: {item : SharedConfig}, withNotFoundError]
     /shared-environment-variables:
       get:
         description: List all shared env variables belonging to {sc_id} shared config
+        is: [withResponseItems: {item : SharedEnvVar}, withNotFoundError]
       post:
         description: Create shared environment variable within {sc_id} shared config
+        is: [withRequestItem: {item : SharedEnvVarPost},
+            withResponseItem: {item : SharedEnvVar}, withNotFoundError]
     /shared-configuration-files:
       get:
         description: List all shared config files belonging to {sc_id} shared config
+        is: [withResponseItems: {item : SharedConfFile}, withNotFoundError]
       post:
         description: Create shared config file within {sc_id} shared configuration
+        is: [withRequestItem: {item : SharedConfFilePost},
+            withResponseItem: {item : SharedConfFile}, withNotFoundError]
 
 /shared-environment-variables:
   description: Manage Semaphore shared environment variables
   /{sev_id}:
     get:
       description: Show {sev_id} shared env variable details
+      is: [withResponseItem: {item : SharedEnvVar}, withNotFoundError]
     delete:
       description: Delete {sev_id} shared env variable
+      is: [withNoBodyResponse, withNotFoundError]
     patch:
       description: Update {sev_id} shared env variable
+      is: [withRequestItem: {item : SharedEnvVarPatch},
+          withResponseItem: {item : SharedEnvVar}, withNotFoundError]
 
 /shared-configuration-files:
   description: Manage Semaphore shared configuration files
   /{scf_id}:
     get:
       description: Show {scf_id} shared config file details
+      is: [withResponseItem: {item : SharedConfFile}, withNotFoundError]
     delete:
       description: Delete {scf_id} shared config file
+      is: [withNoBodyResponse, withNotFoundError]
     patch:
       description: Update {scf_id} shared config file
+      is: [withRequestItem: {item : SharedConfFilePatch},
+          withResponseItem: {item : SharedConfFile}, withNotFoundError]
