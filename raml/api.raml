@@ -46,6 +46,11 @@ types:
     properties:
       name: string
       description?: string
+  ProjectPatch:
+    type: object
+    properties:
+      name?: string
+      description?: string
   Project:
     type: ProjectPost
     properties:
@@ -57,6 +62,24 @@ types:
       description?: string
   SharedConfig:
     type: SharedConfigPost
+    properties:
+      id: integer
+  SharedEnvVarPost:
+    type: object
+    properties:
+      key: string
+      value: string
+  SharedEnvVar:
+    type: SharedConfigPost
+    properties:
+      id: integer
+  SharedConfFilePost:
+    type: object
+    properties:
+      name: string
+      content: string
+  SharedConfFile:
+    type: SharedConfFilePost
     properties:
       id: integer
 
@@ -214,41 +237,47 @@ traits:
   description: Manage Semaphore projects
   get:
     description: Show {project_id} project details
+    is: [withResponseItem: {item : Project}, withNotFoundError]
   delete:
     description: Delete {project_id} project
+    is: [withNoBodyResponse, withNotFoundError]
   patch:
     description: Update {project_id} project
+    is: [withRequestItem: {item : ProjectPatch}, withResponseItem: {item : Project}, withNotFoundError]
   /shared-configurations:
     get:
-      description: List all shared configurations attached to
-                    {project_id} project
+      description: List all shared configurations attached to {project_id} project
+      is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
     /{sc_id}:
       post:
         description: Attach {sc_id} shared configuration to {project_id} project
+        is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
       delete:
         description: Dettach {sc_id} shared configuration from {project_id} project
+        is: [withNoBodyResponse, withNotFoundError]
   /shared-environment-variables:
     get:
       description: List all shared env variables connected to
                     {project_id} project
+      is: [withResponseItems: {item : SharedEnvVar}, withNotFoundError]
     /{sev_id}:
       post:
-        description: Connect {sev_id} shared env var to
-                      {project_id} project
+        description: Connect {sev_id} shared env var to {project_id} project
+        is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: Dissconnect {sev_id} shared env var from
-                      {project_id} project
+        description: Dissconnect {sev_id} shared env var from {project_id} project
+        is: [withNoBodyResponse, withNotFoundError]
   /shared-configuration-files:
     get:
-      description: List all shared conf files connected to
-                    {project_id} project
+      description: List all shared conf files connected to {project_id} project
+      is: [withResponseItems: {item : SharedConfFile}, withNotFoundError]
     /{scf_id}:
       post:
-        description: Connect {scf_id} shared conf file to
-                      {project_id} project
+        description: Connect {scf_id} shared conf file to {project_id} project
+        is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: Dissconnect {scf_id} shared conf file from
-                      {project_id} project
+        description: Dissconnect {scf_id} shared conf file from {project_id} project
+        is: [withNoBodyResponse, withNotFoundError]
 
 /shared-configurations:
   description: Manage Semaphore shared configurations
