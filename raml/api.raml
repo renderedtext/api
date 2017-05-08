@@ -22,6 +22,13 @@ types:
     properties:
       id: integer
       name: string
+  TeamPatch:
+    type: object
+    properties:
+      name?: string
+      permission?:
+        enum: [read, write, admin]
+      description?: string
   TeamPost:
     type: object
     properties:
@@ -76,6 +83,9 @@ traits:
         body:
           application/json:
             type: <<item>>
+  withNoBodyResponse:
+    responses:
+      204:
   withClientError:
     responses:
       400:
@@ -159,35 +169,46 @@ traits:
   description: Manage Semaphore teams
   get:
     description: Get team details
+    is: [withResponseItem: {item : Team}, withNotFoundError]
   delete:
     description: Delete team
+    is: [withNoBodyResponse, withNotFoundError]
   patch:
     description: Update team
+    is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
   /users:
     description: Manage relations between {team_id} team and itc members
     get:
       description: List {team_id} team members
+      is: [withResponseItems: {item : User}, withNotFoundError]
     /{user_id}:
       post:
         description: Grant {user_id} user membership in {team_id} team
+        is: [withNoBodyResponse, withNotFoundError]
       delete:
         description: Revoke {user_id} user membership in {team_id} team
+        is: [withNoBodyResponse, withNotFoundError]
   /projects:
     description: Manage relations between {team_id} team and itc projects
     get:
       description: List all projects belonging to {team_id} team
+      is: [withResponseItems: {item : Project}, withNotFoundError]
     post:
       description: Create a project belonging to {team_id} team
+      is: [withRequestItem: {item : ProjectPost}, withNotFoundError]
   /shared-configurations:
     get:
       description: List all shared configurations added to {team_id} team
+      is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
     /{sc_id}:
       description: Manage relations between {team_id} team and
                     {sc_id} shared configuration
       post:
         description: Add {sc_id} shared configuration to {team_id} team
+        is: [withNoBodyResponse, withNotFoundError]
       delete:
         description: Remove {sc_id} shared configuration from {team_id} team
+        is: [withNoBodyResponse, withNotFoundError]
 
 /projects/{project_id}:
   description: Manage Semaphore projects
