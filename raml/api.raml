@@ -34,6 +34,24 @@ types:
     properties:
       id: integer
       url: string
+  ProjectPost:
+    type: object
+    properties:
+      name: string
+      description?: string
+  Project:
+    type: ProjectPost
+    properties:
+      id: integer
+  SharedConfigPost:
+    type: object
+    properties:
+      name: string
+      description?: string
+  SharedConfig:
+    type: SharedConfigPost
+    properties:
+      id: integer
 
 traits:
   withRequestItem:
@@ -116,6 +134,26 @@ traits:
              withResponseItem: {item : Team},
              withNotFoundError,
              withPreconditionFailedError]
+    /projects:
+      get:
+        description: List projects that belong to {org_name} organisation
+        is: [withResponseItems: {item : Project}]
+      post:
+        description: Create projects within the {org_name} organization
+        is: [withRequestItem: {item : ProjectPost},
+             withResponseItem: {item : Project},
+             withNotFoundError,
+             withPreconditionFailedError]
+    /shared-configurations:
+      get:
+        description: List shared configurations that belong to {org_name} organisation
+        is: [withResponseItems: {item : SharedConfig}]
+      post:
+        description: Create shared configuration within the {org_name} organization
+        is: [withRequestItem: {item : SharedConfigPost},
+            withResponseItem: {item : SharedConfig},
+            withNotFoundError,
+            withPreconditionFailedError]
 
 /teams/{team_id}:
   description: Manage Semaphore teams
@@ -140,13 +178,16 @@ traits:
       description: List all projects belonging to {team_id} team
     post:
       description: Create a project belonging to {team_id} team
-  /shared-configurations/{sc_id}:
-    description: Manage relations between {team_id} team and
-                  {sc_id} shared configuration
-    post:
-      description: Add {sc_id} shared configuration to {team_id} team
-    delete:
-      description: Remove {sc_id} shared configuration from {team_id} team
+  /shared-configurations:
+    get:
+      description: List all shared configurations added to {team_id} team
+    /{sc_id}:
+      description: Manage relations between {team_id} team and
+                    {sc_id} shared configuration
+      post:
+        description: Add {sc_id} shared configuration to {team_id} team
+      delete:
+        description: Remove {sc_id} shared configuration from {team_id} team
 
 /projects/{project_id}:
   description: Manage Semaphore projects
@@ -162,11 +203,9 @@ traits:
                     {project_id} project
     /{sc_id}:
       post:
-        description: Attach {sc_id} shared configurations attached to
-                      {project_id} project
+        description: Attach {sc_id} shared configuration to {project_id} project
       delete:
-        description: Dettach {sc_id} shared configurations attached from
-                      {project_id} project
+        description: Dettach {sc_id} shared configuration from {project_id} project
   /shared-environment-variables:
     get:
       description: List all shared env variables connected to
@@ -191,27 +230,41 @@ traits:
                       {project_id} project
 
 /shared-configurations:
-  get:
-  post:
+  description: Manage Semaphore shared configurations
   /{sc_id}:
     get:
+      description: Show {sc_id} shared config details
     delete:
+      description: Delete {sc_id} shared config
     patch:
+      description: Update {sc_id} shared config
     /shared-environment-variables:
       get:
+        description: List all shared env variables belonging to {sc_id} shared config
       post:
+        description: Create shared environment variable within {sc_id} shared config
     /shared-configuration-files:
       get:
+        description: List all shared config files belonging to {sc_id} shared config
       post:
+        description: Create shared config file within {sc_id} shared configuration
 
 /shared-environment-variables:
+  description: Manage Semaphore shared environment variables
   /{sev_id}:
     get:
+      description: Show {sev_id} shared env variable details
     delete:
+      description: Delete {sev_id} shared env variable
     patch:
+      description: Update {sev_id} shared env variable
 
 /shared-configuration-files:
+  description: Manage Semaphore shared configuration files
   /{scf_id}:
     get:
+      description: Show {scf_id} shared config file details
     delete:
+      description: Delete {scf_id} shared config file
     patch:
+      description: Update {scf_id} shared config file
