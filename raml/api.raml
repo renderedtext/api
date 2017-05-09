@@ -183,17 +183,17 @@ traits:
   /{org_username}:
     get:
       description: "Get organization details\n\n
-      Precondition:\n - organization with {org_id} exists\n\n\n"
+      Precondition:\n - organization with {org_username} exists\n\n\n"
       is: [withResponseItem: {item : Org}, withNotFoundError]
     /teams:
       get:
         description: "List teams that belong to {org_username} organisation\n\n
-        Precondition:\n - organization with {org_id} exists\n\n\n"
+        Precondition:\n - organization with {org_username} exists\n\n\n"
         is: [withResponseItems: {item : Team}]
       post:
         description: "Create team within the {org_username} organization.\n\n
         Precondition:\n - team with {name} in request body does not exist\n\n\n
-        Postcondition:\n - team with {name} in request body {org_id} exists
+        Postcondition:\n - team with {name} in request body {org_username} exists
         "
         is: [withRequestItem: {item : TeamPost},
              withResponseItem: {item : Team},
