@@ -251,26 +251,53 @@ traits:
 /teams/{team_id}:
   description: Manage Semaphore teams
   get:
-    description: "Get team details\n\n
-      Precondition:\n - team with {team_id} exists
-    "
+    description: |
+      Get {team_id} team details
+
+      Precondition:
+      - {team_id} team exists
+      - one of:
+        - Requester is member of team with at least `write` permission or
+        - Requester is owner
     is: [withResponseItem: {item : Team}, withNotFoundError]
   delete:
-    description: "Delete team\n\n
-    Precondition:\n - {team_id} team exists\n\n\n
-    Postcondition:\n - {team_id} team does not exist
-    "
+    description: |
+      Delete team
+
+      Precondition:
+      - {team_id} team exists
+      - one of:
+        - Requester is member of team with `admin` permission or
+        - Requester is owner
+
+      Postcondition:
+      - {team_id} team does not exist
     is: [withNoBodyResponse, withNotFoundError]
   patch:
-    description: "Update team.\n\n
-    Precondition:\n - {team_id} team exists.\n\n\n
-    Postcondition:\n - {team_id} team exists but with altered attributes.
-    "
+    description: |
+      Update team.
+
+      Precondition:
+      - {team_id} team exists.
+      - one of:
+        - Requester is member of team with `admin` permission or
+        - Requester is owner
+
+      Postcondition:
+      - {team_id} team exists but with altered attributes.
     is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
   /users:
     description: Manage relations between {team_id} team and its members
     get:
-      description: List {team_id} team members
+      description: |
+        List {team_id} team members
+
+        Precondition:
+        - {team_id} team exists
+        - one of:
+          - Requester is member of {team_id} team and the team has
+            at least `write` permission or
+          - Requester is owner
       is: [withResponseItems: {item : User}, withNotFoundError]
     /{username}:
       post:
@@ -280,6 +307,10 @@ traits:
           Preconditions:
           - {team_id} team exists.
           - {username} user exists
+          - one of:
+            - Requester is member of {team_id} team and the team has
+              `admin` permission or
+            - Requester is owner
 
           Postcondition:
           - {username} user is {team_id} team member
@@ -290,6 +321,10 @@ traits:
 
           Precondition:
           - {username} user is {team_id} team member
+          - one of:
+            - Requester is member of {team_id} team and the team has
+              `admin` permission or
+            - Requester is owner
 
           Postcondition:
           - {username} user is *not* {team_id} team member
@@ -302,6 +337,10 @@ traits:
 
         Preconditions:
         - {team_id} team exists.
+        - one of:
+          - Requester is member of {team_id} team and the team has
+            at least `write` permission or
+          - Requester is owner
       is: [withResponseItems: {item : Project}, withNotFoundError]
     /{project_id}:
       post:
@@ -311,18 +350,27 @@ traits:
           Preconditions:
           - {team_id} team exists
           - {project_id} project exists
+          - {project_id} project is not {team_id} team member
+          - one of:
+            - Requester is member of {team_id} team and the team has
+              `admin` permission or
+            - Requester is owner
 
-          Postcondition:
+          Postconditions:
           - {project_id} project is {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
       delete:
         description: |
           Remove a project from {team_id} team
 
-          Precondition:
+          Preconditions:
           - {project_id} project is {team_id} team member
+          - one of:
+            - Requester is member of {team_id} team and the team has
+              `admin` permission or
+            - Requester is owner
 
-          Postcondition:
+          Postconditions:
           - {project_id} project is *not* {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
   /shared-configurations:
@@ -332,6 +380,10 @@ traits:
 
         Preconditions:
         - {team_id} team exists.
+        - one of:
+          - Requester is member of {team_id} team and the team has
+            at least `write` permission or
+          - Requester is owner
       is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
     /{shared_config_id}:
       description: Manage relations between {team_id} team and
@@ -343,6 +395,10 @@ traits:
           Preconditions:
           - {team_id} team exists
           - {shared_config_id} shared configuration exists
+          - one of:
+            - Requester is member of {team_id} team and the team has
+              `admin` permission or
+            - Requester is owner
 
           Postcondition:
           - {shared_config_id} shared configuration is {team_id} team member
@@ -353,6 +409,10 @@ traits:
 
           Precondition:
           - {shared_config_id} shared configuration is {team_id} team member
+          - one of:
+            - Requester is member of {team_id} team and the team has
+              `admin` permission or
+            - Requester is owner
 
           Postcondition:
           - {shared_config_id} shared configuration is *not* {team_id} team member
@@ -370,6 +430,10 @@ traits:
 
       Preconditions:
       - {project_id} project exists
+      - one of:
+        - Requester and {project_id} project are members of the team with
+          at least `read` permission or
+        - Requester is owner
     is: [withResponseItem: {item : Project}, withNotFoundError]
   delete:
     description: |
@@ -377,6 +441,10 @@ traits:
 
       Precondition:
       - {project_id} project exists
+      - one of:
+        - Requester and {project_id} project are members of the team with
+          `admin` permission or
+        - Requester is owner
 
       Postcondition:
       - {project_id} project does *not* exist
@@ -387,6 +455,10 @@ traits:
 
       Precondition:
       - {project_id} project exists
+      - one of:
+        - Requester and {project_id} project are members of the team with
+          at least `write` permission or
+        - Requester is owner
 
       Postcondition:
       - {project_id} project exists with updated attributes
@@ -398,6 +470,10 @@ traits:
 
         Preconditions:
         - {project_id} project exists
+        - one of:
+          - Requester and {project_id} project are members of the team with
+            at least `write` permission or
+          - Requester is owner
       is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
     /{shared_config_id}:
       post:
