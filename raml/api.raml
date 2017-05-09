@@ -208,7 +208,7 @@ traits:
           Create project within the {org_username} organization
 
           Precondition:
-            - Requester is member of {admin} or {owner} group.
+            - Requester is member of {admin} or {owner} team.
 
           Postcondition:
             - new project with {name} and new id exists.
@@ -221,14 +221,28 @@ traits:
              withPreconditionFailedError]
     /shared-configurations:
       get:
-        description: "List shared configurations that belong to {org_username} organisation\n\n\n
-        Precondition:\n - user has to be member of {???} teams\n\n\n"
+        description: |
+          List shared configurations that belong to {org_username} organisation
+
+          Preconditions:
+          - one of:
+            - Requester is member of team with at least `write` permission or
+            - Requester is owner
+
+          Postconditions
         is: [withResponseItems: {item : SharedConfig}]
       post:
-        description: "Create shared configuration within the {org_username} organization\n\n
-        Precondition:\n - {name} shared config does not exist in {org_username} organization\n\n\n
-        Postcondition:\n - {name} shared config exists in {org_username} organization
-        "
+        description: |
+          Create shared configuration within the {org_username} organization
+
+          Preconditions:
+          - {name} shared config does not exist in {org_username} organization
+          - one of:
+            - Requester is member of team with `admin` permission or
+            - Requester is owner
+
+          Postconditions:
+          - {name} shared config exists in {org_username} organization
         is: [withRequestItem: {item : SharedConfigPost},
             withResponseItem: {item : SharedConfig},
             withNotFoundError,
