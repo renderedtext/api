@@ -4,6 +4,20 @@ version: v2
 baseUri: https://api.semaphoreci.com
 mediaType: application/json
 
+documentation:
+- title: Welcome
+  content: |
+    Partial description for Semaphore API, containing only resources necesary
+    for shared configuration feature.
+
+- title: Constraints
+  content: |
+    These constraints apply to *all* resources.
+
+    Preconditions:
+    - Requester is authenticaticated.
+    - Request is outhorized.
+
 types:
   Error:
     type: object
@@ -144,48 +158,37 @@ traits:
             type: Error
 
 /users:
-  description: "Manage Semaphore users\n\n
-  Precondition:\n - All operations require outhorization
-"
+  description: |
+    Manage Semaphore users
   get:
-    description: "List all users\n\n
-      Precondition:\n\n
-      Post:
-    "
+    description: List all users\n\n
     is: [ withResponseItems: {item : User}, withClientError ]
 
   /{username}:
     get:
-      description: "Show {user_id} user details\n\n
-      Precondition:\n - user with {user_id} exists\n\n\n
-      Postcondition:
-      "
+      description: |
+        Show {username} user details
+
+        Precondition:
+          - user with {username} exists
     delete:
-      description: "Delete {user_id} user
-      Precondition:\n - user with {user_id} exists\n\n\n
-      Postcondition:
-      "
+      description: "Delete {username} user\n\n
+        Precondition:\n  - user with {username} exists"
 
 /orgs:
-  description: "Manage Semaphore organizations\n\n
-    Precondition:\n - All operations require outhorization
-  "
+  description: Manage Semaphore organizations
   get:
     description: Get list of all organizations available to the user
     is: [withResponseItems: {item : Org}]
   /{org_username}:
     get:
       description: "Get organization details\n\n
-      Precondition:\n - organization with {org_id} exists\n\n\n
-      Postcondition:
-      "
+      Precondition:\n - organization with {org_id} exists\n\n\n"
       is: [withResponseItem: {item : Org}, withNotFoundError]
     /teams:
       get:
         description: "List teams that belong to {org_username} organisation\n\n
-        Precondition:\n - organization with {org_id} exists\n\n\n
-        Postcondition:
-        "
+        Precondition:\n - organization with {org_id} exists\n\n\n"
         is: [withResponseItems: {item : Team}]
       post:
         description: "Create team within the {org_username} organization.\n\n
@@ -198,18 +201,20 @@ traits:
              withPreconditionFailedError]
     /projects:
       get:
-        description: "List projects that belong to {org_username} organisation\n\n
-        Precondition:\n\n\n
-        Postcondition:
-        "
+        description: List projects that belong to {org_username} organisation
         is: [withResponseItems: {item : Project}]
       post:
-        description: "Create project within the {org_username} organization\n\n
-        Note:\n - Projects with the same name can exist.
-              Theu are uniquely identified by id.\n\n\n
-        Precondition:\n - User is member of {admin} or {owner} group.\n\n\n
-        Postcondition:\n - new project with {name} from requst body and new id exists.
-        "
+        description: |
+          Create project within the {org_username} organization
+
+          Precondition:
+            - Requester is member of {admin} or {owner} group.
+
+          Postcondition:
+            - new project with {name} and new id exists.
+
+          *Note*: Projects with the same name can exist within an organization.
+                Projects are uniquely identified by id.
         is: [withRequestItem: {item : ProjectPost},
              withResponseItem: {item : Project},
              withNotFoundError,
@@ -217,14 +222,12 @@ traits:
     /shared-configurations:
       get:
         description: "List shared configurations that belong to {org_username} organisation\n\n\n
-        Precondition:\n - user has to be member of {???} teams\n\n\n
-        Postcondition:\n
-        "
+        Precondition:\n - user has to be member of {???} teams\n\n\n"
         is: [withResponseItems: {item : SharedConfig}]
       post:
         description: "Create shared configuration within the {org_username} organization\n\n
-        Precondition:\n - shared config with {name} in request body does not exist\n\n\n
-        Postcondition:\n - shared config with {name} in request body {org_id} exists
+        Precondition:\n - {name} shared config does not exist in {org_username} organization\n\n\n
+        Postcondition:\n - {name} shared config exists in {org_username} organization
         "
         is: [withRequestItem: {item : SharedConfigPost},
             withResponseItem: {item : SharedConfig},
@@ -235,58 +238,110 @@ traits:
   description: Manage Semaphore teams
   get:
     description: "Get team details\n\n
-    Precondition:\n - team with {team_id} does not exist\n\n\n
-    Postcondition:\n - team with {team_id} exists
+      Precondition:\n - team with {team_id} exists
     "
     is: [withResponseItem: {item : Team}, withNotFoundError]
   delete:
     description: "Delete team\n\n
-    Precondition:\n - team with {team_id} exists\n\n\n
-    Postcondition:\n - team with {team_id} does not exist
+    Precondition:\n - {team_id} team exists\n\n\n
+    Postcondition:\n - {team_id} team does not exist
     "
     is: [withNoBodyResponse, withNotFoundError]
   patch:
     description: "Update team.\n\n
-    Precondition:\n - team with {team_id} exists.\n\n\n
-    Postcondition:\n - team with {team_id} exists but with altered attributes.
+    Precondition:\n - {team_id} team exists.\n\n\n
+    Postcondition:\n - {team_id} team exists but with altered attributes.
     "
     is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
   /users:
-    description: Manage relations between {team_id} team and itc members
+    description: Manage relations between {team_id} team and its members
     get:
       description: List {team_id} team members
       is: [withResponseItems: {item : User}, withNotFoundError]
     /{username}:
       post:
-        description: Grant {username} user membership in {team_id} team
+        description: |
+          Grant {username} user membership in {team_id} team.
+
+          Preconditions:
+          - {team_id} team exists.
+          - {username} user exists
+
+          Postcondition:
+          - {username} user is {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: Revoke {username} user membership in {team_id} team
+        description: |
+          Revoke {username} user membership in {team_id} team
+
+          Precondition:
+          - {username} user is {team_id} team member
+
+          Postcondition:
+          - {username} user is *not* {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
   /projects:
-    description: Manage relations between {team_id} team and itc projects
+    description: Manage {team_id} team projects
     get:
-      description: List all projects belonging to {team_id} team
+      description: |
+        List all projects belonging to {team_id} team
+
+        Preconditions:
+        - {team_id} team exists.
       is: [withResponseItems: {item : Project}, withNotFoundError]
     /{project_id}:
       post:
-        description: Add a project to {team_id} team
+        description: |
+          Add a project to {team_id} team
+
+          Preconditions:
+          - {team_id} team exists
+          - {project_id} project exists
+
+          Postcondition:
+          - {project_id} project is {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: Remove a project from {team_id} team
+        description: |
+          Remove a project from {team_id} team
+
+          Precondition:
+          - {project_id} project is {team_id} team member
+
+          Postcondition:
+          - {project_id} project is *not* {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
   /shared-configurations:
     get:
-      description: List all shared configurations added to {team_id} team
+      description: |
+        List all shared configurations added to {team_id} team
+
+        Preconditions:
+        - {team_id} team exists.
       is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
     /{sc_id}:
       description: Manage relations between {team_id} team and
                     {sc_id} shared configuration
       post:
-        description: Add {sc_id} shared configuration to {team_id} team
+        description: |
+          Add {sc_id} shared configuration to {team_id} team
+
+          Preconditions:
+          - {team_id} team exists
+          - {sc_id} shared configuration exists
+
+          Postcondition:
+          - {sc_id} shared configuration is {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: Remove {sc_id} shared configuration from {team_id} team
+        description: |
+          Remove {sc_id} shared configuration from {team_id} team
+
+          Precondition:
+          - {sc_id} shared configuration is {team_id} team member
+
+          Postcondition:
+          - {sc_id} shared configuration is *not* {team_id} team member
         is: [withNoBodyResponse, withNotFoundError]
 
 /projects/{project_id}:
