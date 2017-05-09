@@ -219,12 +219,12 @@ traits:
     get:
       description: List {team_id} team members
       is: [withResponseItems: {item : User}, withNotFoundError]
-    /{user_id}:
+    /{username}:
       post:
-        description: Grant {user_id} user membership in {team_id} team
+        description: Grant {username} user membership in {team_id} team
         is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: Revoke {user_id} user membership in {team_id} team
+        description: Revoke {username} user membership in {team_id} team
         is: [withNoBodyResponse, withNotFoundError]
   /projects:
     description: Manage relations between {team_id} team and itc projects
