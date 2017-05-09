@@ -342,6 +342,10 @@ traits:
 
           Postcondition:
           - {sc_id} shared configuration is *not* {team_id} team member
+
+          *Note*: It is allowed to remove shared configuration from the team
+          even if there are projects to which that shared configuration is
+          still attached to, in the team?
         is: [withNoBodyResponse, withNotFoundError]
 
 /projects/{project_id}:
