@@ -168,36 +168,36 @@ traits:
   get:
     description: Get list of all organizations
     is: [withResponseItems: {item : Org}]
-  /{org_name}:
+  /{org_username}:
     get:
       description: Get organization details
       is: [withResponseItem: {item : Org}, withNotFoundError]
     /teams:
       get:
-        description: List teams that belong to {org_name} organisation
+        description: List teams that belong to {org_username} organisation
         is: [withResponseItems: {item : Team}]
       post:
-        description: Create team within the {org_name} organization
+        description: Create team within the {org_username} organization
         is: [withRequestItem: {item : TeamPost},
              withResponseItem: {item : Team},
              withNotFoundError,
              withPreconditionFailedError]
     /projects:
       get:
-        description: List projects that belong to {org_name} organisation
+        description: List projects that belong to {org_username} organisation
         is: [withResponseItems: {item : Project}]
       post:
-        description: Create projects within the {org_name} organization
+        description: Create projects within the {org_username} organization
         is: [withRequestItem: {item : ProjectPost},
              withResponseItem: {item : Project},
              withNotFoundError,
              withPreconditionFailedError]
     /shared-configurations:
       get:
-        description: List shared configurations that belong to {org_name} organisation
+        description: List shared configurations that belong to {org_username} organisation
         is: [withResponseItems: {item : SharedConfig}]
       post:
-        description: Create shared configuration within the {org_name} organization
+        description: Create shared configuration within the {org_username} organization
         is: [withRequestItem: {item : SharedConfigPost},
             withResponseItem: {item : SharedConfig},
             withNotFoundError,
