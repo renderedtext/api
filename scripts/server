@@ -1,0 +1,7 @@
+#/usr/bin/env bash
+
+make setup
+make doc
+make guard &
+
+cd doc && python -m SimpleHTTPServer
