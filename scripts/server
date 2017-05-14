@@ -1,7 +1,5 @@
 #/usr/bin/env bash
 
-make setup
-make doc
-make guard &
+bundle exec guard --no-interactions &
 
 cd doc && python -m SimpleHTTPServer
