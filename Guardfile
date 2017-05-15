@@ -3,4 +3,3 @@
 guard :process, :name => "compile", :command => "./scripts/compile" do
   watch(/raml/)
 end
-
