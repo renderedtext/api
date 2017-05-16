@@ -6,59 +6,28 @@ mediaType: application/json
 
 documentation:
 - title: Welcome
-  content: |
-    Partial description for Semaphore API, containing only resources necesary
-    for shared configuration feature.
-
-    TODO: api root
+  content: !include descriptions/welcome.raml
 
 - title: Authentication
-  content: |
-    TODO
+  content: !include descriptions/authentication.raml
 
 - title: Requests
-  content: |
-    TODO: example curl request
-    TODO: format
+  content: !include descriptions/requests.raml
 
 - title: Response
-  content: |
-    TODO: Timezones
-    TODO: Agant requrments
-    TODO: Blank values
+  content: !include descriptions/response.raml
 
 - title: Parameters
-  content: |
-    TODO
+  content: !include descriptions/parameters.raml
 
 - title: Pagination
-  content: |
-    TODO
+  content: !include descriptions/pagination.raml
 
 - title: Errors
-  content: |
-    TODO
+  content: !include descriptions/errors.raml
 
 - title: Constraints
-  content: |
-    These constraints apply to *all* resources.
-
-    *Note*: Autentication is validated before anything else in the request.
-
-    Preconditions:
-    - Requester is authenticated.
-    - Request is authorized.
-
-    Failures:
-    - Requester is *not* authenticated.
-      - Response code: 401
-      - Rationale: Requester should be notified that he/she/it needs to log-in.
-          There is no security risk in it.
-    - Request is *not* authorized.
-      - Response code: 404
-      - Rationale: Requester should *not* be notified with response 403 that
-          object exists but requester is not authorized.
-          To malicious requester it reveals which objects exist.
+  content: !include descriptions/constraints.raml
 
 types:
   Error:
