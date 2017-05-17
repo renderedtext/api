@@ -29,7 +29,43 @@ documentation:
 - title: Constraints
   content: !include descriptions/constraints.raml
 
+annotationTypes:
+  tests:
+    allowedTargets: Response
+    type: Test[]
+
 types:
+  Test:
+    additionalProperties: false
+    properties:
+      request?: TestRequest
+      response: TestResponse
+  TestRequest:
+    additionalProperties: false
+    properties:
+      header?: TestHeaderItems[]
+      body?: TestRequestBodyItems[]
+  TestResponse:
+    additionalProperties: false
+    properties:
+      header?: TestHeaderItems[]
+      body: TestResponseBodyItems[]
+  TestHeaderItems:
+    additionalProperties: false
+    properties:
+      key:
+      value:
+  TestRequestBodyItems:
+    additionalProperties: false
+    properties:
+      key:
+      value: any
+  TestResponseBodyItems:
+    additionalProperties: false
+    properties:
+      key:
+      type:
+      value?: any
   Error:
     type: object
     properties:
@@ -170,6 +206,36 @@ traits:
   withPreconditionFailedError:
     responses:
       412:
+        body:
+          application/json:
+            type: Error
+
+/foo:
+  description: Auto generated tests example
+  get:
+    responses:
+      404:
+        (tests):
+          - response:
+              body: []
+          - request:
+              header:
+                - key: Authentication
+                  value: Token <replaced during test generation>
+                - key: X-foo
+                  value: bar
+            response:
+              header:
+                - key: X-foo
+                  value: ppp
+                - key: X-bar
+                  value: baz
+              body:
+                - key: message
+                  type: string
+                  value: pera
+                - key: foo
+                  type: date
         body:
           application/json:
             type: Error
