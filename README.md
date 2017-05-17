@@ -28,6 +28,8 @@ _note_: This will take a while the first time.
 local.semaphore:8000
 ```
 
+_note_: You don't need to manually build the docs if you use docker-compose.
+
 ## Building the docs
 
 To setup tools:
