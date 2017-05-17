@@ -1,3 +1,30 @@
 #%RAML 1.0
  |
-    TODO
+    Every request that returns more than 30 items will be paginated. You can specify further pages by passing the `?page` parameter.
+    ```
+    curl 'https://api.semaphoreci.com/v2/orgs?page=2'
+    ```
+
+
+    The `Link` header includes information about pagination:
+    ```
+    Link: <http://api.semaphoreci.com/v2/orgs?page=1>; rel="first",
+      <http://api.semaphoreci.com/v2/orgs?page=2>; rel="last"
+    ```
+    The response header also contains `Total` parameter which shows total number of items:
+
+    ```
+    Total: 35
+    ```
+
+    The possible `rel` values are:
+
+
+    | Name  |               Description               |
+    |-------|:---------------------------------------:|
+    | next  | The link for the next page of results   |
+    | prev  | The link previous page of results.      |
+    | first | The link for the first page of results. |
+    | last  | The link for the lastpage of results.   |
+
+    It's advised to form calls with Link header values instead of constructing your own URLs.
