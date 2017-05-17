@@ -1,3 +1,36 @@
 #%RAML 1.0
  |
-    TODO
+    Authentication is done with the use of an authentication token. You can
+    find your token by visting the Account Settings page.
+
+    The token can be passed either through the `Authorization` header or as a
+    query parameter (but not both):
+    - Passing of the token through the header:
+      - The header's format is the following: `Authorization: Token <token>`.
+      - curl example:
+        ```
+          curl -L -H "Authorization: Token <token>" "api.semaphoreci.com/v2/orgs"
+        ```
+    - Passing of the token as a query parameter:
+      - The URL format is the following `api.semaphoreci.com/v2/orgs?auth_token=<token>`.
+      - curl example:
+        ```
+          curl -L "api.semaphoreci.com/v2/orgs?auth_token=<token>"
+        ```
+
+    Client errors:
+    - Failing to authenticate will result in a `401 Unauthorized` response:
+      ```
+        HTTP/1.1 401 Unauthorized
+        WWW-Authenticate: Token realm="Application"
+
+        {"message":"Invalid authentication token."}
+      ```
+    - Attempting to authenticate by using both the header and query
+      parameters will result in a `401 Unauthorized` response:
+      ```
+        HTTP/1.1 401 Unauthorized
+        WWW-Authenticate: Token realm="Application"
+
+        {"message":"Multiple authentication tokens provided."}
+      ```
