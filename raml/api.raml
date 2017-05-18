@@ -4,6 +4,9 @@ version: v2
 baseUri: https://api.semaphoreci.com/v2
 mediaType: application/json
 
+uses:
+  testAnnotation: libraries/tests-annotation.raml
+
 documentation:
 - title: Welcome
   content: !include descriptions/welcome.raml
@@ -29,43 +32,7 @@ documentation:
 - title: Constraints
   content: !include descriptions/constraints.raml
 
-annotationTypes:
-  tests:
-    allowedTargets: Response
-    type: Test[]
-
 types:
-  Test:
-    additionalProperties: false
-    properties:
-      request?: TestRequest
-      response: TestResponse
-  TestRequest:
-    additionalProperties: false
-    properties:
-      header?: TestHeaderItems[]
-      body?: TestRequestBodyItems[]
-  TestResponse:
-    additionalProperties: false
-    properties:
-      header?: TestHeaderItems[]
-      body: TestResponseBodyItems[]
-  TestHeaderItems:
-    additionalProperties: false
-    properties:
-      key:
-      value:
-  TestRequestBodyItems:
-    additionalProperties: false
-    properties:
-      key:
-      value: any
-  TestResponseBodyItems:
-    additionalProperties: false
-    properties:
-      key:
-      type:
-      value?: any
   Error:
     type: object
     properties:
@@ -215,7 +182,7 @@ traits:
   get:
     responses:
       404:
-        (tests):
+        (testAnnotation.tests):
           - response:
               body: []
           - request:

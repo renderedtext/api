@@ -1,0 +1,40 @@
+#%RAML 1.0 Library
+usage: Used to specify basic API tests 
+
+annotationTypes:
+  tests:
+    allowedTargets: Response
+    type: Test[]
+
+types:
+  Test:
+    additionalProperties: false
+    properties:
+      request?: TestRequest
+      response: TestResponse
+  TestRequest:
+    additionalProperties: false
+    properties:
+      header?: TestHeaderItems[]
+      body?: TestRequestBodyItems[]
+  TestResponse:
+    additionalProperties: false
+    properties:
+      header?: TestHeaderItems[]
+      body: TestResponseBodyItems[]
+  TestHeaderItems:
+    additionalProperties: false
+    properties:
+      key:
+      value:
+  TestRequestBodyItems:
+    additionalProperties: false
+    properties:
+      key:
+      value: any
+  TestResponseBodyItems:
+    additionalProperties: false
+    properties:
+      key:
+      type:
+      value?: any
