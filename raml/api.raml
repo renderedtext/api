@@ -4,6 +4,9 @@ version: v2
 baseUri: https://api.semaphoreci.com/v2
 mediaType: application/json
 
+uses:
+  testAnnotation: libraries/tests-annotation.raml
+
 documentation:
 - title: Welcome
   content: !include descriptions/welcome.raml
@@ -174,6 +177,52 @@ traits:
           application/json:
             type: Error
 
+/foo:
+  description: Auto generated tests example
+  get:
+    is: [withNotFoundError]
+    responses:
+      404:
+        (testAnnotation.tests):
+          - response:
+              body: []
+          - request:
+              header:
+                - name: Authentication
+                  value: Token <replaced during test generation>
+                - name: X-foo
+                  value: bar
+            response:
+              header:
+                - name: X-foo
+                  value: ppp
+                - name: X-bar
+                  value: baz
+              body:
+                - name: message
+                  type: string
+                  value: pera
+                - name: foo
+                  type: date
+  /{foo_id}:
+    get:
+      is: [withResponseItem: {item : User}]
+      responses:
+        200:
+          (testAnnotation.tests):
+          - request:
+              urlArgs:
+              - name: org_username
+                value: <valid_foo_id>
+            response:
+              body:
+              - name: username
+                type: string
+              - name: realname
+                type: string
+              - name: email
+                type: string
+
 /users:
   description: |
     Manage Semaphore users
@@ -197,11 +246,52 @@ traits:
   get:
     description: Get list of all organizations available to the user
     is: [withResponseItems: {item : Org}]
+    responses:
+      200:
+        (testAnnotation.tests):
+          - response:
+              body:
+                - name: id
+                  type: integer
+                - name: name
+                  type: string
+                - name: username
+                  type: string
+                - name: description
+                  type: string | nil
   /{org_username}:
     get:
       description: "Get organization details\n\n
       Precondition:\n - organization with {org_username} exists\n\n\n"
       is: [withResponseItem: {item : Org}, withNotFoundError]
+      responses:
+        200:
+          (testAnnotation.tests):
+          - request:
+              urlArgs:
+              - name: org_username
+                value: <valid_org_username>
+            response:
+              body:
+              - name: id
+                type: integer
+              - name: name
+                type: string
+                value: <valid_org_username>
+              - name: username
+                type: string
+              - name: description
+                type: string | nil
+        404:
+          (testAnnotation.tests):
+          - request:
+              urlArgs:
+              - name: org_username
+                value: nonexiting_username
+            response:
+              body:
+              - name: message
+                type: string
     /teams:
       get:
         description: "List teams that belong to {org_username} organisation\n\n
