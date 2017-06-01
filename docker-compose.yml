@@ -2,7 +2,10 @@ version: "2.0"
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        GEMFURY_PASSWORD: ${GEMFURY_PASSWORD}
     volumes:
       - .:/app
     ports:
