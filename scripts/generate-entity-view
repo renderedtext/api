@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+node scripts/output-json.js
+
+bundle exec raml_visualizer "json-output.json" "doc/entity-view" "templates"
+
+rm -f json-output.json

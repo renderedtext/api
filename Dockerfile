@@ -21,6 +21,5 @@ RUN npm install -g raml2html
 RUN npm install -g raml2html-markdown-theme
 RUN npm install -g raml2html-slate-theme
 RUN npm i raml2obj --save
-RUN gem install nokogiri
 
 CMD ./scripts/server
