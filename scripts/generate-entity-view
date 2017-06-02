@@ -4,6 +4,6 @@ node scripts/output-json.js
 
 rm -rf doc/entity-view
 
-bundle exec raml_visualizer "json-output.json" "doc/entity-view" "templates"
+bundle exec raml_visualizer "json-output.json" "doc/entity-view" "templates" "html"
 
 rm -f json-output.json
