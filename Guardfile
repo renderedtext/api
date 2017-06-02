@@ -2,4 +2,5 @@
 
 guard :process, :name => "compile", :command => "./scripts/compile" do
   watch(/raml/)
+  watch(/templates/)
 end

@@ -10,6 +10,8 @@ if [[ "$DOCKER" == "true" ]]; then
   raml2html --theme raml2html-markdown-theme raml/api.raml --output doc/api.md
   raml2html --theme raml2html-slate-theme    raml/api.raml --output doc/api-slate.html
 
+  ./scripts/generate-entity-view
+
   echo "[Recompile] Finished"
 else
   make doc
