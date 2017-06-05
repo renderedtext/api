@@ -20,6 +20,8 @@ RUN mkdir -p doc
 RUN npm install -g raml2html
 RUN npm install -g raml2html-markdown-theme
 RUN npm install -g raml2html-slate-theme
-RUN npm i raml2obj --save
+RUN npm install -g raml2obj
+
+ENV NODE_PATH=/usr/local/lib/node_modules
 
 CMD ./scripts/server
