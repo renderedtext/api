@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-mkdir doc
+mkdir -p doc
 
 bundle exec guard --no-interactions &
 
