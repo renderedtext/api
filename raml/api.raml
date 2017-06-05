@@ -177,70 +177,6 @@ traits:
           application/json:
             type: Error
 
-/foo:
-  description: Auto generated tests example
-  get:
-    is: [withNotFoundError]
-    responses:
-      404:
-        (testAnnotation.tests):
-          - response:
-              body: []
-          - request:
-              header:
-                - name: Authentication
-                  value: Token <replaced during test generation>
-                - name: X-foo
-                  value: bar
-            response:
-              header:
-                - name: X-foo
-                  value: ppp
-                - name: X-bar
-                  value: baz
-              body:
-                - name: message
-                  type: string
-                  value: pera
-                - name: foo
-                  type: date
-  /{foo_id}:
-    get:
-      is: [withResponseItem: {item : User}]
-      responses:
-        200:
-          (testAnnotation.tests):
-          - request:
-              urlArgs:
-              - name: org_username
-                value: <valid_foo_id>
-            response:
-              body:
-              - name: username
-                type: string
-              - name: realname
-                type: string
-              - name: email
-                type: string
-
-/users:
-  description: |
-    Manage Semaphore users
-  get:
-    description: List all users\n\n
-    is: [ withResponseItems: {item : User}, withClientError ]
-
-  /{username}:
-    get:
-      description: |
-        Show {username} user details
-
-        Precondition:
-          - user with {username} exists
-    delete:
-      description: "Delete {username} user\n\n
-        Precondition:\n  - user with {username} exists"
-
 /orgs:
   description: Manage Semaphore organizations
   get:
@@ -531,45 +467,7 @@ traits:
 
 /projects/{project_id}:
   description: Manage Semaphore projects
-  get:
-    description: |
-      Show {project_id} project details
 
-      Preconditions:
-      - {project_id} project exists
-      - one of:
-        - Requester and {project_id} project are members of the team with
-          at least `read` permission or
-        - Requester is owner
-    is: [withResponseItem: {item : Project}, withNotFoundError]
-  delete:
-    description: |
-      Delete {project_id} project
-
-      Precondition:
-      - {project_id} project exists
-      - one of:
-        - Requester and {project_id} project are members of the team with
-          `admin` permission or
-        - Requester is owner
-
-      Postcondition:
-      - {project_id} project does *not* exist
-    is: [withNoBodyResponse, withNotFoundError]
-  patch:
-    description: |
-      Update {project_id} project
-
-      Precondition:
-      - {project_id} project exists
-      - one of:
-        - Requester and {project_id} project are members of the team with
-          at least `write` permission or
-        - Requester is owner
-
-      Postcondition:
-      - {project_id} project exists with updated attributes
-    is: [withRequestItem: {item : ProjectPatch}, withResponseItem: {item : Project}, withNotFoundError]
   /shared-configurations:
     get:
       description: |
