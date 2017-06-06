@@ -64,3 +64,13 @@ def properties_table(properties)
 
   a_table(header, properties)
 end
+
+def only_20x(responses)
+  responses.select { |response| /^20\d$/.match(response.raw["code"]) }
+end
+
+def full_http_code(response)
+  descriptions = { "200" => "OK", "204" => "No Content" }
+
+  "#{response} #{descriptions[response]}"
+end

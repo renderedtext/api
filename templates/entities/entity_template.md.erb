@@ -19,8 +19,8 @@
     <% if method.responses.any? %>
 ###Responses:
 
-      <% method.responses.each do |response| %>
-####Status: <%= response.raw["code"] %>
+      <% only_20x(method.responses).each do |response| %>
+####Status: <%= full_http_code(response.raw["code"]) %>
 
         <% if response.properties.any? %>
 <%= properties_table(response.properties) %>
