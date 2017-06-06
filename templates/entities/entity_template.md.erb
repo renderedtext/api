@@ -3,63 +3,32 @@
 #<%= @entity %>
 
 <% @resources.to_a.each do |resource| %>
-
----
-
-##-> <%= resource_path(resource) %>
-
   <% resource.methods.each do |method| %>
+##<%= method.raw["description"] %>
 
-***
+    <%= method.raw["method"] %> `<%= resource_path(resource) %>`
 
-###--> <%= method.raw["method"] %>
-
-__Description:__
-
-  <%= method.raw["description"] %>
-
-  <% if method.body.any? %>
-__Request:__
-
-* Entity: <%= method.body["displayName"] %>
-
-* Type: <%= method.body["key"] %>
 
     <% if method.properties.any? %>
-* Properties:
+###Params:
 
 <%= properties_table(method.properties) %>
     <% end %>
 
-  <% end %>
 
-  <% if method.raw["allUriParameters"].to_a.any? %>
-__URL parameters:__
+    <% if method.responses.any? %>
+###Responses:
 
-<%= uri_parameters_table(method.raw["allUriParameters"]) %>
-  <% end %>
+      <% method.responses.each do |response| %>
+####Status: <%= response.raw["code"] %>
 
-__Responses:__
-
-    <% method.responses.each do |response| %>
-
-___
-
-####----> <%= response.raw["code"] %>
-      <% body = response.body %>
-
-* Entity: <%= body_entity_name(response.body) %>
-
-* Type: <%= (key = response.body["key"]) ? key : "-" %>
-
-      <% if response.properties.any? %>
-* Properties:
-
+        <% if response.properties.any? %>
 <%= properties_table(response.properties) %>
-      <% end %>
+        <% end %>
 
+      <% end %>
     <% end %>
 
-  <% end %>
 
+  <% end %>
 <% end %>
