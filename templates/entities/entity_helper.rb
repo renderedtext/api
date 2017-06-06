@@ -8,10 +8,6 @@ def resource_path(resource)
   "#{resource.raw["parentUrl"]}#{resource.raw["relativeUri"]}"
 end
 
-def method_short_description(method)
-  method.raw["description"].to_s.split("\n").first
-end
-
 def table_line(fields)
   "| #{fields.join(" | ")} |"
 end
