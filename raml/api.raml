@@ -103,32 +103,32 @@ types:
     type: SharedConfigPost
     properties:
       id: integer
-  SharedEnvVarPatch:
+  EnvVarPatch:
     type: object
     properties:
       key?: string
       value?: string
-  SharedEnvVarPost:
+  EnvVarPost:
     type: object
     properties:
       name: string
       value: string
-  SharedEnvVar:
-    type: SharedEnvVarPost
+  EnvVar:
+    type: EnvVarPost
     properties:
       id: integer
-  SharedConfFilePatch:
+  ConfigFilePatch:
     type: object
     properties:
       name?: string
       content?: string
-  SharedConfFilePost:
+  ConfigFilePost:
     type: object
     properties:
       path: string
       content: string
-  SharedConfFile:
-    type: SharedConfFilePost
+  ConfigFile:
+    type: ConfigFilePost
     properties:
       id: integer
 
@@ -177,74 +177,9 @@ traits:
           application/json:
             type: Error
 
-/foo:
-  description: Auto generated tests example
-  get:
-    is: [withNotFoundError]
-    responses:
-      404:
-        (testAnnotation.tests):
-          - response:
-              body: []
-          - request:
-              header:
-                - name: Authentication
-                  value: Token <replaced during test generation>
-                - name: X-foo
-                  value: bar
-            response:
-              header:
-                - name: X-foo
-                  value: ppp
-                - name: X-bar
-                  value: baz
-              body:
-                - name: message
-                  type: string
-                  value: pera
-                - name: foo
-                  type: date
-  /{foo_id}:
-    get:
-      is: [withResponseItem: {item : User}]
-      responses:
-        200:
-          (testAnnotation.tests):
-          - request:
-              urlArgs:
-              - name: org_username
-                value: <valid_foo_id>
-            response:
-              body:
-              - name: username
-                type: string
-              - name: realname
-                type: string
-              - name: email
-                type: string
-
-/users:
-  description: |
-    Manage Semaphore users
-  get:
-    description: List all users\n\n
-    is: [ withResponseItems: {item : User}, withClientError ]
-
-  /{username}:
-    get:
-      description: |
-        Show {username} user details
-
-        Precondition:
-          - user with {username} exists
-    delete:
-      description: "Delete {username} user\n\n
-        Precondition:\n  - user with {username} exists"
-
 /orgs:
-  description: Manage Semaphore organizations
   get:
-    description: Get list of all organizations available to the user
+    description: List your organizations
     is: [withResponseItems: {item : Org}]
     responses:
       200:
@@ -261,8 +196,7 @@ traits:
                   type: string | nil
   /{org_username}:
     get:
-      description: "Get organization details\n\n
-      Precondition:\n - organization with {org_username} exists\n\n\n"
+      description: Get an organization
       is: [withResponseItem: {item : Org}, withNotFoundError]
       responses:
         200:
@@ -294,603 +228,139 @@ traits:
                 type: string
     /teams:
       get:
-        description: "List teams that belong to {org_username} organisation\n\n
-        Precondition:\n - organization with {org_username} exists\n\n\n"
+        description: List teams in an organization
         is: [withResponseItems: {item : Team}]
       post:
-        description: "Create team within the {org_username} organization.\n\n
-        Precondition:\n - team with {name} in request body does not exist\n\n\n
-        Postcondition:\n - team with {name} in request body {org_username} exists
-        "
+        description: Create a team in an organization
         is: [withRequestItem: {item : TeamPost},
              withResponseItem: {item : Team},
              withNotFoundError,
              withPreconditionFailedError]
     /projects:
       get:
-        description: List projects that belong to {org_username} organisation
+        description: List projects in an organization
         is: [withResponseItems: {item : Project}]
-      post:
-        description: |
-          Create project within the {org_username} organization
-
-          Precondition:
-            - Requester is member of {admin} or {owner} team.
-
-          Postcondition:
-            - new project with {name} and new id exists.
-
-          *Note*: Projects with the same name can exist within an organization.
-                Projects are uniquely identified by id.
-        is: [withRequestItem: {item : ProjectPost},
-             withResponseItem: {item : Project},
-             withNotFoundError,
-             withPreconditionFailedError]
-    /shared-configurations:
+    /shared_configs:
       get:
-        description: |
-          List shared configurations that belong to {org_username} organisation
-
-          Preconditions:
-          - one of:
-            - Requester is member of team with at least `write` permission or
-            - Requester is owner
-
-          Postconditions
+        description: List shared configurations in an organization
         is: [withResponseItems: {item : SharedConfig}]
       post:
-        description: |
-          Create shared configuration within the {org_username} organization
-
-          Preconditions:
-          - {name} shared config does not exist in {org_username} organization
-          - one of:
-            - Requester is member of team with `admin` permission or
-            - Requester is owner
-
-          Postconditions:
-          - {name} shared config exists in {org_username} organization
+        description: Create shared configuration in an organization
         is: [withRequestItem: {item : SharedConfigPost},
             withResponseItem: {item : SharedConfig},
             withNotFoundError,
             withPreconditionFailedError]
 
 /teams/{team_id}:
-  description: Manage Semaphore teams
   get:
-    description: |
-      Get {team_id} team details
-
-      Precondition:
-      - {team_id} team exists
-      - one of:
-        - Requester is member of team with at least `write` permission or
-        - Requester is owner
+    description: Get a team
     is: [withResponseItem: {item : Team}, withNotFoundError]
   delete:
-    description: |
-      Delete team
-
-      Precondition:
-      - {team_id} team exists
-      - one of:
-        - Requester is member of team with `admin` permission or
-        - Requester is owner
-
-      Postcondition:
-      - {team_id} team does not exist
+    description: Delete a team
     is: [withNoBodyResponse, withNotFoundError]
   patch:
-    description: |
-      Update team.
-
-      Precondition:
-      - {team_id} team exists.
-      - one of:
-        - Requester is member of team with `admin` permission or
-        - Requester is owner
-
-      Postcondition:
-      - {team_id} team exists but with altered attributes.
+    description: Update a team
     is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
-  /users:
-    description: Manage relations between {team_id} team and its members
+  /shared_configs:
     get:
-      description: |
-        List {team_id} team members
-
-        Precondition:
-        - {team_id} team exists
-        - one of:
-          - Requester is member of {team_id} team and the team has
-            at least `write` permission or
-          - Requester is owner
-      is: [withResponseItems: {item : User}, withNotFoundError]
-    /{username}:
-      post:
-        description: |
-          Grant {username} user membership in {team_id} team.
-
-          Preconditions:
-          - {team_id} team exists.
-          - {username} user exists
-          - one of:
-            - Requester is member of {team_id} team and the team has
-              `admin` permission or
-            - Requester is owner
-
-          Postcondition:
-          - {username} user is {team_id} team member
-        is: [withNoBodyResponse, withNotFoundError]
-      delete:
-        description: |
-          Revoke {username} user membership in {team_id} team
-
-          Precondition:
-          - {username} user is {team_id} team member
-          - one of:
-            - Requester is member of {team_id} team and the team has
-              `admin` permission or
-            - Requester is owner
-
-          Postcondition:
-          - {username} user is *not* {team_id} team member
-        is: [withNoBodyResponse, withNotFoundError]
-  /projects:
-    description: Manage {team_id} team projects
-    get:
-      description: |
-        List all projects belonging to {team_id} team
-
-        Preconditions:
-        - {team_id} team exists.
-        - one of:
-          - Requester is member of {team_id} team and the team has
-            at least `write` permission or
-          - Requester is owner
-      is: [withResponseItems: {item : Project}, withNotFoundError]
-    /{project_id}:
-      post:
-        description: |
-          Add a project to {team_id} team
-
-          Preconditions:
-          - {team_id} team exists
-          - {project_id} project exists
-          - {project_id} project is not {team_id} team member
-          - one of:
-            - Requester is member of {team_id} team and the team has
-              `admin` permission or
-            - Requester is owner
-
-          Postconditions:
-          - {project_id} project is {team_id} team member
-        is: [withNoBodyResponse, withNotFoundError]
-      delete:
-        description: |
-          Remove a project from {team_id} team
-
-          Preconditions:
-          - {project_id} project is {team_id} team member
-          - one of:
-            - Requester is member of {team_id} team and the team has
-              `admin` permission or
-            - Requester is owner
-
-          Postconditions:
-          - {project_id} project is *not* {team_id} team member
-        is: [withNoBodyResponse, withNotFoundError]
-  /shared-configurations:
-    get:
-      description: |
-        List all shared configurations added/belonging to {team_id} team
-
-        Preconditions:
-        - {team_id} team exists.
-        - one of:
-          - Requester is member of {team_id} team and the team has
-            at least `write` permission or
-          - Requester is owner
+      description: List shared configurations in a team
       is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
     /{shared_config_id}:
-      description: Manage relations between {team_id} team and
-                    {shared_config_id} shared configuration
       post:
-        description: |
-          Add {shared_config_id} shared configuration to {team_id} team
-
-          Preconditions:
-          - {team_id} team exists
-          - {shared_config_id} shared configuration exists
-          - one of:
-            - Requester is member of {team_id} team and the team has
-              `admin` permission or
-            - Requester is owner
-
-          Postcondition:
-          - {shared_config_id} shared configuration is {team_id} team member
+        description: Add a shared configuration to a team
         is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: |
-          Remove {shared_config_id} shared configuration from {team_id} team
-
-          Precondition:
-          - {shared_config_id} shared configuration is {team_id} team member
-          - one of:
-            - Requester is member of {team_id} team and the team has
-              `admin` permission or
-            - Requester is owner
-
-          Postcondition:
-          - {shared_config_id} shared configuration is *not* {team_id} team member
-
-          *Note*: It is allowed to remove shared configuration from the team
-          even if there are projects to which that shared configuration is
-          still attached to, in the team?
+        description: Remove shared configuration from a team
         is: [withNoBodyResponse, withNotFoundError]
 
 /projects/{project_id}:
-  description: Manage Semaphore projects
-  get:
-    description: |
-      Show {project_id} project details
-
-      Preconditions:
-      - {project_id} project exists
-      - one of:
-        - Requester and {project_id} project are members of the team with
-          at least `read` permission or
-        - Requester is owner
-    is: [withResponseItem: {item : Project}, withNotFoundError]
-  delete:
-    description: |
-      Delete {project_id} project
-
-      Precondition:
-      - {project_id} project exists
-      - one of:
-        - Requester and {project_id} project are members of the team with
-          `admin` permission or
-        - Requester is owner
-
-      Postcondition:
-      - {project_id} project does *not* exist
-    is: [withNoBodyResponse, withNotFoundError]
-  patch:
-    description: |
-      Update {project_id} project
-
-      Precondition:
-      - {project_id} project exists
-      - one of:
-        - Requester and {project_id} project are members of the team with
-          at least `write` permission or
-        - Requester is owner
-
-      Postcondition:
-      - {project_id} project exists with updated attributes
-    is: [withRequestItem: {item : ProjectPatch}, withResponseItem: {item : Project}, withNotFoundError]
-  /shared-configurations:
+  /shared_configs:
     get:
-      description: |
-        List all shared configurations attached to {project_id} project
-
-        Preconditions:
-        - {project_id} project exists
-        - one of:
-          - Requester and {project_id} project are members of the team with
-            at least `write` permission or
-          - Requester is owner
+      description: List shared configurations attached to a project
       is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
     /{shared_config_id}:
       post:
-        description: |
-          Attach {shared_config_id} shared configuration to {project_id} project
-
-          Precondition:
-          - {project_id} project exists
-          - {shared_config_id} shared configuration exists
-          - {shared_config_id} shared configuration is not attached to {project_id} project
-          - one of:
-            - Requester, {project_id} project and {shared_config_id} shared configuration
-              all belong to the team with at least {write} permission or
-            - Requester is owner
-
-          Postconditions:
-          - {shared_config_id} shared configuration is attached to {project_id} project
+        description: Attach a shared configuration to a project
         is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
       delete:
-        description: |
-          Dettach {shared_config_id} shared configuration from {project_id} project
-
-          Precondition:
-          - {shared_config_id} shared configuration is attached to {project_id} project
-          - no resoureces from {shared_config_id} shared configuration is connected to
-            {project_id} project
-          - one of:
-            - Requester, {project_id} project and {shared_config_id} shared configuration
-              all belong to the team with at least {write} permission or
-            - Requester is owner
-
-          Postconditions:
-          - {shared_config_id} shared configuration is *not*  attached to {project_id} project
+        description: Dettach a shared configuration from a project
         is: [withNoBodyResponse, withNotFoundError]
-  /shared-environment-variables:
+
+  /env_vars:
     get:
-      description: |
-        List all shared env variables connected to {project_id} project
-
-        Preconditions:
-        - {project_id} project exists
-        - Requester and {project_id} project belong to team with at least
-          {write} permisson
-      is: [withResponseItems: {item : SharedEnvVar}, withNotFoundError]
-    /{shared_env_var_id}:
+      description: List environment variables connected to a project
+      is: [withResponseItems: {item : EnvVar}, withNotFoundError]
+    /{env_var_id}:
       post:
-        description: |
-          Connect {shared_env_var_id} shared env var to {project_id} project
-
-          Precondition:
-          - {shared_env_var_id} shared env var belongs to shared configuration that is
-            attached to {project_id} project
-          - {shared_env_var_id} shared env var is not connected to {project_id} project
-          - one of:
-            - Requester and {project_id} project belong to the team
-              with {write} permission or
-            - Requester is owner
-
-          Postconditions:
-          - {shared_env_var_id} shared env var is connected to {project_id} project
+        description: Connect a shared environment variable to a project
         is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: |
-          Dissconnect {shared_env_var_id} shared env var from {project_id} project
-
-          Preconditions:
-          - {shared_env_var_id} shared env var is connected to {project_id} project
-          - one of:
-            - Requester and {project_id} project belong to the team
-              with {write} permission or
-            - Requester is owner
-
-          Postconditions:
-          - {shared_env_var_id} shared env var is *not* connected to {project_id} project
+        description: Dissconnect a shared environment variable from a project
         is: [withNoBodyResponse, withNotFoundError]
-  /shared-configuration-files:
+
+  /config_files:
     get:
-      description: |
-        List all shared conf files connected to {project_id} project
-
-          Preconditions:
-          - {project_id} project exists
-          - Requester and {project_id} project belong to team with at least
-            {write} permisson
-      is: [withResponseItems: {item : SharedConfFile}, withNotFoundError]
-    /{shared_conf_file_id}:
+      description: List config files connected to a project
+      is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
+    /{config_file_id}:
       post:
-        description: |
-          Connect {shared_conf_file_id} shared conf file to {project_id} project
-
-          Preconditions:
-          - {shared_conf_file_id} shared conf file belongs to shared configuration that is
-            attached to {project_id} project
-          - {shared_conf_file_id} shared conf file is not connected to {project_id} project
-          - one of:
-            - Requester and {project_id} project belong to the team
-              with {write} permission or
-            - Requester is owner
-
-          Postconditions:
-          - {shared_conf_file_id} shared conf file is connected to {project_id} project
+        description: Connect a shared config file to a project
         is: [withNoBodyResponse, withNotFoundError]
       delete:
-        description: |
-          Dissconnect {shared_conf_file_id} shared conf file from {project_id} project
-
-          Preconditions:
-          - {shared_conf_file_id} shared conf file is connected to {project_id} project
-          - one of:
-            - Requester and {project_id} project belong to the team
-              with at least {write} permission or
-            - Requester is owner
-
-          Postconditions:
-          - {shared_conf_file_id} shared conf file is *not* connected to {project_id} project
+        description: Dissconnect a shared config file from a project
         is: [withNoBodyResponse, withNotFoundError]
 
-/shared-configurations:
-  description: Manage Semaphore shared configurations
+/shared_config:
   /{shared_config_id}:
     get:
-      description: |
-        Show {shared_config_id} shared config details
-
-        Preconditions:
-        - {shared_config_id} shared configuration exists
-        - one of:
-          - Requester and {shared_config_id} shared configuration belong to the team
-            with at least {write} permission or
-          - Requester is owner
+      description: Get a shared configuration
       is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
     delete:
-      description: |
-        Delete {shared_config_id} shared config
-
-        Preconditions:
-        - {shared_config_id} shared configuration exists
-        - {shared_config_id} shared configuration is *not* attached to any project
-        - one of:
-          - Requester and {shared_config_id} shared configuration belong to the team
-            with {admin} permission or
-          - Requester is owner
-
-        Postconditions:
-        - {shared_config_id} shared configuration does *not* exist
+      description: Delete a shared configuration
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      description: |
-        Update {shared_config_id} shared configuration attributes
-
-        Preconditions:
-        - {shared_config_id} shared configuration exists
-        - one of:
-          - Requester and {shared_config_id} shared configuration belong to the team
-            with {admin} permission or
-          - Requester is owner
-
-        Postconditions:
-        - {shared_config_id} shared configuration exists but with updated attributes
+      description: Update a shared configuration
       is: [withRequestItem: {item : SharedConfigPatch},
           withResponseItem: {item : SharedConfig}, withNotFoundError]
-    /shared-environment-variables:
+    /env_vars:
       get:
-        description: |
-          List all shared env variables belonging to {shared_config_id} shared config
-
-          Preconditions:
-          - {shared_config_id} shared configuration exists
-          - one of:
-            - Requester and {shared_config_id} shared configuration belong to the team
-              with at least {write} permission or
-            - Requester is owner
-        is: [withResponseItems: {item : SharedEnvVar}, withNotFoundError]
+        description: List environment variables belonging to a shared configuration
+        is: [withResponseItems: {item : EnvVar}, withNotFoundError]
       post:
-        description: |
-          Create shared environment variable within {shared_config_id} shared config
-
-          Preconditions:
-          - {shared_config_id} shared configuration exists
-          - shared environment variable with {name} defined in the body does not exist
-          - one of:
-            - Requester and {shared_config_id} shared configuration belong to the team
-              with {admin} permission or
-            - Requester is owner
-
-          Postconditions:
-          - shared environment variable with {name} defined in the body exists
-        is: [withRequestItem: {item : SharedEnvVarPost},
-            withResponseItem: {item : SharedEnvVar}, withNotFoundError]
-    /shared-configuration-files:
+        description: Create environment variable within a shared configuration
+        is: [withRequestItem: {item : EnvVarPost},
+            withResponseItem: {item : EnvVar}, withNotFoundError]
+    /config_files:
       get:
-        description: |
-          List all shared config files belonging to {shared_config_id} shared config
-
-          Preconditions:
-          - {shared_config_id} shared configuration exists
-          - one of:
-            - Requester and {shared_config_id} shared configuration belong to the team
-              with at least {write} permission or
-            - Requester is owner
-        is: [withResponseItems: {item : SharedConfFile}, withNotFoundError]
+        description: List config files belonging to a shared configuration
+        is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
       post:
-        description: |
-          Create shared config file within {shared_config_id} shared configuration
+        description: Create a config file within a shared configuration
+        is: [withRequestItem: {item : ConfigFilePost},
+            withResponseItem: {item : ConfigFile}, withNotFoundError]
 
-          Preconditions:
-          - {shared_config_id} shared configuration exists
-          - shared config file with {path} defined in the body does not exist
-          - one of:
-            - Requester and {shared_config_id} shared configuration belong to the team
-              with {admin} permission or
-            - Requester is owner
-
-          Postconditions:
-          - shared environment variable with {path} defined in the body exists
-        is: [withRequestItem: {item : SharedConfFilePost},
-            withResponseItem: {item : SharedConfFile}, withNotFoundError]
-
-/shared-environment-variables:
-  description: Manage Semaphore shared environment variables
+/env_vars:
   /{shared_env_var_id}:
     get:
-      description: |
-        Show {shared_env_var_id} shared env variable details
-
-        Preconditions:
-        - {shared_env_var_id} shared env variable exists
-        - one of:
-          - Requester and shared configuration that contains
-            {shared_env_var_id} shared env variable belong to the team
-            with at least {write} permission or
-          - Requester is owner
-      is: [withResponseItem: {item : SharedEnvVar}, withNotFoundError]
+      description: Get an environment variable
+      is: [withResponseItem: {item : EnvVar}, withNotFoundError]
     delete:
-      description: |
-        Delete {shared_env_var_id} shared env variable
-
-        Preconditions:
-        - {shared_env_var_id} shared env variable exists
-        - {shared_env_var_id} shared env variable is not connected to any project
-        - one of:
-          - Requester and shared configuration that contains
-            {shared_env_var_id} shared env variable belong to the team
-            with {admin} permission or
-          - Requester is owner
-
-        Postconditions:
-        - {shared_env_var_id} shared env variable does not exist
+      description: Delete an environment variable
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      description: |
-        Update {shared_env_var_id} shared env variable
+      description: Update an environment variable
+      is: [withRequestItem: {item : EnvVarPatch},
+          withResponseItem: {item : EnvVar}, withNotFoundError]
 
-        Preconditions:
-        - {shared_env_var_id} shared env variable exists
-        - one of:
-          - Requester and shared configuration that contains
-            {shared_env_var_id} shared env variable belong to the team
-            with {admin} permission or
-          - Requester is owner
-
-        Postconditions:
-        - {shared_env_var_id} shared env variable exists but with changed attributes
-      is: [withRequestItem: {item : SharedEnvVarPatch},
-          withResponseItem: {item : SharedEnvVar}, withNotFoundError]
-
-/shared-configuration-files:
-  description: Manage Semaphore shared configuration files
-  /{shared_conf_file_id}:
+/config_files:
+  /{config_file_id}:
     get:
-      description: |
-        Show {shared_conf_file_id} shared config file details
-
-        Preconditions:
-        - {shared_conf_file_id} shared config file exists
-        - one of:
-          - Requester and shared configuration that contains
-            {shared_conf_file_id} shared config file belong to the team
-            with at least {write} permission or
-          - Requester is owner
-      is: [withResponseItem: {item : SharedConfFile}, withNotFoundError]
+      description: Get a config file
+      is: [withResponseItem: {item : ConfigFile}, withNotFoundError]
     delete:
-      description: |
-        Delete {shared_conf_file_id} shared config file
-
-        Preconditions:
-        - {shared_conf_file_id} shared config file exists
-        - {shared_conf_file_id} shared config file is not connected to any project
-        - one of:
-          - Requester and shared configuration that contains
-            {shared_conf_file_id} shared config file belong to the team
-            with {admin} permission or
-          - Requester is owner
-
-        Postconditions:
-        - {shared_conf_file_id} shared config file does not exist
+      description: Delete a config file
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      description: |
-        Update {shared_conf_file_id} shared config file
-
-        Preconditions:
-        - {shared_conf_file_id} shared config file exists
-        - one of:
-          - Requester and shared configuration that contains
-            {shared_conf_file_id} shared config filee belong to the team
-            with {admin} permission or
-          - Requester is owner
-
-        Postconditions:
-        - {shared_conf_file_id} shared config file exists but with changed attributes
-      is: [withRequestItem: {item : SharedConfFilePatch},
-          withResponseItem: {item : SharedConfFile}, withNotFoundError]
+      description: Update a config file
+      is: [withRequestItem: {item : ConfigFilePatch},
+          withResponseItem: {item : ConfigFile}, withNotFoundError]
