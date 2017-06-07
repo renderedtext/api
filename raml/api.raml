@@ -194,7 +194,7 @@ traits:
                   type: string
                 - name: description
                   type: string | nil
-  /{org_username}:
+  /{username}:
     get:
       description: Get an organization
       is: [withResponseItem: {item : Org}, withNotFoundError]
@@ -226,6 +226,8 @@ traits:
               body:
               - name: message
                 type: string
+
+  /{org_username}:
     /teams:
       get:
         description: List teams in an organization
@@ -251,67 +253,73 @@ traits:
             withNotFoundError,
             withPreconditionFailedError]
 
-/teams/{team_id}:
-  get:
-    description: Get a team
-    is: [withResponseItem: {item : Team}, withNotFoundError]
-  delete:
-    description: Delete a team
-    is: [withNoBodyResponse, withNotFoundError]
-  patch:
-    description: Update a team
-    is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
-  /shared_configs:
+/teams:
+  /{id}:
     get:
-      description: List shared configurations in a team
-      is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
-    /{shared_config_id}:
-      post:
-        description: Add a shared configuration to a team
-        is: [withNoBodyResponse, withNotFoundError]
-      delete:
-        description: Remove shared configuration from a team
-        is: [withNoBodyResponse, withNotFoundError]
+      description: Get a team
+      is: [withResponseItem: {item : Team}, withNotFoundError]
+    delete:
+      description: Delete a team
+      is: [withNoBodyResponse, withNotFoundError]
+    patch:
+      description: Update a team
+      is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
 
-/projects/{project_id}:
-  /shared_configs:
-    get:
-      description: List shared configurations attached to a project
-      is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
-    /{shared_config_id}:
-      post:
-        description: Attach a shared configuration to a project
-        is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
-      delete:
-        description: Dettach a shared configuration from a project
-        is: [withNoBodyResponse, withNotFoundError]
+  /{team_id}:
+    /shared_configs:
+      get:
+        description: List shared configurations in a team
+        is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
 
-  /env_vars:
-    get:
-      description: List environment variables connected to a project
-      is: [withResponseItems: {item : EnvVar}, withNotFoundError]
-    /{env_var_id}:
-      post:
-        description: Connect a shared environment variable to a project
-        is: [withNoBodyResponse, withNotFoundError]
-      delete:
-        description: Dissconnect a shared environment variable from a project
-        is: [withNoBodyResponse, withNotFoundError]
+      /{shared_config_id}:
+        post:
+          description: Add a shared configuration to a team
+          is: [withNoBodyResponse, withNotFoundError]
+        delete:
+          description: Remove shared configuration from a team
+          is: [withNoBodyResponse, withNotFoundError]
 
-  /config_files:
-    get:
-      description: List config files connected to a project
-      is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
-    /{config_file_id}:
-      post:
-        description: Connect a shared config file to a project
-        is: [withNoBodyResponse, withNotFoundError]
-      delete:
-        description: Dissconnect a shared config file from a project
-        is: [withNoBodyResponse, withNotFoundError]
+/projects:
+  /{project_id}:
+    /shared_configs:
+      get:
+        description: List shared configurations attached to a project
+        is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
+
+      /{shared_config_id}:
+        post:
+          description: Attach a shared configuration to a project
+          is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
+        delete:
+          description: Dettach a shared configuration from a project
+          is: [withNoBodyResponse, withNotFoundError]
+
+    /env_vars:
+      get:
+        description: List environment variables connected to a project
+        is: [withResponseItems: {item : EnvVar}, withNotFoundError]
+      /{env_var_id}:
+        post:
+          description: Connect a shared environment variable to a project
+          is: [withNoBodyResponse, withNotFoundError]
+        delete:
+          description: Dissconnect a shared environment variable from a project
+          is: [withNoBodyResponse, withNotFoundError]
+
+    /config_files:
+      get:
+        description: List config files connected to a project
+        is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
+      /{config_file_id}:
+        post:
+          description: Connect a shared config file to a project
+          is: [withNoBodyResponse, withNotFoundError]
+        delete:
+          description: Dissconnect a shared config file from a project
+          is: [withNoBodyResponse, withNotFoundError]
 
 /shared_configs:
-  /{shared_config_id}:
+  /{id}:
     get:
       description: Get a shared configuration
       is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
@@ -322,6 +330,8 @@ traits:
       description: Update a shared configuration
       is: [withRequestItem: {item : SharedConfigPatch},
           withResponseItem: {item : SharedConfig}, withNotFoundError]
+
+  /{shared_config_id}:
     /env_vars:
       get:
         description: List environment variables belonging to a shared configuration
@@ -340,7 +350,7 @@ traits:
             withResponseItem: {item : ConfigFile}, withNotFoundError]
 
 /env_vars:
-  /{shared_env_var_id}:
+  /{id}:
     get:
       description: Get an environment variable
       is: [withResponseItem: {item : EnvVar}, withNotFoundError]
@@ -353,7 +363,7 @@ traits:
           withResponseItem: {item : EnvVar}, withNotFoundError]
 
 /config_files:
-  /{config_file_id}:
+  /{id}:
     get:
       description: Get a config file
       is: [withResponseItem: {item : ConfigFile}, withNotFoundError]
