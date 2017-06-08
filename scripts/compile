@@ -1,18 +1,11 @@
 #!/usr/bin/env bash
 
-if [[ "$DOCKER" == "true" ]]; then
-  # in docker raml is installed globally
-  echo "[Recompile] Started"
+echo "[Recompile] Started"
 
-  raml2html --input raml/api.raml --validate --output doc/api.html
-  ln -sf doc/api.html doc/index.html
+node scripts/output-json.js
 
-  raml2html --theme raml2html-markdown-theme raml/api.raml --output doc/api.md
-  raml2html --theme raml2html-slate-theme    raml/api.raml --output doc/api-slate.html
+rm -rf doc/*
 
-  ./scripts/generate-entity-view
+bundle exec raml_visualizer "json-output.json" "doc" "templates" "html" "stylesheets"
 
-  echo "[Recompile] Finished"
-else
-  make doc
-fi
+echo "[Recompile] Finished"
