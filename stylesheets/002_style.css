@@ -1,0 +1,31 @@
+body {
+  padding: 50px;
+  width: 660px;
+  margin: auto;
+}
+
+h1 {
+  margin-bottom: 50px;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+h3, h4, h5 {
+  margin-top: 1em;
+  font-size: 1em;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1em;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
