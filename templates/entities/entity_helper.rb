@@ -1,5 +1,4 @@
 require "json"
-require "securerandom"
 
 class Response
   def initialize(raw)
@@ -37,12 +36,18 @@ class Response
   end
 
   def generate_json_field(field)
-    if field["key"] == "id"
-      [field["key"], SecureRandom.uuid]
-    elsif field["type"] == "datetime"
+    if field["type"] == "datetime"
       [field["key"], Time.at(Time.now - rand(5000))]
     else
-      [field["key"], field["example"]]
+      [field["key"], fetch_example(field)]
+    end
+  end
+
+  def fetch_example(field)
+    if field["example"]
+      field["example"]
+    elsif field["examples"] && field["examples"].first
+      field["examples"].first["value"]
     end
   end
 end

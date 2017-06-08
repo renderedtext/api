@@ -76,14 +76,22 @@ types:
   SharedConfigPost:
     type: object
     properties:
-      name: string
-      description?: string
+      name:
+        type: string
+        example: "AWS Tokens"
+      description?:
+        type: string
+        example: "AWS tokens for deployment"
 
   SharedConfig:
     type: SharedConfigPost
     properties:
-      id: UUID
-      url: string
+      id:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      url:
+        type: string
+        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       created_at: time
       updated_at: time
 

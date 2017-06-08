@@ -29,3 +29,7 @@ th, td {
   border: 1px solid #ccc;
   padding: 10px;
 }
+
+pre code {
+  white-space: pre;
+}
