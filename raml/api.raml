@@ -4,54 +4,37 @@ version: v2
 baseUri: https://api.semaphoreci.com/v2
 mediaType: application/json
 
-uses:
-  testAnnotation: libraries/tests-annotation.raml
-
-documentation:
-- title: Welcome
-  content: !include descriptions/welcome.raml
-
-- title: Authentication
-  content: !include descriptions/authentication.raml
-
-- title: Requests
-  content: !include descriptions/requests.raml
-
-- title: Response
-  content: !include descriptions/response.raml
-
-- title: Parameters
-  content: !include descriptions/parameters.raml
-
-- title: Pagination
-  content: !include descriptions/pagination.raml
-
-- title: Errors
-  content: !include descriptions/errors.raml
-
-- title: Constraints
-  content: !include descriptions/constraints.raml
-
 types:
+  UUID:
+    type: string
+    pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+
+  time:
+    type: datetime
+    format: rfc3339
+
   Error:
     type: object
     properties:
       message: string
+
   User:
     type: object
     properties:
       username: string
       email: string
       realname: string
+
   Org:
     type: object
     properties:
-      id: string
+      id: UUID
       name: string
       url: string
       username: string
-      created_at: rfc3339
-      updated_at: rfc3339
+      created_at: time
+      updated_at: time
+
   TeamPatch:
     type: object
     properties:
@@ -59,6 +42,7 @@ types:
       permission?:
         enum: [read, write, admin]
       description?: string
+
   TeamPost:
     type: object
     properties:
@@ -66,59 +50,69 @@ types:
       permission:
         enum: [read, write, admin]
       description?: string
+
   Team:
     type: TeamPost
     properties:
-      id: integer
+      id: UUID
       url: string
-      updated_at:
-        type: datetime
-        format: rfc3339
-      created_at:
-        type: datetime
-        format: rfc3339
+      updated_at: time
+      created_at: time
+
   ProjectPost:
     type: object
     properties:
       name: string
       description?: string
+
   ProjectPatch:
     type: object
     properties:
       name?: string
       description?: string
+
   Project:
     type: ProjectPost
     properties:
-      id: integer
+      id: UUID
+
   SharedConfigPatch:
     type: object
     properties:
       name?: string
       description?: string
+
   SharedConfigPost:
     type: object
     properties:
       name: string
       description?: string
+
   SharedConfig:
     type: SharedConfigPost
     properties:
-      id: integer
+      id: UUID
+
   EnvVarPatch:
     type: object
     properties:
       key?: string
       value?: string
+
   EnvVarPost:
     type: object
     properties:
       name: string
       value: string
+
   EnvVar:
     type: EnvVarPost
     properties:
-      id: integer
+      id: UUID
+      url: string
+      created_at: time
+      updated_at: time
+
   ConfigFilePatch:
     type: object
     properties:
@@ -129,10 +123,15 @@ types:
     properties:
       path: string
       content: string
+      encrypted: boolean
+
   ConfigFile:
     type: ConfigFilePost
     properties:
-      id: integer
+      id: UUID
+      url: string
+      created_at: time
+      updated_at: time
 
 traits:
   withRequestItem:
@@ -183,51 +182,11 @@ traits:
   get:
     description: List your organizations
     is: [withResponseItems: {item : Org}]
-    responses:
-      200:
-        (testAnnotation.tests):
-          - response:
-              body:
-                - name: id
-                  type: integer
-                - name: name
-                  type: string
-                - name: username
-                  type: string
-                - name: description
-                  type: string | nil
+
   /{username}:
     get:
       description: Get an organization
       is: [withResponseItem: {item : Org}, withNotFoundError]
-      responses:
-        200:
-          (testAnnotation.tests):
-          - request:
-              urlArgs:
-              - name: org_username
-                value: <valid_org_username>
-            response:
-              body:
-              - name: id
-                type: integer
-              - name: name
-                type: string
-                value: <valid_org_username>
-              - name: username
-                type: string
-              - name: description
-                type: string | nil
-        404:
-          (testAnnotation.tests):
-          - request:
-              urlArgs:
-              - name: org_username
-                value: nonexiting_username
-            response:
-              body:
-              - name: message
-                type: string
 
   /{org_username}:
     /teams:
