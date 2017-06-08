@@ -59,22 +59,13 @@ types:
       updated_at: time
       created_at: time
 
-  ProjectPost:
-    type: object
-    properties:
-      name: string
-      description?: string
-
-  ProjectPatch:
-    type: object
-    properties:
-      name?: string
-      description?: string
-
   Project:
     type: ProjectPost
     properties:
       id: UUID
+      name: string
+      updated_at: time
+      created_at: time
 
   SharedConfigPatch:
     type: object
@@ -96,14 +87,15 @@ types:
   EnvVarPatch:
     type: object
     properties:
-      key?: string
-      value?: string
+      name?: string
+      content?: string
 
   EnvVarPost:
     type: object
     properties:
       name: string
-      value: string
+      content: string
+      encrypted: boolean
 
   EnvVar:
     type: EnvVarPost
