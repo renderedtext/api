@@ -1,34 +1,34 @@
 <% require_relative "templates/entities/entity_helper.rb" %>
 
-#<%= @entity %>
+# <%= @entity.split("_").map(&:capitalize).join(" ") %>
 
-<% @resources.to_a.each do |resource| %>
-  <% resource.methods.each do |method| %>
-##<%= method.raw["description"] %>
-
-    <%= method.raw["method"] %> `<%= resource_path(resource) %>`
-
-
-    <% if method.properties.any? %>
-###Params:
-
-<%= properties_table(method.properties) %>
-    <% end %>
-
-
-    <% if method.responses.any? %>
-###Responses:
-
-      <% only_20x(method.responses).each do |response| %>
-####Status: <%= full_http_code(response.raw["code"]) %>
-
-        <% if response.properties.any? %>
-<%= properties_table(response.properties) %>
-        <% end %>
-
-      <% end %>
-    <% end %>
-
-
+<ol type="I">
+  <% routes.each do |route| %>
+    <li><%= route.description %></li>
   <% end %>
+</ol>
+
+<% routes.each do |route| %>
+## <%= route.description %>
+
+```
+<%= route.verb.upcase %> <%= route.path %>
+```
+
+### Params
+
+### Response
+
+<% if route.succesfull_response.empty? %>
+```
+HTTP status: <%= route.succesfull_response.code %>
+```
+<% else %>
+```
+HTTP status: <%= route.succesfull_response.code %>
+
+<%= JSON.pretty_generate(route.succesfull_response.to_json) %>
+```
+<% end %>
+
 <% end %>

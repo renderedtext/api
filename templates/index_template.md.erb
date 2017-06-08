@@ -1,5 +1,5 @@
-Entities:
+# Semaphore API v2
 
 <% @entities.map do |entity| %>
-  [<%= entity %>](entities/<%= entity %>.html)
+#### [<%= entity.split("_").map(&:capitalize).join(" ") %>](entities/<%= entity %>.html)
 <% end %>
