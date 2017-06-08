@@ -30,6 +30,12 @@ local.semaphore:8000
 
 _note_: You don't need to manually build the docs if you use docker-compose.
 
+## Generating a JSON RAML spec
+
+```
+docker-compose run app node scripts/output-json.js
+```
+
 ## Building the docs
 
 To setup tools:

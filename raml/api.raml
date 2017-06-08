@@ -46,10 +46,12 @@ types:
   Org:
     type: object
     properties:
-      id: integer
+      id: string
       name: string
+      url: string
       username: string
-      description: string
+      created_at: rfc3339
+      updated_at: rfc3339
   TeamPatch:
     type: object
     properties:
