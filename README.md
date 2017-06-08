@@ -38,14 +38,6 @@ docker-compose run app node scripts/output-json.js
 
 ## Building the docs
 
-To setup tools:
-
 ``` bash
-make setup
-```
-
-To generate documentation:
-
-``` bash
-make doc
+docker-compose run app ./scripts/compile
 ```
