@@ -67,8 +67,12 @@ types:
         enum: [read, write, admin]
       description?: string
   Team:
-    type: TeamPost
+    type: object
     properties:
+      name: string
+      permission:
+        enum: [read, write, admin]
+      description: string?
       id: integer
       url: string
       updated_at:
