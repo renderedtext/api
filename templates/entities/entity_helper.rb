@@ -1,4 +1,5 @@
 require "json"
+require "securerandom"
 
 class Response
   def initialize(raw)
@@ -31,7 +32,17 @@ class Response
     if node["type"] == "array"
       [ generate_json_structure(node["items"]) ]
     elsif node["type"] == "object"
-      node["properties"].map { |field| [field["key"], field["example"]] }.to_h
+      node["properties"].map { |field| generate_json_field(field) }.to_h
+    end
+  end
+
+  def generate_json_field(field)
+    if field["key"] == "id"
+      [field["key"], SecureRandom.uuid]
+    elsif field["type"] == "datetime"
+      [field["key"], Time.at(Time.now - rand(5000))]
+    else
+      [field["key"], field["example"]]
     end
   end
 end
