@@ -15,7 +15,7 @@
 <%= route.verb.upcase %> <%= route.path %>
 ```
 
-### Params
+<%= request_table(route.request) unless route.request.empty? %>
 
 ### Response
 
