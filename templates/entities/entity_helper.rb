@@ -1,35 +1,11 @@
 require "json"
 
-class Response
-  def initialize(raw)
-    @raw = raw
-  end
+module JsonExample
+  module_function
 
-  def code
-    @raw["code"].to_i
-  end
-
-  def succesfull?
-    code >= 200 && code < 300
-  end
-
-  def to_json
-    generate_json_structure(body.first)
-  end
-
-  def body
-    @raw["body"]
-  end
-
-  def empty?
-    body.nil?
-  end
-
-  private
-
-  def generate_json_structure(node)
+  def generate(node)
     if node["type"] == "array"
-      [ generate_json_structure(node["items"]) ]
+      [ generate(node["items"]) ]
     elsif node["type"] == "object"
       node["properties"].map { |field| generate_json_field(field) }.to_h
     end
@@ -50,6 +26,33 @@ class Response
       field["examples"].first["value"]
     end
   end
+end
+
+class Response
+  def initialize(raw)
+    @raw = raw
+  end
+
+  def code
+    @raw["code"].to_i
+  end
+
+  def succesfull?
+    code >= 200 && code < 300
+  end
+
+  def to_json
+    JsonExample.generate(body.first)
+  end
+
+  def body
+    @raw["body"]
+  end
+
+  def empty?
+    body.nil?
+  end
+
 end
 
 class Route
