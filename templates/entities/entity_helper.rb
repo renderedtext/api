@@ -1,5 +1,19 @@
 require "json"
 
+### View helpers
+
+def sorted_routes
+  [
+    routes.select(&:index?),
+    routes.select(&:show?),
+    routes.select(&:create?),
+    routes.select(&:update?),
+    routes.select(&:delete?),
+    routes.select(&:connect?),
+    routes.select(&:dissconnect?)
+  ].flatten
+end
+
 def request_table(request)
   headers = [ "Name", "Type", "Required", "Example" ]
 
@@ -20,10 +34,11 @@ def request_table(request)
 """
 end
 
+
+### TODO: Move classes bellow to a gem
+
 def routes
-  @resources.map do |resource|
-    resource.methods.map { |method| Route.new(resource, method) }
-  end.flatten
+  @resources.map do |resource| resource.methods.map { |method| Route.new(resource, method) } end.flatten
 end
 
 module JsonExample
@@ -135,6 +150,34 @@ class Route
     (@method.raw["responses"] || []).map { |response| Response.new(response) }
   end
 
+  def index?
+    verb == "get" && for_collection?
+  end
+
+  def show?
+    verb == "get" && for_member?
+  end
+
+  def create?
+    verb == "post" && for_collection?
+  end
+
+  def update?
+    verb == "patch" && for_member?
+  end
+
+  def delete?
+    verb == "delete" && for_member?
+  end
+
+  def connect?
+    verb == "post" && connection?
+  end
+
+  def dissconnect?
+    verb == "delete" && connection?
+  end
+
   def verb
     @method.raw["method"]
   end
@@ -149,5 +192,24 @@ class Route
 
   def succesfull_response
     responses.find(&:succesfull?)
+  end
+
+  private
+
+  def for_member?
+    !connection? && @resource.raw["relativeUriPathSegments"].to_s.include?("{")
+  end
+
+  def for_collection?
+    !connection? && !for_member?
+  end
+
+  def connection?
+    if path.include?("shared_config")
+      p verb, path
+      p @method.raw["allUriParameters"]
+    end
+
+    @method.raw["allUriParameters"].size == 2
   end
 end

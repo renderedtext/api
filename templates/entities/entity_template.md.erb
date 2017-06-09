@@ -3,13 +3,16 @@
 # <%= @entity.split("_").map(&:capitalize).join(" ") %>
 
 <ol type="i">
-  <% routes.each do |route| %>
+  <% sorted_routes.each do |route| %>
     <li><%= route.description %></li>
   <% end %>
 </ol>
 
-<% routes.each do |route| %>
+<% sorted_routes.each do |route| %>
 ## <%= route.description %>
+
+index: <%= route.index? %>
+show:  <%= route.show? %>
 
 ```
 <%= route.verb.upcase %> <%= route.path %>
