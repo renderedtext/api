@@ -1,0 +1,26 @@
+# <%= @resource.display_name %>
+
+<ol type="i">
+  <% @routes.each do |route| %>
+    <li><%= route.description %></li>
+  <% end %>
+</ol>
+
+<% @routes.each do |route| %>
+## <%= route.description %>
+
+```
+<%= route.verb_and_path %>
+```
+
+<% if route.request %>
+### Request
+
+<%= RamlVisualizer::MdGenerator.request_table(route) %>
+<% end %>
+
+### Response
+
+<%= RamlVisualizer::MdGenerator.response_example(route) %>
+
+<% end %>

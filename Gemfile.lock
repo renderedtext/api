@@ -1,8 +1,10 @@
 GIT
   remote: git://github.com/renderedtext/api-dev-tools.git
-  revision: 7cdf16c3ffbe1956c010333a5c5c5da64838be67
+  revision: 99078041ceb96d03ab69f78ff0c8e1b8151f80cd
   specs:
-    raml_visualizer (0.18.1)
+    raml_parser (0.2.0)
+    raml_visualizer (0.20.2)
+      raml_parser
       redcarpet
 
 GEM

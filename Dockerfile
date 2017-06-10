@@ -11,12 +11,12 @@ ENV DOCKER=true
 
 WORKDIR /app
 
+RUN mkdir -p doc
+RUN npm install -g raml2obj
+
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install
-
-RUN mkdir -p doc
-RUN npm install -g raml2obj
 
 ENV NODE_PATH=/usr/local/lib/node_modules
 
