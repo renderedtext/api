@@ -13,7 +13,6 @@ WORKDIR /app
 
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle config https://gem.fury.io/renderedtext/ ${GEMFURY_PASSWORD}
 RUN bundle install
 
 RUN mkdir -p doc

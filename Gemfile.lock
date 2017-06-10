@@ -1,6 +1,12 @@
+GIT
+  remote: git://github.com/renderedtext/api-dev-tools.git
+  revision: 7cdf16c3ffbe1956c010333a5c5c5da64838be67
+  specs:
+    raml_visualizer (0.18.1)
+      redcarpet
+
 GEM
   remote: https://rubygems.org/
-  remote: https://gem.fury.io/renderedtext/
   specs:
     coderay (1.1.1)
     ffi (1.9.18)
@@ -32,8 +38,6 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    raml_visualizer (0.18.1)
-      redcarpet
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
