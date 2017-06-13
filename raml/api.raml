@@ -205,10 +205,10 @@ types:
         example: "example@test.com"
       username:
         type: string
-        example: "username"
+        example: "johndoe"
       name:
         type: string
-        example: "Name"
+        example: "John Doe"
       created_at: time
       updated_at: time
 
@@ -323,6 +323,13 @@ traits:
       get:
         description: List mebers of a team
         is: [withResponseItems: {item : User}, withNotFoundError]
+      /{user_id}:
+        post:
+          description: Add user to a team
+          is: [withNoBodyResponse, withNotFoundError]
+        delete:
+          description: Remove user from a team
+          is: [withNoBodyResponse, withNotFoundError]
 
     /projects:
       get:
