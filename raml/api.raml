@@ -194,6 +194,24 @@ types:
       created_at: time
       updated_at: time
 
+  User:
+    type: object
+    properties:
+      uid:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      email:
+        type: string
+        example: "example@test.com"
+      username:
+        type: string
+        example: "username"
+      name:
+        type: string
+        example: "Name"
+      created_at: time
+      updated_at: time
+
 traits:
   withRequestItem:
     body:
@@ -299,6 +317,24 @@ traits:
           is: [withNoBodyResponse, withNotFoundError]
         delete:
           description: Remove shared configuration from a team
+          is: [withNoBodyResponse, withNotFoundError]
+
+    /users:
+      get:
+        description: List mebers of a team
+        is: [withResponseItems: {item : User}, withNotFoundError]
+
+    /projects:
+      get:
+        description: List project added to a team
+        is: [withResponseItems: {item : Project}, withNotFoundError]
+
+      /{project_id}:
+        post:
+          description: Add project to a team
+          is: [withNoBodyResponse, withNotFoundError]
+        delete:
+          description: Remove project from a team
           is: [withNoBodyResponse, withNotFoundError]
 
 /projects:
