@@ -292,6 +292,10 @@ traits:
             withResponseItem: {item : SharedConfig},
             withNotFoundError,
             withPreconditionFailedError]
+    /users:
+      get:
+        description: List all users for a organization
+        is: [withResponseItems: {item : User}, withNotFoundError]
 
 /teams:
   /{id}:
@@ -321,7 +325,7 @@ traits:
 
     /users:
       get:
-        description: List mebers of a team
+        description: List members of a team
         is: [withResponseItems: {item : User}, withNotFoundError]
       /{user_id}:
         post:
@@ -382,6 +386,11 @@ traits:
         delete:
           description: Dissconnect a shared config file from a project
           is: [withNoBodyResponse, withNotFoundError]
+
+    /users:
+      get:
+        description: List all users fo a project
+        is: [withResponseItems: {item : User}, withNotFoundError]
 
 /shared_configs:
   /{id}:
