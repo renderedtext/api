@@ -254,194 +254,210 @@ traits:
           application/json:
             type: Error
 
+/users:
+  displayName: "Users"
+
 /orgs:
+  displayName: "Organizations"
+
   get:
-    description: List your organizations
+    displayName: List your organizations
     is: [withResponseItems: {item : Org}]
 
   /{username}:
     get:
-      description: Get an organization
+      displayName: Get an organization
       is: [withResponseItem: {item : Org}, withNotFoundError]
 
   /{org_username}:
     /teams:
       get:
-        description: List teams in an organization
+        displayName: List teams in an organization
         is: [withResponseItems: {item : Team}]
       post:
-        description: Create a team in an organization
+        displayName: Create a team in an organization
         is: [withRequestItem: {item : TeamPost},
              withResponseItem: {item : Team},
              withNotFoundError,
              withPreconditionFailedError]
     /projects:
       get:
-        description: List projects in an organization
+        displayName: List projects in an organization
         is: [withResponseItems: {item : Project}]
+
     /shared_configs:
       get:
-        description: List shared configurations in an organization
+        displayName: List shared configurations in an organization
         is: [withResponseItems: {item : SharedConfig}]
       post:
-        description: Create shared configuration in an organization
+        displayName: Create shared configuration in an organization
         is: [withRequestItem: {item : SharedConfigPost},
             withResponseItem: {item : SharedConfig},
             withNotFoundError,
             withPreconditionFailedError]
     /users:
       get:
-        description: List all users for a organization
+        displayName: List all users for a organization
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /teams:
+  displayName: "Teams"
+
   /{id}:
     get:
-      description: Get a team
+      displayName: Get a team
       is: [withResponseItem: {item : Team}, withNotFoundError]
     delete:
-      description: Delete a team
+      displayName: Delete a team
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      description: Update a team
+      displayName: Update a team
       is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
 
   /{team_id}:
     /shared_configs:
       get:
-        description: List shared configurations in a team
+        displayName: List shared configurations in a team
         is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
 
       /{shared_config_id}:
         post:
-          description: Add a shared configuration to a team
+          displayName: Add a shared configuration to a team
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          description: Remove shared configuration from a team
+          displayName: Remove shared configuration from a team
           is: [withNoBodyResponse, withNotFoundError]
 
     /users:
       get:
-        description: List members of a team
+        displayName: List members of a team
         is: [withResponseItems: {item : User}, withNotFoundError]
       /{username}:
         post:
-          description: Add user to a team
+          displayName: Add user to a team
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          description: Remove user from a team
+          displayName: Remove user from a team
           is: [withNoBodyResponse, withNotFoundError]
 
     /projects:
       get:
-        description: List project added to a team
+        displayName: List project added to a team
         is: [withResponseItems: {item : Project}, withNotFoundError]
 
       /{project_id}:
         post:
-          description: Add project to a team
+          displayName: Add project to a team
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          description: Remove project from a team
+          displayName: Remove project from a team
           is: [withNoBodyResponse, withNotFoundError]
 
 /projects:
+  displayName: "Projects"
+
   /{project_id}:
     /shared_configs:
       get:
-        description: List shared configurations attached to a project
+        displayName: List shared configurations attached to a project
         is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
 
       /{shared_config_id}:
         post:
-          description: Attach a shared configuration to a project
+          displayName: Attach a shared configuration to a project
           is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
         delete:
-          description: Dettach a shared configuration from a project
+          displayName: Dettach a shared configuration from a project
           is: [withNoBodyResponse, withNotFoundError]
 
     /env_vars:
       get:
-        description: List environment variables connected to a project
+        displayName: List environment variables connected to a project
         is: [withResponseItems: {item : EnvVar}, withNotFoundError]
       /{env_var_id}:
         post:
-          description: Connect a shared environment variable to a project
+          displayName: Connect a shared environment variable to a project
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          description: Dissconnect a shared environment variable from a project
+          displayName: Dissconnect a shared environment variable from a project
           is: [withNoBodyResponse, withNotFoundError]
 
     /config_files:
       get:
-        description: List config files connected to a project
+        displayName: List config files connected to a project
         is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
       /{config_file_id}:
         post:
-          description: Connect a shared config file to a project
+          displayName: Connect a shared config file to a project
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          description: Dissconnect a shared config file from a project
+          displayName: Dissconnect a shared config file from a project
           is: [withNoBodyResponse, withNotFoundError]
 
     /users:
       get:
-        description: List all users fo a project
+        displayName: List all users fo a project
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /shared_configs:
+  displayName: "Shared Configurations"
+
   /{id}:
     get:
-      description: Get a shared configuration
+      displayName: Get a shared configuration
       is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
     delete:
-      description: Delete a shared configuration
+      displayName: Delete a shared configuration
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      description: Update a shared configuration
+      displayName: Update a shared configuration
       is: [withRequestItem: {item : SharedConfigPatch},
           withResponseItem: {item : SharedConfig}, withNotFoundError]
 
   /{shared_config_id}:
     /env_vars:
       get:
-        description: List environment variables belonging to a shared configuration
+        displayName: List environment variables belonging to a shared configuration
         is: [withResponseItems: {item : EnvVar}, withNotFoundError]
       post:
-        description: Create environment variable within a shared configuration
+        displayName: Create environment variable within a shared configuration
         is: [withRequestItem: {item : EnvVarPost},
             withResponseItem: {item : EnvVar}, withNotFoundError]
     /config_files:
       get:
-        description: List config files belonging to a shared configuration
+        displayName: List config files belonging to a shared configuration
         is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
       post:
-        description: Create a config file within a shared configuration
+        displayName: Create a config file within a shared configuration
         is: [withRequestItem: {item : ConfigFilePost},
             withResponseItem: {item : ConfigFile}, withNotFoundError]
 
 /env_vars:
+  displayName: "Environment Variables"
+
   /{id}:
     get:
-      description: Get an environment variable
+      displayName: Get an environment variable
       is: [withResponseItem: {item : EnvVar}, withNotFoundError]
     delete:
-      description: Delete an environment variable
+      displayName: Delete an environment variable
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      description: Update an environment variable
+      displayName: Update an environment variable
       is: [withRequestItem: {item : EnvVarPatch},
           withResponseItem: {item : EnvVar}, withNotFoundError]
 
 /config_files:
+  displayName: "Configuration Files"
+
   /{id}:
     get:
-      description: Get a config file
+      displayName: Get a config file
       is: [withResponseItem: {item : ConfigFile}, withNotFoundError]
     delete:
-      description: Delete a config file
+      displayName: Delete a config file
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      description: Update a config file
+      displayName: Update a config file
       is: [withRequestItem: {item : ConfigFilePatch},
           withResponseItem: {item : ConfigFile}, withNotFoundError]
