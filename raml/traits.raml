@@ -1,0 +1,43 @@
+withRequestItem:
+  body:
+    application/json:
+      type: <<item>>
+withResponseItem:
+  responses:
+    200:
+      body:
+        application/json:
+          type: <<item>>
+withResponseItems:
+  responses:
+    200:
+      body:
+        application/json:
+          type: <<item>>[]
+withCreateResponse:
+  responses:
+    201:
+      body:
+        application/json:
+          type: <<item>>
+withNoBodyResponse:
+  responses:
+    204:
+withClientError:
+  responses:
+    400:
+      body:
+        application/json:
+          type: Error
+withNotFoundError:
+  responses:
+    404:
+      body:
+        application/json:
+          type: Error
+withPreconditionFailedError:
+  responses:
+    422:
+      body:
+        application/json:
+          type: Error
