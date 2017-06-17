@@ -1,7 +1,0 @@
-#/usr/bin/env bash
-
-mkdir -p doc
-
-bundle exec guard --no-interactions &
-
-cd doc && python -m SimpleHTTPServer
