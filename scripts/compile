@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[Recompile] Started"
+
+node scripts/output-json.js
+
+rm -rf doc/*
+rm -rf markdown/*
+
+mkdir -p doc
+mkdir -p markdown
+
+bundle exec raml_visualizer "json-output.json" "doc" "templates" "html" "stylesheets"
+bundle exec raml_visualizer "json-output.json" "markdown" "templates" "md" "stylesheets"
+
+echo "[Recompile] Finished"
