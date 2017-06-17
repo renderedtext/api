@@ -4,32 +4,262 @@ version: v2
 baseUri: https://api.semaphoreci.com/v2
 mediaType: application/json
 
-types: !include types.raml
-traits: !include traits.raml
+types:
+  UUID:
+    type: string
+    pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
 
-# Top level resources
+  time:
+    type: datetime
+    format: rfc3339
+
+  Error:
+    type: object
+    properties:
+      message: string
+
+  Org:
+    type: object
+    properties:
+      id:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      name:
+        type: string
+        example: "Rendered Text"
+      url:
+        type: string
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      username:
+        type: string
+        example: "renderedtext"
+      created_at: time
+      updated_at: time
+
+  TeamPatch:
+    type: object
+    properties:
+      name?:
+        type: string
+        example: "developers"
+      permission?:
+        enum: [read, write, admin]
+        example: "write"
+      description?:
+        type: string
+        example: "Developers team"
+
+  TeamPost:
+    type: object
+    properties:
+      name:
+        type: string
+        example: "developers"
+      permission:
+        enum: [read, write, admin]
+        example: "write"
+      description?:
+        type: string
+        example: "Developers team"
+
+  Team:
+    type: TeamPost
+    properties:
+      id:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      url:
+        type: string
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      updated_at: time
+      created_at: time
+
+  Project:
+    type: object
+    properties:
+      id:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      name:
+        type: string
+        example: "elixir-lang"
+      updated_at: time
+      created_at: time
+
+  SharedConfigPatch:
+    type: object
+    properties:
+      name?:
+        type: string
+        example: "AWS Tokens"
+      description?:
+        type: string
+        example: "AWS tokens for deployment"
+
+  SharedConfigPost:
+    type: object
+    properties:
+      name:
+        type: string
+        example: "AWS Tokens"
+      description?:
+        type: string
+        example: "AWS tokens for deployment"
+
+  SharedConfig:
+    type: SharedConfigPost
+    properties:
+      id:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      url:
+        type: string
+        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      created_at: time
+      updated_at: time
+
+  EnvVarPatch:
+    type: object
+    properties:
+      name?:
+        type: string
+        example: "API_TOKEN"
+      content?:
+        type: string
+        example: "8CgLAxXn"
+
+  EnvVarPost:
+    type: object
+    properties:
+      name:
+        type: string
+        example: "API_TOKEN"
+      content:
+        type: string
+        example: "8CgLAxXn"
+      encrypted:
+        type: boolean
+        example: true
+
+  EnvVar:
+    type: EnvVarPost
+    properties:
+      id:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      url:
+        type: string
+        example: "https://api.semaphoreci.com/v2/env_vars/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      shared:
+        type: boolean
+        example: true
+      created_at: time
+      updated_at: time
+
+  ConfigFilePatch:
+    type: object
+    properties:
+      path?:
+        type: string
+        example: ".credentials"
+      content?:
+        type: string
+        example: "password: ec2c9f6f64b5"
+
+  ConfigFilePost:
+    type: object
+    properties:
+      path:
+        type: string
+        example: ".credentials"
+      content:
+        type: string
+        example: "password: ec2c9f6f64b5"
+      encrypted:
+        type: boolean
+        example: true
+
+  ConfigFile:
+    type: ConfigFilePost
+    properties:
+      id:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      url:
+        type: string
+        example: "https://api.semaphoreci.com/v2/config_files/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      shared:
+        type: boolean
+        example: true
+      created_at: time
+      updated_at: time
+
+  User:
+    type: object
+    properties:
+      uid:
+        type: UUID
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      username:
+        type: string
+        example: "johndoe"
+      name:
+        type: string
+        example: "John Doe"
+      created_at: time
+      updated_at: time
+
+traits:
+  withRequestItem:
+    body:
+      application/json:
+        type: <<item>>
+  withResponseItem:
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<item>>
+  withResponseItems:
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<item>>[]
+  withCreateResponse:
+    responses:
+      201:
+        body:
+          application/json:
+            type: <<item>>
+  withNoBodyResponse:
+    responses:
+      204:
+  withClientError:
+    responses:
+      400:
+        body:
+          application/json:
+            type: Error
+  withNotFoundError:
+    responses:
+      404:
+        body:
+          application/json:
+            type: Error
+  withPreconditionFailedError:
+    responses:
+      412:
+        body:
+          application/json:
+            type: Error
 
 /users:
   displayName: "Users"
 
-/teams:
-  displayName: "Teams"
-
-/projects:
-  displayName: "Projects"
-
-/shared_configs:
-  displayName: "Shared Configurations"
-
-/env_vars:
-  displayName: "Environment Variables"
-
-/config_files:
-  displayName: "Configuration Files"
-
-# Routes
-
 /orgs:
+  displayName: "Organizations"
+
   get:
     displayName: List your organizations
     is: [withResponseItems: {item : Org}]
@@ -71,6 +301,8 @@ traits: !include traits.raml
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /teams:
+  displayName: "Teams"
+
   /{id}:
     get:
       displayName: Get a team
@@ -122,6 +354,8 @@ traits: !include traits.raml
           is: [withNoBodyResponse, withNotFoundError]
 
 /projects:
+  displayName: "Projects"
+
   /{project_id}:
     /shared_configs:
       get:
@@ -166,6 +400,8 @@ traits: !include traits.raml
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /shared_configs:
+  displayName: "Shared Configurations"
+
   /{id}:
     get:
       displayName: Get a shared configuration
@@ -197,6 +433,8 @@ traits: !include traits.raml
             withResponseItem: {item : ConfigFile}, withNotFoundError]
 
 /env_vars:
+  displayName: "Environment Variables"
+
   /{id}:
     get:
       displayName: Get an environment variable
@@ -210,6 +448,8 @@ traits: !include traits.raml
           withResponseItem: {item : EnvVar}, withNotFoundError]
 
 /config_files:
+  displayName: "Configuration Files"
+
   /{id}:
     get:
       displayName: Get a config file

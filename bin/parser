@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+const parser = require("raml-1-parser");
+const path   = require("path");
+const fs     = require("fs");
+
+const raml = process.argv[2];
+const output = process.argv[3];
+
+if(raml === undefined) {
+  console.log("[ERROR] Input file not provided.")
+  process.exit(1);
+}
+
+if(output === undefined) {
+  console.log("[ERROR] Output path not defined.");
+  process.exit(1);
+}
+
+const api = parser.loadApiSync(raml);
+
+api.errors().forEach(function(error){
+  console.log(JSON.stringify({
+    code: error.code,
+    message: error.message,
+    path: error.path,
+    start: error.start,
+    end: error.end,
+    isWarning: error.isWarning
+  },null,2));
+});
+
+if(api.errors().length > 0) {
+  process.exit(1);
+}
+
+const file = fs.openSync(output, "w");
+fs.writeSync(file, JSON.stringify(api.toJSON(), null, 2));
