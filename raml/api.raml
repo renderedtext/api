@@ -324,7 +324,7 @@ traits:
       get:
         description: List members of a team
         is: [withResponseItems: {item : User}, withNotFoundError]
-      /{username}:
+      /{user_username}:
         post:
           description: Add user to a team
           is: [withNoBodyResponse, withNotFoundError]
