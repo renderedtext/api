@@ -1,32 +1,40 @@
 #!/usr/bin/env node
 
 var parser = require("raml-1-parser");
+var raml2obj = require("raml2obj");
 var fs = require("fs");
 var path = require("path");
 
 var input_path  = "api.raml";
 var output_path = "api.json";
 
-console.log("Converting " + input_path + " to " + output_path);
+function validate() {
+  console.log("Validating " + input_path);
 
-var api = parser.loadApiSync(input_path);
+  var api = parser.loadApiSync(input_path);
 
-api.errors().forEach(function(e) {
-  console.log(JSON.stringify({
-    code: e.code,
-    message: e.message,
-    path: e.path,
-    start: e.start,
-    end: e.end,
-    isWarning: e.isWarning
-  },null,2));
-});
+  api.errors().forEach(function(e) {
+    console.log(JSON.stringify({
+      code: e.code,
+      message: e.message,
+      path: e.path,
+      start: e.start,
+      end: e.end,
+      isWarning: e.isWarning
+    },null,2));
+  });
 
-if(api.errors().length === 0) {
-  fs.writeFile(output_path, JSON.stringify(api.toJSON(), null, 2));
+  return api.errors().length === 0
+}
 
-  console.log("Done.")
-} else {
-  console.log("Failed.")
+if(!validate()) {
+  console.log("[ERROR] Validation Failed.")
   process.exit(1);
 }
+
+console.log("Converting " + input_path + " to " + output_path);
+
+raml2obj.parse(input_path).then((ramlObj) => {
+  fs.writeFile(output_path, JSON.stringify(ramlObj, null, 2));
+  console.log("Done.")
+});
