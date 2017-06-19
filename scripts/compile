@@ -1,17 +1,7 @@
-#!/usr/bin/env bash
-set -euo pipefail
+var raml2obj = require('raml2obj');
+var fs = require('fs');
 
-echo "[Recompile] Started"
-
-node scripts/output-json.js
-
-rm -rf doc/*
-rm -rf markdown/*
-
-mkdir -p doc
-mkdir -p markdown
-
-bundle exec raml_visualizer "json-output.json" "doc" "templates" "html" "stylesheets"
-bundle exec raml_visualizer "json-output.json" "markdown" "templates" "md" "stylesheets"
-
-echo "[Recompile] Finished"
+raml2obj.parse("raml/api.raml").then((ramlObj) => {
+  var json_output = JSON.stringify(ramlObj);
+  fs.writeFile("json-output.json", json_output);
+});
