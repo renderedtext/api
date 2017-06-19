@@ -6,10 +6,15 @@ if [ -z $S3_BUCKET_NAME ]; then
   exit 1
 fi
 
+if [ ! -f api.json ]; then
+  echo "api.json file not found"
+  exit 1
+fi
+
 spec_file=api_specification_$(date +%b_%d_%Y_%H_%M_%S).json
 s3_path="s3://$S3_BUCKET_NAME/$spec_file"
 
-cp json-output.json $spec_file
+cp api.json $spec_file
 
 aws s3 cp $spec_file $s3_path --acl=public-read
 

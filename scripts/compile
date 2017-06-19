@@ -2,7 +2,7 @@
 
 var raml2obj = require('raml2obj');
 var fs = require('fs');
-var output_path = "json_output.json";
+var output_path = "api.json";
 
 raml2obj.parse("raml/api.raml").then((ramlObj) => {
   var json_output = JSON.stringify(ramlObj);
