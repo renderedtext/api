@@ -1,17 +1,32 @@
 #!/usr/bin/env node
 
-var raml2obj = require('raml2obj');
-var fs = require('fs');
+var parser = require("raml-1-parser");
+var fs = require("fs");
+var path = require("path");
 
 var input_path  = "api.raml";
 var output_path = "api.json";
 
 console.log("Converting " + input_path + " to " + output_path);
 
-raml2obj.parse(input_path).then((ramlObj) => {
-  var json_output = JSON.stringify(ramlObj);
+var api = parser.loadApiSync(input_path);
 
-  fs.writeFile(output_path, json_output);
+api.errors().forEach(function(e) {
+  console.log(JSON.stringify({
+    code: e.code,
+    message: e.message,
+    path: e.path,
+    start: e.start,
+    end: e.end,
+    isWarning: e.isWarning
+  },null,2));
 });
 
-console.log("Done.")
+if(api.errors().length === 0) {
+  fs.writeFile(output_path, JSON.stringify(api.toJSON(), null, 2));
+
+  console.log("Done.")
+} else {
+  console.log("Failed.")
+  process.exit(1);
+}

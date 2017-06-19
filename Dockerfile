@@ -4,7 +4,7 @@ RUN wget -O - https://nodejs.org/dist/v6.10.0/node-v6.10.0-linux-x64.tar.xz | ta
 
 WORKDIR /app
 
-RUN npm install -g raml2obj
+RUN npm install -g raml-1-parser
 
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
