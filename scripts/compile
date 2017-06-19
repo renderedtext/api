@@ -1,17 +1,17 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env node
 
-echo "[Recompile] Started"
+var raml2obj = require('raml2obj');
+var fs = require('fs');
 
-node scripts/output-json.js
+var input_path  = "api.raml";
+var output_path = "api.json";
 
-rm -rf doc/*
-rm -rf markdown/*
+console.log("Converting " + input_path + " to " + output_path);
 
-mkdir -p doc
-mkdir -p markdown
+raml2obj.parse(input_path).then((ramlObj) => {
+  var json_output = JSON.stringify(ramlObj);
 
-bundle exec raml_visualizer "json-output.json" "doc" "templates" "html" "stylesheets"
-bundle exec raml_visualizer "json-output.json" "markdown" "templates" "md" "stylesheets"
+  fs.writeFile(output_path, json_output);
+});
 
-echo "[Recompile] Finished"
+console.log("Done.")

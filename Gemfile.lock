@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/renderedtext/api-dev-tools.git
-  revision: 99078041ceb96d03ab69f78ff0c8e1b8151f80cd
-  specs:
-    raml_parser (0.2.0)
-    raml_visualizer (0.20.2)
-      raml_parser
-      redcarpet
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -43,7 +34,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
-    redcarpet (3.4.0)
     ruby_dep (1.5.0)
     shellany (0.0.1)
     slop (3.6.0)
@@ -57,7 +47,6 @@ PLATFORMS
 DEPENDENCIES
   guard
   guard-process
-  raml_visualizer!
 
 BUNDLED WITH
    1.13.6
