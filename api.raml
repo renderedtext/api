@@ -258,6 +258,8 @@ traits:
   displayName: "Users"
 
 /orgs:
+  displayName: "Organizations"
+
   get:
     displayName: List your organizations
     is: [withResponseItems: {item : Org}]
@@ -298,6 +300,8 @@ traits:
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /teams:
+  displayName: "Teams"
+
   /{id}:
     get:
       displayName: Get a team
@@ -349,6 +353,8 @@ traits:
           is: [withNoBodyResponse, withNotFoundError]
 
 /projects:
+  displayName: "Projects"
+
   /{project_id}:
     /shared_configs:
       get:
@@ -393,6 +399,8 @@ traits:
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /shared_configs:
+  displayName: "Shared Configurations"
+
   /{id}:
     get:
       displayName: Get a shared configuration
@@ -424,6 +432,8 @@ traits:
             withResponseItem: {item : ConfigFile}, withNotFoundError]
 
 /env_vars:
+  displayName: "Environment Variables"
+
   /{id}:
     get:
       displayName: Get an environment variable
@@ -437,6 +447,8 @@ traits:
           withResponseItem: {item : EnvVar}, withNotFoundError]
 
 /config_files:
+  displayName: "Configuration Files"
+
   /{id}:
     get:
       displayName: Get a config file
