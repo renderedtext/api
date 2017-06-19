@@ -29,7 +29,7 @@ types:
         example: "Rendered Text"
       url:
         type: string
-        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+        example: "https://api.semaphoreci.com/v2/orgs/renderedtext"
       username:
         type: string
         example: "renderedtext"
@@ -177,7 +177,7 @@ types:
         example: "password: ec2c9f6f64b5"
       encrypted:
         type: boolean
-        example: true
+        example: false
 
   ConfigFile:
     type: ConfigFilePost
@@ -378,7 +378,7 @@ traits:
           displayName: Connect a shared environment variable to a project
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          displayName: Dissconnect a shared environment variable from a project
+          displayName: Disconnect a shared environment variable from a project
           is: [withNoBodyResponse, withNotFoundError]
 
     /config_files:
@@ -390,7 +390,7 @@ traits:
           displayName: Connect a shared config file to a project
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          displayName: Dissconnect a shared config file from a project
+          displayName: Disconnect a shared config file from a project
           is: [withNoBodyResponse, withNotFoundError]
 
     /users:
