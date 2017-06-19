@@ -2,11 +2,16 @@
 
 var raml2obj = require('raml2obj');
 var fs = require('fs');
+
+var input_path  = "api.raml";
 var output_path = "api.json";
 
-raml2obj.parse("raml/api.raml").then((ramlObj) => {
+console.log("Converting " + input_path + " to " + output_path);
+
+raml2obj.parse(input_path).then((ramlObj) => {
   var json_output = JSON.stringify(ramlObj);
+
   fs.writeFile(output_path, json_output);
 });
 
-console.log("Saved api specification to: " + output_path);
+console.log("Done.")
