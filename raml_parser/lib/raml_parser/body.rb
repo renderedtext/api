@@ -9,6 +9,18 @@ class RamlParser
       @raw["required"]
     end
 
+    def description
+      @raw["description"]
+    end
+
+    def enum?
+      !@raw["enum"].nil?
+    end
+
+    def enum_values
+      @raw["enum"]
+    end
+
     def type
       @raw["type"]
     end

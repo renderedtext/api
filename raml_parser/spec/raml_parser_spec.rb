@@ -103,27 +103,43 @@ RSpec.describe RamlParser do
 
     expect(index.responses.map(&:code)).to match_array([ 200, 404 ])
 
-    expect(index.succesfull_response.example).to eq([
+    expect(index.succesfull_response.example).to match_array [
       {
         "id" => "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5",
         "path"=> ".credentials",
         "url" => "https://api.semaphoreci.com/v2/config_files/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5",
         "content" => "password: ec2c9f6f64b5",
-        "encrypted" => true,
+        "encrypted" => false,
         "shared" => true,
         "updated_at" => "2017-06-10 16:59:51 +0200",
         "created_at" => "2017-06-10 16:59:51 +0200"
       }
-    ])
+    ]
   end
 
   it "can list request params" do
-    patch_shared_config = specs.find_route(:patch, "/shared_configs/{id}")
+    patch_properties = specs.find_route(:patch, "/teams/{id}").request.properties
 
-    expect(patch_shared_config.request.example).to eq({
-      "description" => "AWS tokens for deployment",
-      "name" => "AWS Tokens"
-    })
+    expect(patch_properties.map(&:name)).to eq ["name", "permission", "description"]
+
+    expect(patch_properties.map(&:description)).to eq [
+      "Name of the team. The name must be unique in the organization.",
+      "The permission level for team members in the organization.",
+      "Description for the team."]
+
+    expect(patch_properties.map(&:type)).to eq ["string", "string", "string"]
+    expect(patch_properties.map(&:required?)).to eq [false, false, false]
+  end
+
+  it "can handle enum fields" do
+    permission = specs.find_route(:patch, "/teams/{id}").request.properties.find { |p| p.name == "permission" }
+
+    expect(permission.type).to eq("string")
+    expect(permission).to be_enum
+    expect(permission.enum_values).to eq ["read", "write", "admin"]
+
+    name = specs.find_route(:patch, "/teams/{id}").request.properties.find { |p| p.name == "name" }
+    expect(name).to_not be_enum
   end
 
   it "can display the structure of the response" do
