@@ -338,6 +338,7 @@ traits:
         is: [withResponseItems: {item : Team}]
       post:
         displayName: Create a team in an organization
+        description: Only organization owners can create new teams.
         is: [withRequestItem: {item : TeamPost},
              withResponseItem: {item : Team},
              withNotFoundError,
@@ -370,9 +371,11 @@ traits:
       is: [withResponseItem: {item : Team}, withNotFoundError]
     delete:
       displayName: Delete a team
+      description: Only organization owners can delete teams.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
       displayName: Update a team
+      description: Only organization owners can update teams.
       is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
 
   /{team_id}:
@@ -384,9 +387,11 @@ traits:
       /{shared_config_id}:
         post:
           displayName: Add a shared configuration to a team
+          description: The user needs to be a member of the team, and to have admin permissions in the organization.
           is: [withNoBodyResponse, withNotFoundError]
         delete:
           displayName: Remove shared configuration from a team
+          description: The user needs to be a member of the team, and to have admin permissions in the organization.
           is: [withNoBodyResponse, withNotFoundError]
 
     /users:
@@ -457,7 +462,7 @@ traits:
 
     /users:
       get:
-        displayName: List all users fo a project
+        displayName: List all users for a project
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /shared_configs:
@@ -469,9 +474,11 @@ traits:
       is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
     delete:
       displayName: Delete a shared configuration
+      description: Deleting a shared configuration requires at least admin permissions in the organization.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
       displayName: Update a shared configuration
+      description: To update the shared configuration you need to be an admin or owner in your organization.
       is: [withRequestItem: {item : SharedConfigPatch},
           withResponseItem: {item : SharedConfig}, withNotFoundError]
 
@@ -482,6 +489,7 @@ traits:
         is: [withResponseItems: {item : EnvVar}, withNotFoundError]
       post:
         displayName: Create environment variable within a shared configuration
+        description: Environment variables can be only created by users who can edit the shared configuration.
         is: [withRequestItem: {item : EnvVarPost},
             withResponseItem: {item : EnvVar}, withNotFoundError]
     /config_files:
@@ -490,6 +498,7 @@ traits:
         is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
       post:
         displayName: Create a config file within a shared configuration
+        description: Configuration files can be only created by users who can edit the shared configuration.
         is: [withRequestItem: {item : ConfigFilePost},
             withResponseItem: {item : ConfigFile}, withNotFoundError]
 
@@ -499,12 +508,16 @@ traits:
   /{id}:
     get:
       displayName: Get an environment variable
+      description: Displays the environment variable. Encrypted configuration files  will have `null` as content.
       is: [withResponseItem: {item : EnvVar}, withNotFoundError]
     delete:
       displayName: Delete an environment variable
+      description: Environment variables can be only deleted by users who has edit access on the project or the shared configuration.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
       displayName: Update an environment variable
+      description: |
+        Environment variables can be only updated by users who has edit access on the project or the shared configuration. Encrypted environment variables can't be edited.
       is: [withRequestItem: {item : EnvVarPatch},
           withResponseItem: {item : EnvVar}, withNotFoundError]
 
@@ -514,11 +527,15 @@ traits:
   /{id}:
     get:
       displayName: Get a config file
+      description: Displays the configuration file. Encrypted configuration files  will have `null` as content.
       is: [withResponseItem: {item : ConfigFile}, withNotFoundError]
     delete:
       displayName: Delete a config file
+      description: Configuration files can be only deleted by users who has edit access on the project or the shared configuration.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
       displayName: Update a config file
+      description: |
+        Configuration files can be only updated by users who has edit access on the project or the shared configuration. Encrypted environment variables can't be edited.
       is: [withRequestItem: {item : ConfigFilePatch},
           withResponseItem: {item : ConfigFile}, withNotFoundError]

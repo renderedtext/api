@@ -34,8 +34,12 @@ RSpec.describe RamlParser do
     ]
   end
 
-  it "can display route descriptions" do
+  it "can display route display name" do
     expect(shared_configs.routes.map(&:display_name)).to include("Add a shared configuration to a team")
+  end
+
+  it "can display route description" do
+    expect(shared_configs.routes.map(&:description)).to include("The user needs to be a member of the team, and to have admin permissions in the organization.")
   end
 
   it "can list index routes" do
