@@ -23,15 +23,19 @@ types:
     properties:
       id:
         type: UUID
+        description: "Unique ID of the organization."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       name:
         type: string
+        description: "Name of the organization."
         example: "Rendered Text"
       url:
         type: string
+        description: "Show URL for the organization."
         example: "https://api.semaphoreci.com/v2/orgs/renderedtext"
       username:
         type: string
+        description: "Unique username of the organization."
         example: "renderedtext"
       created_at: time
       updated_at: time
@@ -41,12 +45,15 @@ types:
     properties:
       name?:
         type: string
+        description: "Name of the team. The name must be unique in the organization."
         example: "developers"
       permission?:
+        description: "The permission level for team members in the organization."
         enum: [read, write, admin]
         example: "write"
       description?:
         type: string
+        description: "Description for the team."
         example: "Developers team"
 
   TeamPost:
@@ -54,12 +61,15 @@ types:
     properties:
       name:
         type: string
+        description: "Name of the team. The name must be unique in the organization."
         example: "developers"
       permission:
         enum: [read, write, admin]
+        description: "The permission level for team members in the organization."
         example: "write"
       description?:
         type: string
+        description: "Description for the team."
         example: "Developers team"
 
   Team:
@@ -67,9 +77,11 @@ types:
     properties:
       id:
         type: UUID
+        description: "Unique ID of the team."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       url:
         type: string
+        description: "Show URL for the team."
         example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       updated_at: time
       created_at: time
@@ -79,9 +91,11 @@ types:
     properties:
       id:
         type: UUID
+        description: "Unique ID of the project."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       name:
         type: string
+        description: "Name of the project."
         example: "elixir-lang"
       updated_at: time
       created_at: time
@@ -91,9 +105,11 @@ types:
     properties:
       name?:
         type: string
+        description: "Name of the shared configuration."
         example: "AWS Tokens"
       description?:
         type: string
+        description: "Description for the shared configuration."
         example: "AWS tokens for deployment"
 
   SharedConfigPost:
@@ -101,9 +117,11 @@ types:
     properties:
       name:
         type: string
+        description: "Name of the shared configuration."
         example: "AWS Tokens"
       description?:
         type: string
+        description: "Description for the shared configuration."
         example: "AWS tokens for deployment"
 
   SharedConfig:
@@ -111,9 +129,11 @@ types:
     properties:
       id:
         type: UUID
+        description: "Unique ID of the shared configuration."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       url:
         type: string
+        description: "Show URL for the shared configuration."
         example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       created_at: time
       updated_at: time
@@ -123,9 +143,11 @@ types:
     properties:
       name?:
         type: string
+        description: "Name of the environment variable."
         example: "API_TOKEN"
       content?:
         type: string
+        description: "Content of the environment variable."
         example: "8CgLAxXn"
 
   EnvVarPost:
@@ -133,25 +155,42 @@ types:
     properties:
       name:
         type: string
+        description: "Name of the environment variable."
         example: "API_TOKEN"
       content:
         type: string
+        description: "Content of the environment variable."
         example: "8CgLAxXn"
       encrypted:
         type: boolean
         example: true
 
   EnvVar:
-    type: EnvVarPost
+    type: object
     properties:
       id:
         type: UUID
+        description: "Unique ID of the environment variable."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      name:
+        type: string
+        description: "Name of the environment variable."
+        example: "API_TOKEN"
       url:
         type: string
+        description: "Show URL for the environment variable."
         example: "https://api.semaphoreci.com/v2/env_vars/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      content:
+        type: string
+        description: "Content of the environment variable. Will be `null` if encrypted."
+        example: "8CgLAxXn"
       shared:
         type: boolean
+        description: "True if the environment variable belongs to a shared configuration."
+        example: true
+      encrypted:
+        type: boolean
+        description: "True if the environment variable is encrypted."
         example: true
       created_at: time
       updated_at: time
@@ -161,9 +200,11 @@ types:
     properties:
       path?:
         type: string
+        description: "Path of the configuration file."
         example: ".credentials"
       content?:
         type: string
+        description: "Content of the configuration file."
         example: "password: ec2c9f6f64b5"
 
   ConfigFilePost:
@@ -171,26 +212,44 @@ types:
     properties:
       path:
         type: string
+        description: "Path of the configuration file."
         example: ".credentials"
       content:
         type: string
+        description: "Content of the configuration file. Will be `null` if the file is encrypted."
         example: "password: ec2c9f6f64b5"
       encrypted:
         type: boolean
+        description: "True if the file is encrypted."
         example: false
 
   ConfigFile:
-    type: ConfigFilePost
+    type: object
     properties:
       id:
         type: UUID
+        description: "Unique ID of the configuration file."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      path:
+        type: string
+        description: "Path of the configuration file."
+        example: ".credentials"
       url:
         type: string
+        description: "Show URL for the configuration file."
         example: "https://api.semaphoreci.com/v2/config_files/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      content:
+        type: string
+        description: "Content of the configuration file. Will be `null` if the file is encrypted."
+        example: "password: ec2c9f6f64b5"
       shared:
         type: boolean
+        description: "True if the configuration file belongs to a shared configuration."
         example: true
+      encrypted:
+        type: boolean
+        description: "True if the file is encrypted."
+        example: false
       created_at: time
       updated_at: time
 
@@ -199,12 +258,15 @@ types:
     properties:
       uid:
         type: UUID
+        description: "Unique ID of the user."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       username:
         type: string
+        description: "Unique username of the user."
         example: "johndoe"
       name:
         type: string
+        description: "Name of the user."
         example: "John Doe"
       created_at: time
       updated_at: time
