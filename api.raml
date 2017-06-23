@@ -483,6 +483,16 @@ traits:
           withResponseItem: {item : SharedConfig}, withNotFoundError]
 
   /{shared_config_id}:
+    /projects:
+      get:
+        displayName: List projects for a shared configuration
+        is: [withResponseItems: {item : Project}, withNotFoundError]
+
+    /teams:
+      get:
+        displayName: List teams for a shared configuration
+        is: [withResponseItems: {item : Team}, withNotFoundError]
+
     /env_vars:
       get:
         displayName: List environment variables belonging to a shared configuration
