@@ -2,6 +2,11 @@
 
 Semaphore public API v2 - RAML specification
 
+## Where can you find the api specification?
+
+Every time we merge into master, the new specification is pushed to S3. List the
+S3 bucket to fetch the specification you need.
+
 ## Setting up a development environment
 
 1. Install docker-compose:

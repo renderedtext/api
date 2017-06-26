@@ -33,6 +33,22 @@ types:
         type: string
         description: "Show URL for the organization."
         example: "https://api.semaphoreci.com/v2/orgs/renderedtext"
+      projects_url:
+        type: string
+        description: "Projects URL for the organization"
+        example: "https://api.semaphoreci.com/v2/orgs/renderedtext/projects"
+      shared_configs_url:
+        type: string
+        description: "Shared Configurations URL for the organization"
+        example: "https://api.semaphoreci.com/v2/orgs/renderedtext/shared_configs"
+      users_url:
+        type: string
+        description: "Users URL for the organization"
+        example: "https://api.semaphoreci.com/v2/orgs/renderedtext/users"
+      teams_url:
+        type: string
+        description: "Teams URL for the organization"
+        example: "https://api.semaphoreci.com/v2/orgs/renderedtext/teams"
       username:
         type: string
         description: "Unique username of the organization."
@@ -83,6 +99,18 @@ types:
         type: string
         description: "Show URL for the team."
         example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      users_url:
+        type: string
+        description: "Users URL for the team"
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/users"
+      projects_url:
+        type: string
+        description: "Projects URL for the team"
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/projects"
+      shared_configs_url:
+        type: string
+        description: "Shared Configurations URL for the team"
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/shared_configs"
       updated_at: time
       created_at: time
 
@@ -97,6 +125,18 @@ types:
         type: string
         description: "Name of the project."
         example: "elixir-lang"
+      shared_configs_url:
+        type: string
+        description: "Shared Configurations URL for the project"
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/shared_configs"
+      env_vars_url:
+        type: string
+        description: "Environment Variables URL for the project"
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/env_vars"
+      config_files_url:
+        type: string
+        description: "Config Files URL for the project"
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/config_files"
       updated_at: time
       created_at: time
 
@@ -135,6 +175,22 @@ types:
         type: string
         description: "Show URL for the shared configuration."
         example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      projects_url:
+        type: string
+        description: "Porjects URL for the shared configuration"
+        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/projects"
+      teams_url:
+        type: string
+        description: "Teams URL for the shared configuration"
+        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/teams"
+      env_vars_url:
+        type: string
+        description: "Environment Variables URL for the shared configuration"
+        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/env_vars"
+      config_files_url:
+        type: string
+        description: "Config Files URL for the the shared configuration"
+        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/config_files"
       created_at: time
       updated_at: time
 
