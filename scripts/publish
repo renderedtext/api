@@ -1,24 +1,20 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env ruby
 
-if [ -z $S3_BUCKET_NAME ]; then
-  echo "Please export the S3_BUCKET_NAME variable and try again."
-  exit 1
-fi
+require "json"
 
-if [ ! -f api.json ]; then
-  echo "api.json file not found"
-  exit 1
-fi
+bucket_name = ENV["S3_BUCKET_NAME"]
+spec_path = "api.json"
 
-spec_file=api_specification_$(date +%b_%d_%Y_%H_%M_%S).json
-s3_path="s3://$S3_BUCKET_NAME/$spec_file"
+abort "Please export the S3_BUCKET_NAME variable and try again." if bucket_name.nil?
+abort "api.json file not found" unless File.exists?(spec_path)
 
-cp api.json $spec_file
+version = JSON.parse(File.read("api.json"))["version"]
+s3_path = "s3://#{bucket_name}/api_specs_#{version.gsub(".", "_")}.json"
 
-aws s3 cp $spec_file $s3_path --acl=public-read
+abort "Can't find specification version" if version.nil?
 
-rm -rf $spec_file
+puts "Publishing api specs #{version} to #{s3_path}"
 
-echo "Api specification published"
-echo "$s3_path"
+system "aws s3 cp #{spec_path} #{s3_path} --acl=public-read"
+
+echo "Done.
