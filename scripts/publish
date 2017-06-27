@@ -13,8 +13,30 @@ s3_path = "s3://#{bucket_name}/api_specs_#{version.gsub(".", "_")}.json"
 
 abort "Can't find specification version" if version.nil?
 
+#
+# Publish new specification
+#
+
 puts "Publishing api specs #{version} to #{s3_path}"
 
 system "aws s3 cp #{spec_path} #{s3_path} --acl=public-read"
+
+
+#
+# Publish new index.html page
+#
+
+puts "Regenerating index page"
+
+specs = `aws s3 ls #{bucket_name} | grep "api_specs" | awk '{ print $4 }'`.split("\n")
+
+html = "<ul>" + specs.map { |spec| "<li><a href='http://#{bucket_name}/#{spec}'>#{spec}</a></li>" }.join("\n") + "</ul>"
+
+index_path = "/tmp/index.html"
+s3_index_path = "s3://#{bucket_name}/index.html"
+
+File.write(index_path, html)
+
+system "aws s3 cp #{index_path} #{s3_index_path} --acl=public-read"
 
 puts "Done."
