@@ -516,10 +516,10 @@ traits:
           displayName: Disconnect a shared config file from a project
           is: [withNoBodyResponse, withNotFoundError]
 
-    /project:
+    /teams:
       get:
         displayName: List all teams connected to project
-        is: [withResponseItems: {item : Project}, withNotFoundError]
+        is: [withResponseItems: {item : Team}, withNotFoundError]
 
     /users:
       get:
