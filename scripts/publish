@@ -17,4 +17,4 @@ puts "Publishing api specs #{version} to #{s3_path}"
 
 system "aws s3 cp #{spec_path} #{s3_path} --acl=public-read"
 
-echo "Done.
+puts "Done."
