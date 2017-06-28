@@ -1,11 +1,13 @@
 # API v2
 
-Semaphore public API v2 - RAML specification
+Semaphore public API v2 - RAML specification.
 
 ## Where can you find the api specification?
 
-Every time we merge into master, the new specification is pushed to S3. List the
-S3 bucket to fetch the specification you need.
+Every time we merge into master, the new specification is pushed to S3.
+
+Visit [api-v2-specs.semaphoreci.com](http://api-v2-specs.semaphoreci.com) to get
+a list of currently published APi v2 specifications.
 
 ## Setting up a development environment
 
