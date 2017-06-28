@@ -57,4 +57,4 @@ class Publisher
 
 end
 
-Publisher.new(ENV["S3_BUCKET_NAME"], "api.json").publish
+Publisher.new("api-v2-specs.semaphoreci.com", "api.json").publish
