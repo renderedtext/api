@@ -2,41 +2,59 @@
 
 require "json"
 
-bucket_name = ENV["S3_BUCKET_NAME"]
-spec_path = "api.json"
+class Publisher
 
-abort "Please export the S3_BUCKET_NAME variable and try again." if bucket_name.nil?
-abort "api.json file not found" unless File.exists?(spec_path)
+  def initialize(bucket_name, api_file)
+    @bucket_name = bucket_name
+    @api_file = api_file
+  end
 
-version = JSON.parse(File.read("api.json"))["version"]
-s3_path = "s3://#{bucket_name}/api_specs_#{version.gsub(".", "_")}.json"
+  def publish
+    abort "Please export the S3_BUCKET_NAME variable and try again." if @bucket_name.nil?
+    abort "api.json file not found" unless File.exists?(@api_file)
 
-abort "Can't find specification version" if version.nil?
+    @version = JSON.parse(File.read("api.json"))["version"]
 
-#
-# Publish new specification
-#
+    abort "Can't find specification version in #{@api_file}" if @version.nil?
 
-puts "Publishing api specs #{version} to #{s3_path}"
+    publish_new_version
+    publish_new_index
 
-system "aws s3 cp #{spec_path} #{s3_path} --acl=public-read"
+    puts "\nNew version '#{@version}' published. Visit http://#{@bucket_name}/."
+  end
 
+  def publish_new_version
+    puts "[1/2] Publishing new api specification"
 
-#
-# Publish new index.html page
-#
+    spec_path = "api_specs_#{@version.gsub(".", "_")}.json"
 
-puts "Regenerating index page"
+    abort "#{spec_path} is already published" if published_versions.include?(spec_path)
 
-specs = `aws s3 ls #{bucket_name} | grep "api_specs" | awk '{ print $4 }'`.split("\n")
+    s3_path = "s3://#{@bucket_name}/#{spec_path}"
 
-html = "<ul>" + specs.map { |spec| "<li><a href='http://#{bucket_name}/#{spec}'>#{spec}</a></li>" }.join("\n") + "</ul>"
+    puts "Publishing api specs #{@version} to #{s3_path}"
 
-index_path = "/tmp/index.html"
-s3_index_path = "s3://#{bucket_name}/index.html"
+    system "aws s3 cp #{@api_file} #{s3_path} --acl=public-read"
+  end
 
-File.write(index_path, html)
+  def publish_new_index
+    puts "[2/2] Regenerating index page"
 
-system "aws s3 cp #{index_path} #{s3_index_path} --acl=public-read"
+    links = published_versions.map { |spec| "<li><a href='http://#{@bucket_name}/#{spec}'>#{spec}</a></li>" }
+    html  = "<ul>" + links.join("\n") + "</ul>"
 
-puts "Done."
+    index_path = "/tmp/index.html"
+    s3_index_path = "s3://#{@bucket_name}/index.html"
+
+    File.write(index_path, html)
+
+    system "aws s3 cp #{index_path} #{s3_index_path} --acl=public-read"
+  end
+
+  def published_versions
+    `aws s3 ls #{@bucket_name} | grep "api_specs" | awk '{ print $4 }'`.split("\n")
+  end
+
+end
+
+Publisher.new(ENV["S3_BUCKET_NAME"], "api.json").publish
