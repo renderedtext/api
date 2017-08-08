@@ -142,12 +142,14 @@ RSpec.describe SemaphoreClientGenerator do
 
   describe "#generate_version" do
     let(:version) { "0.0.1" }
-    let(:code_file) { double(SemaphoreClientGenerator::CodeFile, :generate => nil) }
+    let(:version_code_file) { double(SemaphoreClientGenerator::CodeFile, :generate => nil) }
+    let(:gemlock_code_file) { double(SemaphoreClientGenerator::CodeFile, :generate => nil) }
 
     before do
       allow(File).to receive(:read).and_return(version)
+      allow(File).to receive(:rename)
 
-      allow(SemaphoreClientGenerator::CodeFile).to receive(:new).and_return(code_file)
+      allow(SemaphoreClientGenerator::CodeFile).to receive(:new).and_return(version_code_file, gemlock_code_file)
     end
 
     it "reads the version file" do
@@ -164,7 +166,7 @@ RSpec.describe SemaphoreClientGenerator do
       end
     end
 
-    it "creates the code file" do
+    it "creates the version code file" do
       expect(SemaphoreClientGenerator::CodeFile).to receive(:new).with(
         "#{source_path}/lib/semaphore_client/version.rb.erb",
         "#{output_path}/lib/semaphore_client"
@@ -173,8 +175,29 @@ RSpec.describe SemaphoreClientGenerator do
       subject.generate_version
     end
 
-    it "generates the output file" do
-      expect(code_file).to receive(:generate).with("version", :version => version)
+    it "generates the version output file" do
+      expect(version_code_file).to receive(:generate).with("version", :version => version)
+
+      subject.generate_version
+    end
+
+    it "creates the Gemfile.lock code file" do
+      expect(SemaphoreClientGenerator::CodeFile).to receive(:new).with(
+        "#{source_path}/Gemfile.lock.erb",
+        "#{output_path}/."
+      )
+
+      subject.generate_version
+    end
+
+    it "generates the Gemfile.lock output file" do
+      expect(gemlock_code_file).to receive(:generate).with("Gemfile.lock", :version => version)
+
+      subject.generate_version
+    end
+
+    it "renames the Gemfile.lock" do
+      expect(File).to receive(:rename).with("#{output_path}/Gemfile.lock.rb", "#{output_path}/Gemfile.lock")
 
       subject.generate_version
     end

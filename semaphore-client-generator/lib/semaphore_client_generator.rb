@@ -76,12 +76,24 @@ class SemaphoreClientGenerator
 
     raise VersionFormatError if /^[0-9]+.[0-9]+.[0-9]+$/.match(version).nil?
 
-    code_file = CodeFile.new(
+    version_code_file = CodeFile.new(
       source_path("lib/semaphore_client/version.rb.erb"),
       output_path("lib/semaphore_client")
     )
 
-    code_file.generate("version", :version => version)
+    version_code_file.generate("version", :version => version)
+
+    gemlock_code_file = CodeFile.new(
+      source_path("Gemfile.lock.erb"),
+      output_path(".")
+    )
+
+    gemlock_code_file.generate("Gemfile.lock", :version => version)
+
+    File.rename(
+      output_path("Gemfile.lock.rb"),
+      output_path("Gemfile.lock")
+    )
   end
 
   def generate_root
