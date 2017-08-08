@@ -42,7 +42,9 @@ class SemaphoreClientGenerator
     paths = nil
 
     FileUtils.cd(@source_dir) do
-      all_paths = Dir.glob("**/*").select { |path| File.file?(path) }
+      all_paths = (Dir.glob("**/*") + Dir.glob("**/.*")).select do |path|
+        File.file?(path)
+      end
 
       paths = all_paths.reject { |path| File.extname(path) == ".erb" }
     end

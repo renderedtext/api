@@ -77,7 +77,8 @@ RSpec.describe SemaphoreClientGenerator do
 
     before do
       allow(FileUtils).to receive(:cd).and_yield()
-      allow(Dir).to receive(:glob).and_return(files)
+      allow(Dir).to receive(:glob).with("**/*").and_return(files)
+      allow(Dir).to receive(:glob).with("**/.*").and_return([])
       allow(File).to receive(:file?).and_return(true)
       allow(FileUtils).to receive(:mkdir_p)
       allow(FileUtils).to receive(:cp)
