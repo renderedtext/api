@@ -66,7 +66,7 @@ class SemaphoreClientGenerator
 
   def copy_gemspec
     FileUtils.cp(
-      source_path("semaphore_client._gemspec_"),
+      source_path("semaphore_client.gemspec.erb"),
       output_path("semaphore_client.gemspec")
     )
   end

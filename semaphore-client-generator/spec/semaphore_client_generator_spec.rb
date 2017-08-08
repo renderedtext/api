@@ -132,7 +132,7 @@ RSpec.describe SemaphoreClientGenerator do
   describe "#copy_gemspec" do
     it "copies the file" do
       expect(FileUtils).to receive(:cp).with(
-        "#{source_path}/semaphore_client._gemspec_",
+        "#{source_path}/semaphore_client.gemspec.erb",
         "#{output_path}/semaphore_client.gemspec"
       )
 
