@@ -1,0 +1,15 @@
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+require "semaphore_client_generator"
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
+
+task :console do
+  sh "bundle exec irb -I lib -r semaphore_client_generator.rb"
+end
+
+task :generate, [] do |_t, args|
+  SemaphoreClientGenerator.new.generate
+end

@@ -1,0 +1,34 @@
+require "json"
+
+require "semaphore_client/version"
+require "semaphore_client/exceptions"
+require "semaphore_client/http_client"
+<%- entities.each do |entity| -%>
+require "semaphore_client/model/<%= entity.key %>"
+<%- end -%>
+<%- entities.each do |entity| -%>
+require "semaphore_client/api/<%= entity.key %>"
+<%- end -%>
+
+class SemaphoreClient
+  API_URL = "https://api.semaphoreci.com"
+  API_VERSION = "v2"
+
+  def initialize(auth_token, api_url = API_URL, api_version = API_VERSION)
+    @auth_token = auth_token
+    @api_url = api_url
+    @api_version = api_version
+  end
+
+  <%- @entities.each do |entity| -%>
+  def <%= entity.key.pluralize %>
+    @<%= entity.key %>_api ||= SemaphoreClient::Api::<%= entity.name %>.new(http_client)
+  end
+
+  <%- end -%>
+  private
+
+  def http_client
+    @http_client ||= SemaphoreClient::HttpClient.new(@auth_token, @api_url, @api_version)
+  end
+end
