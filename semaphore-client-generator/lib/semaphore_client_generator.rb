@@ -15,19 +15,27 @@ require "semaphore_client_generator/specification"
 require "semaphore_client_generator/version"
 
 class SemaphoreClientGenerator
+  class VersionFormatError < StandardError; end
+
   SPECIFICATION_PATH = "../api.json"
+  VERSION_PATH = "../version"
   SOURCE_DIR = "client_source"
   OUTPUT_DIR = "output"
 
   def initialize(args = {})
     @specification_path = args[:specification_path] || SPECIFICATION_PATH
+    @version_path = args[:version_path] || VERSION_PATH
     @source_dir = args[:source_dir] || SOURCE_DIR
     @output_dir = args[:output_dir] || OUTPUT_DIR
   end
 
   def generate
     clear_output_dir
+
     copy_static_files
+    copy_gemspec
+
+    generate_version
     generate_root
     generate_model
     generate_api
@@ -54,6 +62,26 @@ class SemaphoreClientGenerator
 
       FileUtils.cp(source_path(path), output_path(path))
     end
+  end
+
+  def copy_gemspec
+    FileUtils.cp(
+      source_path("semaphore_client._gemspec_"),
+      output_path("semaphore_client.gemspec")
+    )
+  end
+
+  def generate_version
+    version = File.read(@version_path).delete("\n")
+
+    raise VersionFormatError if /^[0-9]+.[0-9]+.[0-9]+$/.match(version).nil?
+
+    code_file = CodeFile.new(
+      source_path("lib/semaphore_client/version.rb.erb"),
+      output_path("lib/semaphore_client")
+    )
+
+    code_file.generate("version", :version => version)
   end
 
   def generate_root

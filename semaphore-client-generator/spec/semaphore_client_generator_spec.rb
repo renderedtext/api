@@ -2,12 +2,14 @@ require "spec_helper"
 
 RSpec.describe SemaphoreClientGenerator do
   let(:specification_path) { "specification.json" }
+  let(:version_path) { "version" }
   let(:source_path) { "client_source" }
   let(:output_path) { "output" }
 
   subject do
     described_class.new(
       :specification_path => specification_path,
+      :version_path => version_path,
       :source_path => source_path,
       :output_path => output_path
     )
@@ -17,6 +19,8 @@ RSpec.describe SemaphoreClientGenerator do
     before do
       allow(subject).to receive(:clear_output_dir)
       allow(subject).to receive(:copy_static_files)
+      allow(subject).to receive(:copy_gemspec)
+      allow(subject).to receive(:generate_version)
       allow(subject).to receive(:generate_root)
       allow(subject).to receive(:generate_model)
       allow(subject).to receive(:generate_api)
@@ -30,6 +34,18 @@ RSpec.describe SemaphoreClientGenerator do
 
     it "copies static files" do
       expect(subject).to receive(:copy_static_files)
+
+      subject.generate
+    end
+
+    it "copies the gemspec file" do
+      expect(subject).to receive(:copy_gemspec)
+
+      subject.generate
+    end
+
+    it "generates the version file" do
+      expect(subject).to receive(:generate_version)
 
       subject.generate
     end
@@ -110,6 +126,57 @@ RSpec.describe SemaphoreClientGenerator do
 
         subject.copy_static_files
       end
+    end
+  end
+
+  describe "#copy_gemspec" do
+    it "copies the file" do
+      expect(FileUtils).to receive(:cp).with(
+        "#{source_path}/semaphore_client._gemspec_",
+        "#{output_path}/semaphore_client.gemspec"
+      )
+
+      subject.copy_gemspec
+    end
+  end
+
+  describe "#generate_version" do
+    let(:version) { "0.0.1" }
+    let(:code_file) { double(SemaphoreClientGenerator::CodeFile, :generate => nil) }
+
+    before do
+      allow(File).to receive(:read).and_return(version)
+
+      allow(SemaphoreClientGenerator::CodeFile).to receive(:new).and_return(code_file)
+    end
+
+    it "reads the version file" do
+      expect(File).to receive(:read).with(version_path)
+
+      subject.generate_version
+    end
+
+    context "version format is wrong" do
+      let(:version) { "1" }
+
+      it "raises an exception" do
+        expect { subject.generate_version }.to raise_exception(SemaphoreClientGenerator::VersionFormatError)
+      end
+    end
+
+    it "creates the code file" do
+      expect(SemaphoreClientGenerator::CodeFile).to receive(:new).with(
+        "#{source_path}/lib/semaphore_client/version.rb.erb",
+        "#{output_path}/lib/semaphore_client"
+      )
+
+      subject.generate_version
+    end
+
+    it "generates the output file" do
+      expect(code_file).to receive(:generate).with("version", :version => version)
+
+      subject.generate_version
     end
   end
 
