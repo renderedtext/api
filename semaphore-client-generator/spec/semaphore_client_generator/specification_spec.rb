@@ -1,5 +1,5 @@
 require "spec_helper"
-require "semaphore_client_generator/resource_holding_spec"
+require "semaphore_client_generator/shared_examples_for_resource_holding"
 
 RSpec.describe SemaphoreClientGenerator::Specification do
   let(:path) { "path" }
