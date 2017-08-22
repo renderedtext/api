@@ -57,16 +57,20 @@ class SemaphoreClient
     private
 
     def trace(method, path, content = nil)
-      id = SecureRandom.hex
-      started_at = Time.now.to_f
+      if @verbose == true
+        id = SecureRandom.hex
+        started_at = Time.now.to_f
 
-      @logger.info "#{id} #{method} #{path} body: #{content.inspect}"
-      response = yield
+        @logger.info "#{id} #{method} #{path} body: #{content.inspect}"
+        response = yield
 
-      finished_at = Time.now.to_f
-      @logger.info "#{id} #{response.status} duration: #{finished_at - started_at}s body: #{response.body}"
+        finished_at = Time.now.to_f
+        @logger.info "#{id} #{response.status} duration: #{finished_at - started_at}s body: #{response.body}"
 
-      response
+        response
+      else
+        yield
+      end
     end
 
     def route(route_elements)
