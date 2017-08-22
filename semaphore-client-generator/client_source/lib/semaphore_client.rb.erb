@@ -16,12 +16,13 @@ class SemaphoreClient
   API_URL = "https://api.semaphoreci.com"
   API_VERSION = "v2"
 
-  def initialize(auth_token, api_url = API_URL, api_version = API_VERSION, options = {})
+  def initialize(auth_token, options = {})
     @auth_token = auth_token
-    @api_url = api_url
-    @api_version = api_version
-    @verbose = options.fetch(:verbose, false)
-    @logger = options[:logger] || Logger.new(STDOUT)
+
+    @api_url     = options.fetch(:api_url, API_URL)
+    @api_version = options.fetch(:api_version, API_VERSION)
+    @verbose     = options.fetch(:verbose, false)
+    @logger      = options.fetch(:logger, Logger.new(STDOUT))
   end
 
   <%- @entities.each do |entity| -%>
