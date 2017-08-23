@@ -102,7 +102,10 @@ class SemaphoreClient
 
         <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_DEPENDENT -%>
       def list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, query = nil)
-        query_string = query.nil? ? nil : "?#{query}"
+        query_string =
+          unless query.nil? || query.empty?
+            "?" + query.map { |key, value| "#{key}=#{value}" }.join("&")
+          end
 
         response = @http_client.get([:<%= method.related_entity.pluralize %>, <%= method.related_entity %>_id, :<%= @key.pluralize %>, query_string].compact)
 
