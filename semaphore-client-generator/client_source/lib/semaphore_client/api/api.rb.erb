@@ -32,8 +32,8 @@ class SemaphoreClient
       end
 
         <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_DEPENDENT -%>
-      def list_for_<%= method.related_entity %>(<%= method.related_entity %>_id)
-        list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id)
+      def list_for_<%= method.related_entity %>(<%= method.related_entity %>_id, query = nil)
+        list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, query)
       rescue SemaphoreClient::Exceptions::RequestFailed
       end
 
@@ -101,8 +101,10 @@ class SemaphoreClient
       end
 
         <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_DEPENDENT -%>
-      def list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id)
-        response = @http_client.get([:<%= method.related_entity.pluralize %>, <%= method.related_entity %>_id, :<%= @key.pluralize %>])
+      def list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, query = nil)
+        query_string = query.nil? ? nil : "?#{query}"
+
+        response = @http_client.get([:<%= method.related_entity.pluralize %>, <%= method.related_entity %>_id, :<%= @key.pluralize %>, query_string].compact)
 
         assert_response_status(response, 200)
 
