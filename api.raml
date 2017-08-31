@@ -1,6 +1,5 @@
 #%RAML 1.0
 title: Semaphore
-version: 2.0.3
 baseUri: https://api.semaphoreci.com/v2
 mediaType: application/json
 
@@ -113,6 +112,22 @@ types:
         example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/shared_configs"
       updated_at: time
       created_at: time
+
+  ProjectPost:
+    type: object
+    properties:
+      repo_name:
+        type: string
+        description: "Name of the repository on GitHub or BitBucket"
+        example: "cli"
+      repo_owner:
+        type: string
+        description: "Name of the repository owner on GitHub or BitBucket"
+        example: "renderedtext"
+      repo_provider:
+        enum: [github, bitbucket]
+        description: "Repository Host"
+        example: "github"
 
   Project:
     type: object
@@ -407,6 +422,13 @@ traits:
       get:
         displayName: List projects in an organization
         is: [withResponseItems: {item : Project}]
+      post:
+        displayName: Create a project in an organization
+        description: Only organization admin can create new projects.
+        is: [withRequestItem: {item : ProjectPost},
+             withResponseItem: {item : Project},
+             withNotFoundError,
+             withPreconditionFailedError]
     /shared_configs:
       get:
         displayName: List shared configurations in an organization
