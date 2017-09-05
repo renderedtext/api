@@ -116,6 +116,10 @@ types:
   ProjectPost:
     type: object
     properties:
+      name:
+        type: string
+        description: "Name of the project on Semaphore"
+        example: "cli"
       repo_name:
         type: string
         description: "Name of the repository on GitHub or BitBucket"
