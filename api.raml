@@ -64,8 +64,8 @@ types:
         example: "developers"
       permission?:
         description: "The permission level for team members in the organization."
-        enum: [read, write, admin]
-        example: "write"
+        enum: [read, edit, admin]
+        example: "edit"
       description?:
         type: string
         description: "Description for the team."
@@ -79,9 +79,9 @@ types:
         description: "Name of the team. The name must be unique in the organization."
         example: "developers"
       permission:
-        enum: [read, write, admin]
+        enum: [read, edit, admin]
         description: "The permission level for team members in the organization."
-        example: "write"
+        example: "edit"
       description?:
         type: string
         description: "Description for the team."
