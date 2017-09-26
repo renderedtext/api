@@ -1,6 +1,27 @@
 class SemaphoreClient
+
   class HttpClient
-    class RouteNotSupported < StandardError; end
+
+    class ResponseErrorMiddleware < Response::Middleware
+      def on_complete(env)
+        case env[:status]
+        when 401
+          raise SemaphoreClient::Exceptions::Unauthorized, env
+        when 404
+          raise SemaphoreClient::Exceptions::NotFound, env
+        when 405
+          raise SemaphoreClient::Exceptions::NotAllowed, env
+        when 409
+          raise SemaphoreClient::Exceptions::Conflict, env
+        when 422
+          raise SemaphoreClient::Exceptions::UnprocessableEntity, env
+        when 400...500
+          raise SemaphoreClient::Exceptions::BadRequest, env
+        when 500...600
+          raise SemaphoreClient::Exceptions::ServerError, env
+        end
+      end
+    end
 
     def initialize(auth_token, api_url, api_version, verbose, logger)
       @auth_token = auth_token
@@ -57,6 +78,7 @@ class SemaphoreClient
       @connection ||= Faraday.new(:url => @api_url, :headers => { "Authorization" => "Token #{@auth_token}" }) do |conn|
         conn.request :json
         conn.response :json
+        conn.response SemaphoreClient::HttpClient::ResponseErrorMiddleware
       end
     end
   end
