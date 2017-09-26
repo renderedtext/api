@@ -1,4 +1,3 @@
-<%- class MethodNotSupported < StandardError; end -%>
 class SemaphoreClient
   module Api
     class <%= @name %>
@@ -6,163 +5,117 @@ class SemaphoreClient
         @http_client = http_client
       end
 
-      <%- @methods.each do |method| -%>
-        <%- if method.type == SemaphoreClientGenerator::Operation::GET -%>
-      def get(id)
-        get!(id)
+<%- @methods.each do |method| -%>
+  <%- if method.type == SemaphoreClientGenerator::Operation::GET -%>
+
+      def get(id, params = nil)
+        get!(id, params)
       rescue SemaphoreClient::Exceptions::RequestFailed
       end
 
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::UPDATE -%>
-      def update(id, params)
+      def get!(id, params = nil)
+        path = "/<%= @key.pluralize %>/#{id}"
+        response = @http_client.get(path, params = {})
+
+        SemaphoreClient::Model::<%= @name %>.load(response.body)
+      end
+
+  <%- elsif method.type == SemaphoreClientGenerator::Operation::UPDATE -%>
+
+      def update(id, params = nil)
         update!(id, params)
       rescue SemaphoreClient::Exceptions::RequestFailed
       end
 
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::DELETE -%>
-      def delete(id)
-        delete!(id)
+      def update!(id, params = nil)
+        path = "/<%= @key.pluralize %>/#{id}"
+        response = @http_client.patch(path, params)
+
+        SemaphoreClient::Model::<%= @name %>.load(response.body)
+      end
+
+  <%- elsif method.type == SemaphoreClientGenerator::Operation::DELETE -%>
+
+      def delete(id, params = nil)
+        delete!(id, params)
       rescue SemaphoreClient::Exceptions::RequestFailed
       end
 
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::CREATE_DEPENDENT -%>
-      def create_for_<%= method.related_entity %>(<%= method.related_entity %>_id, params)
+      def delete!(id, params = nil)
+        path = "/<%= @key.pluralize %>/#{id}"
+
+        @http_client.delete(path, params)
+      end
+
+  <%- elsif method.type == SemaphoreClientGenerator::Operation::CREATE_DEPENDENT -%>
+
+      def create_for_<%= method.related_entity %>(<%= method.related_entity %>_id, params = nil)
         create_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params)
       rescue SemaphoreClient::Exceptions::RequestFailed
       end
 
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_DEPENDENT -%>
-      def list_for_<%= method.related_entity %>(<%= method.related_entity %>_id, query = nil)
-        list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, query)
-      rescue SemaphoreClient::Exceptions::RequestFailed
-      end
-
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_ALL -%>
-      def list
-        list!
-      rescue SemaphoreClient::Exceptions::RequestFailed
-      end
-
-        <%- elsif [SemaphoreClientGenerator::Operation::ATTACH, SemaphoreClientGenerator::Operation::ADD].include?(method.type) -%>
-      def attach_to_<%= method.related_entity %>(<%= @key %>_id, <%= method.related_entity %>_id)
-        attach_to_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id)
-      rescue SemaphoreClient::Exceptions::RequestFailed
-      end
-
-        <%- elsif [SemaphoreClientGenerator::Operation::DETACH, SemaphoreClientGenerator::Operation::REMOVE].include?(method.type) -%>
-      def detach_from_<%= method.related_entity %>(<%= @key %>_id, <%= method.related_entity %>_id)
-        detach_from_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id)
-      rescue SemaphoreClient::Exceptions::RequestFailed
-      end
-
-        <%- else -%>
-          <%- raise MethodNotSupported -%>
-        <%- end -%>
-      <%- end -%>
-      <%- @methods.each do |method| -%>
-        <%- if method.type == SemaphoreClientGenerator::Operation::GET -%>
-      def get!(id, params = {})
-        path = "/<%= @key.pluralize %>/#{id}"
-        response = @http_client.get(path, params = {})
-
-        assert_response_status(response, 200)
-
-        content = JSON.parse(response.body)
-
-        SemaphoreClient::Model::<%= @name %>.load(content)
-      end
-
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::UPDATE -%>
-      def update!(id, params = {})
-        path = "/<%= @key.pluralize %>/#{id}"
-        response = @http_client.patch(path, params)
-
-        assert_response_status(response, 200)
-
-        content = JSON.parse(response.body)
-
-        SemaphoreClient::Model::<%= @name %>.load(content)
-      end
-
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::DELETE -%>
-      def delete!(id, params = {})
-        path = "/<%= @key.pluralize %>/#{id}"
-        response = @http_client.delete(path, params)
-
-        assert_response_status(response, 200)
-      end
-
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::CREATE_DEPENDENT -%>
-      def create_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params = {})
+      def create_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params = nil)
         path = "/<%= method.related_entity.pluralize %>/#{<%= method.related_entity %>_id}/<%= @key.pluralize %>"
         response = @http_client.post(path, params)
 
-        assert_response_status(response, 200)
-
-        content = JSON.parse(response.body)
-
-        SemaphoreClient::Model::<%= @name %>.load(content)
+        SemaphoreClient::Model::<%= @name %>.load(response.body)
       end
 
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_DEPENDENT -%>
-      def list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params = {})
+  <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_DEPENDENT -%>
+
+      def list_for_<%= method.related_entity %>(<%= method.related_entity %>_id, params = nil)
+        list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params)
+      rescue SemaphoreClient::Exceptions::RequestFailed
+      end
+
+      def list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params = nil)
         path = "/<%= method.related_entity.pluralize %>/#{<%= method.related_entity %>_id}/<%= @key.pluralize %>"
 
-        response = @http_client.get(path, query)
-
-        assert_response_status(response, 200)
-
-        content = JSON.parse(response.body)
-
-        content.map do |entity|
-          SemaphoreClient::Model::<%= @name %>.load(entity)
-        end
+        @http_client.get(path, params).body.map { |e| SemaphoreClient::Model::<%= @name %>.load(e) }
       end
 
-        <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_ALL -%>
-      def list!(params = {})
+  <%- elsif method.type == SemaphoreClientGenerator::Operation::LIST_ALL -%>
+
+      def list(params = nil)
+        list!(params)
+      rescue SemaphoreClient::Exceptions::RequestFailed
+      end
+
+      def list!(params = nil)
         path = "/<%= @key.pluralize %>"
 
-        response = @http_client.get(path)
-
-        assert_response_status(response, 200)
-
-        content = JSON.parse(response.body)
-
-        content.map do |entity|
-          SemaphoreClient::Model::<%= @name %>.load(entity)
-        end
+        @http_client.get(path, params).body.map { |e| SemaphoreClient::Model::<%= @name %>.load(response.body) }
       end
 
-        <%- elsif [SemaphoreClientGenerator::Operation::ATTACH, SemaphoreClientGenerator::Operation::ADD].include?(method.type) -%>
-      def attach_to_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params = {})
+  <%- elsif [SemaphoreClientGenerator::Operation::ATTACH, SemaphoreClientGenerator::Operation::ADD].include?(method.type) -%>
+
+      def attach_to_<%= method.related_entity %>(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
+        attach_to_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params)
+      rescue SemaphoreClient::Exceptions::RequestFailed
+      end
+
+      def attach_to_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
         path = "/<%= method.related_entity.pluralize %>/#{<%= method.related_entity %>_id}/<%= @key.pluralize %>/#{<%= @key %>_id}")
 
-        response = @http_client.post(path, params)
-
-        assert_response_status(response, 204)
+        @http_client.post(path, params)
       end
 
-        <%- elsif [SemaphoreClientGenerator::Operation::DETACH, SemaphoreClientGenerator::Operation::REMOVE].include?(method.type) -%>
-      def detach_from_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params = {})
+  <%- elsif [SemaphoreClientGenerator::Operation::DETACH, SemaphoreClientGenerator::Operation::REMOVE].include?(method.type) -%>
+
+      def detach_from_<%= method.related_entity %>(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
+        detach_from_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params)
+      rescue SemaphoreClient::Exceptions::RequestFailed
+      end
+
+      def detach_from_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
         path = "/<%= method.related_entity.pluralize %>/#{<%= method.related_entity %>_id}/<%= @key.pluralize %>/#{<%= @key %>_id}"
 
-        response = @http_client.delete(path, params)
-
-        assert_response_status(response, 204)
+        @http_client.delete(path, params)
       end
 
-        <%- else -%>
-          <%- raise MethodNotSupported -%>
-        <%- end -%>
-      <%- end -%>
-      private
+  <%- else -%>
+    <%- raise "http method not supported" -%>
+  <%- end -%>
 
-      def assert_response_status(response, expected_status)
-        return if response.status == expected_status
-
-        raise SemaphoreClient::Exceptions::RequestFailed, response.status
-      end
-    end
-  end
+<%- end -%>
 end
