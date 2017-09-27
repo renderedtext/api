@@ -32,26 +32,26 @@ class SemaphoreClient
     end
 
     def get(path, params = nil)
-      trace("GET", route) do
-        connection.get(route, params)
+      trace("GET", path) do
+        connection.get(path, params)
       end
     end
 
     def post(path, params = nil)
-      trace("POST", route, params) do
-        connection.post(route, params)
+      trace("POST", path, params) do
+        connection.post(path, params)
       end
     end
 
     def patch(path, params = nil)
-      trace("PATCH", route, params) do
-        connection.patch(route, params)
+      trace("PATCH", path, params) do
+        connection.patch(path, params)
       end
     end
 
     def delete(path, params = nil)
-      trace("DELETE", route, params) do
-        connection.delete(route, params)
+      trace("DELETE", path, params) do
+        connection.delete(path, params)
       end
     end
 
@@ -78,7 +78,8 @@ class SemaphoreClient
       @connection ||= Faraday.new(:url => @api_url, :headers => { "Authorization" => "Token #{@auth_token}" }) do |conn|
         conn.request :json
         conn.response :json
-        conn.response SemaphoreClient::HttpClient::ResponseErrorMiddleware
+
+        conn.use SemaphoreClient::HttpClient::ResponseErrorMiddleware
       end
     end
   end
