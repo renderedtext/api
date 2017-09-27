@@ -18,21 +18,21 @@ class SemaphoreClient
     class BadRequest < ResponseError; end
 
     # 401
-    class Unauthorized < Error; end
+    class Unauthorized < ResponseError; end
 
     # 404
-    class NotFound < Error; end
+    class NotFound < ResponseError; end
 
     # 405
-    class NotAllowed < Error; end
+    class NotAllowed < ResponseError; end
 
     # 409
-    class Conflict < Error; end
+    class Conflict < ResponseError; end
 
     # 422
-    class UnprocessableEntity < Error; end
+    class UnprocessableEntity < ResponseError; end
 
     # 500+
-    class ServerError < Error; end
+    class ServerError < ResponseError; end
   end
 end
