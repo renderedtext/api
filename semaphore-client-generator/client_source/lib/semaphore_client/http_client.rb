@@ -2,8 +2,10 @@ class SemaphoreClient
 
   class HttpClient
 
-    class ResponseErrorMiddleware < Faraday::Response::Middleware
-      def on_complete(env)
+    class ResponseErrorMiddleware < Faraday::Middleware
+      def call(env)
+        env = @app.call(env)
+
         case env[:status]
         when 401
           raise SemaphoreClient::Exceptions::Unauthorized, env
@@ -20,6 +22,8 @@ class SemaphoreClient
         when 500...600
           raise SemaphoreClient::Exceptions::ServerError, env
         end
+
+        env
       end
     end
 
