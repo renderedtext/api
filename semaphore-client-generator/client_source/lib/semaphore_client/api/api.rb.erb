@@ -84,7 +84,7 @@ class SemaphoreClient
       def list!(params = nil)
         path = "/<%= @key.pluralize %>"
 
-        @http_client.get(path, params).body.map { |e| SemaphoreClient::Model::<%= @name %>.load(response.body) }
+        @http_client.get(path, params).body.map { |e| SemaphoreClient::Model::<%= @name %>.load(e) }
       end
 
   <%- elsif [SemaphoreClientGenerator::Operation::ATTACH, SemaphoreClientGenerator::Operation::ADD].include?(method.type) -%>
