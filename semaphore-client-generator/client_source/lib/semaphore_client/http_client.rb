@@ -80,10 +80,10 @@ class SemaphoreClient
 
     def connection
       @connection ||= Faraday.new(:url => @api_url, :headers => { "Authorization" => "Token #{@auth_token}" }) do |conn|
+        conn.use SemaphoreClient::HttpClient::ResponseErrorMiddleware
+
         conn.request :json
         conn.response :json
-
-        conn.use SemaphoreClient::HttpClient::ResponseErrorMiddleware
       end
     end
   end
