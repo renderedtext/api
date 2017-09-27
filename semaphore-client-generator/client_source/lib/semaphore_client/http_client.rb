@@ -25,36 +25,64 @@ class SemaphoreClient
       end
     end
 
-    def initialize(auth_token, api_url, api_version, verbose, logger)
+    def initialize(auth_token, api_url, api_version, verbose, logger, auto_paginate)
       @auth_token = auth_token
       @api_url = api_url
       @api_version = api_version
       @verbose = verbose
       @logger = logger
+      @auto_paginate = auto_paginate
     end
 
-    def get(path, params = nil)
-      api_call(:get, path, params)
+    def get(path, params = nil, options = {})
+      api_call(:get, path, params, options)
     end
 
-    def post(path, params = nil)
-      api_call(:post, path, params)
+    def post(path, params = nil, options = {})
+      api_call(:post, path, params, options)
     end
 
-    def patch(path, params = nil)
-      api_call(:patch, path, params)
+    def patch(path, params = nil, options = {})
+      api_call(:patch, path, params, options)
     end
 
-    def delete(path, params = nil)
-      api_call(:delete, path, params)
+    def delete(path, params = nil, options = {})
+      api_call(:delete, path, params, options)
     end
 
     private
 
-    def api_call(method, path, params = nil)
-      route = "/#{@api_version}/#{path}"
+    def api_call(method, path, params = nil, options = {})
+      response = connection.public_send(method, "/#{@api_version}/#{path}", params)
 
-      connection.public_send(method, route, params)
+      if auto_paginate?(options)
+        links = parse_links(response)
+
+        if links[:next]
+          # recursivly follow the :next link
+          next_response = api_call(method, links[:next], params, options)
+
+          # append the rest to the body of the original request
+          response.body.concat(next_response.body)
+        end
+      end
+
+      response
+    end
+
+    def auto_paginate?(options)
+      # first check the options, then the global settings
+      options.key?(:auto_paginate) ? options[:auto_paginate] : @auto_paginate
+    end
+
+    def parse_links(response)
+      links = ( response.headers["Link"] || "" ).split(', ').map do |link|
+        href, name = link.match(/<(.*?)>; rel="(\w+)"/).captures
+
+        [name.to_sym, href.gsub("#{@api_url}/v2", "")]
+      end
+
+      Hash[*links.flatten]
     end
 
     def connection
