@@ -10,7 +10,7 @@ class SemaphoreClient
 
       def get(id, params = nil)
         get!(id, params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def get!(id, params = nil)
@@ -24,7 +24,7 @@ class SemaphoreClient
 
       def update(id, params = nil)
         update!(id, params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def update!(id, params = nil)
@@ -38,7 +38,7 @@ class SemaphoreClient
 
       def delete(id, params = nil)
         delete!(id, params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def delete!(id, params = nil)
@@ -51,7 +51,7 @@ class SemaphoreClient
 
       def create_for_<%= method.related_entity %>(<%= method.related_entity %>_id, params = nil)
         create_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def create_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params = nil)
@@ -65,7 +65,7 @@ class SemaphoreClient
 
       def list_for_<%= method.related_entity %>(<%= method.related_entity %>_id, params = nil)
         list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def list_for_<%= method.related_entity %>!(<%= method.related_entity %>_id, params = nil)
@@ -78,7 +78,7 @@ class SemaphoreClient
 
       def list(params = nil)
         list!(params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def list!(params = nil)
@@ -91,11 +91,11 @@ class SemaphoreClient
 
       def attach_to_<%= method.related_entity %>(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
         attach_to_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def attach_to_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
-        path = "/<%= method.related_entity.pluralize %>/#{<%= method.related_entity %>_id}/<%= @key.pluralize %>/#{<%= @key %>_id}")
+        path = "/<%= method.related_entity.pluralize %>/#{<%= method.related_entity %>_id}/<%= @key.pluralize %>/#{<%= @key %>_id}"
 
         @http_client.post(path, params)
       end
@@ -104,7 +104,7 @@ class SemaphoreClient
 
       def detach_from_<%= method.related_entity %>(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
         detach_from_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params)
-      rescue SemaphoreClient::Exceptions::RequestFailed
+      rescue SemaphoreClient::Exceptions::ResponseError
       end
 
       def detach_from_<%= method.related_entity %>!(<%= @key %>_id, <%= method.related_entity %>_id, params = nil)
@@ -118,4 +118,6 @@ class SemaphoreClient
   <%- end -%>
 
 <%- end -%>
+    end
+  end
 end

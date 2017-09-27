@@ -2,7 +2,7 @@ class SemaphoreClient
 
   class HttpClient
 
-    class ResponseErrorMiddleware < Response::Middleware
+    class ResponseErrorMiddleware < Faraday::Response::Middleware
       def on_complete(env)
         case env[:status]
         when 401
