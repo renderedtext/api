@@ -36,10 +36,10 @@ types:
         type: string
         description: "Projects URL for the organization"
         example: "https://api.semaphoreci.com/v2/orgs/renderedtext/projects"
-      shared_configs_url:
+      secrets_url:
         type: string
-        description: "Shared Configurations URL for the organization"
-        example: "https://api.semaphoreci.com/v2/orgs/renderedtext/shared_configs"
+        description: "Secrets URL for the organization"
+        example: "https://api.semaphoreci.com/v2/orgs/renderedtext/secrets"
       users_url:
         type: string
         description: "Users URL for the organization"
@@ -108,8 +108,8 @@ types:
         example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/projects"
       shared_configs_url:
         type: string
-        description: "Shared Configurations URL for the team"
-        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/shared_configs"
+        description: "Secrets URL for the team"
+        example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/secrets"
       updated_at: time
       created_at: time
 
@@ -150,8 +150,8 @@ types:
         example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/users"
       shared_configs_url:
         type: string
-        description: "Shared Configurations URL for the project"
-        example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/shared_configs"
+        description: "Secrets URL for the project"
+        example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/secrets"
       env_vars_url:
         type: string
         description: "Environment Variables URL for the project"
@@ -163,57 +163,57 @@ types:
       updated_at: time
       created_at: time
 
-  SharedConfigPatch:
+  SecretPatch:
     type: object
     properties:
       name?:
         type: string
-        description: "Name of the shared configuration."
+        description: "Name of the secret."
         example: "AWS Tokens"
       description?:
         type: string
-        description: "Description for the shared configuration."
+        description: "Description for the secrets."
         example: "AWS tokens for deployment"
 
-  SharedConfigPost:
+  SecretPost:
     type: object
     properties:
       name:
         type: string
-        description: "Name of the shared configuration."
+        description: "Name of the secret."
         example: "AWS Tokens"
       description?:
         type: string
-        description: "Description for the shared configuration."
+        description: "Description for the secret."
         example: "AWS tokens for deployment"
 
-  SharedConfig:
-    type: SharedConfigPost
+  Secret:
+    type: SecretPost
     properties:
       id:
         type: UUID
-        description: "Unique ID of the shared configuration."
+        description: "Unique ID of the secret."
         example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       url:
         type: string
-        description: "Show URL for the shared configuration."
-        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+        description: "Show URL for the secret."
+        example: "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
       projects_url:
         type: string
-        description: "Porjects URL for the shared configuration"
-        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/projects"
+        description: "Projects URL for the secret"
+        example: "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/projects"
       teams_url:
         type: string
-        description: "Teams URL for the shared configuration"
-        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/teams"
+        description: "Teams URL for the secret"
+        example: "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/teams"
       env_vars_url:
         type: string
-        description: "Environment Variables URL for the shared configuration"
-        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/env_vars"
+        description: "Environment Variables URL for the secret"
+        example: "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/env_vars"
       config_files_url:
         type: string
-        description: "Config Files URL for the the shared configuration"
-        example: "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/config_files"
+        description: "Config Files URL for the the secret"
+        example: "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/config_files"
       created_at: time
       updated_at: time
 
@@ -265,7 +265,7 @@ types:
         example: "8CgLAxXn"
       shared:
         type: boolean
-        description: "True if the environment variable belongs to a shared configuration."
+        description: "True if the environment variable belongs to a secret."
         example: true
       encrypted:
         type: boolean
@@ -323,7 +323,7 @@ types:
         example: "password: ec2c9f6f64b5"
       shared:
         type: boolean
-        description: "True if the configuration file belongs to a shared configuration."
+        description: "True if the configuration file belongs to a secret."
         example: true
       encrypted:
         type: boolean
@@ -433,14 +433,14 @@ traits:
              withResponseItem: {item : Project},
              withNotFoundError,
              withPreconditionFailedError]
-    /shared_configs:
+    /secrets:
       get:
-        displayName: List shared configurations in an organization
-        is: [withResponseItems: {item : SharedConfig}]
+        displayName: List secrets in an organization
+        is: [withResponseItems: {item : Secret}]
       post:
-        displayName: Create shared configuration in an organization
-        is: [withRequestItem: {item : SharedConfigPost},
-            withResponseItem: {item : SharedConfig},
+        displayName: Create secret in an organization
+        is: [withRequestItem: {item : SecretPost},
+            withResponseItem: {item : Secret},
             withNotFoundError,
             withPreconditionFailedError]
     /users:
@@ -465,18 +465,18 @@ traits:
       is: [withRequestItem: {item : TeamPatch}, withResponseItem: {item : Team}, withNotFoundError]
 
   /{team_id}:
-    /shared_configs:
+    /secrets:
       get:
-        displayName: List shared configurations in a team
-        is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
+        displayName: List secrets in a team
+        is: [withResponseItems: {item : Secret}, withNotFoundError]
 
-      /{shared_config_id}:
+      /{secret_id}:
         post:
-          displayName: Add a shared configuration to a team
+          displayName: Add a secret to a team
           description: The user needs to be a member of the team, and to have admin permissions in the organization.
           is: [withNoBodyResponse, withNotFoundError]
         delete:
-          displayName: Remove shared configuration from a team
+          displayName: Remove secret from a team
           description: The user needs to be a member of the team, and to have admin permissions in the organization.
           is: [withNoBodyResponse, withNotFoundError]
 
@@ -509,17 +509,17 @@ traits:
   displayName: "Projects"
 
   /{project_id}:
-    /shared_configs:
+    /secrets:
       get:
-        displayName: List shared configurations attached to a project
-        is: [withResponseItems: {item : SharedConfig}, withNotFoundError]
+        displayName: List secrets attached to a project
+        is: [withResponseItems: {item : Secret}, withNotFoundError]
 
-      /{shared_config_id}:
+      /{secret_id}:
         post:
-          displayName: Attach a shared configuration to a project
-          is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
+          displayName: Attach a secret to a project
+          is: [withResponseItem: {item : Secret}, withNotFoundError]
         delete:
-          displayName: Dettach a shared configuration from a project
+          displayName: Dettach a secret from a project
           is: [withNoBodyResponse, withNotFoundError]
 
     /env_vars:
@@ -556,50 +556,50 @@ traits:
         displayName: List all users for a project
         is: [withResponseItems: {item : User}, withNotFoundError]
 
-/shared_configs:
-  displayName: "Shared Configurations"
+/secrets:
+  displayName: "Secrets"
 
   /{id}:
     get:
-      displayName: Get a shared configuration
-      is: [withResponseItem: {item : SharedConfig}, withNotFoundError]
+      displayName: Get a secret
+      is: [withResponseItem: {item : Secret}, withNotFoundError]
     delete:
-      displayName: Delete a shared configuration
-      description: Deleting a shared configuration requires at least admin permissions in the organization.
+      displayName: Delete a secret
+      description: Deleting a secret requires at least admin permissions in the organization.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
-      displayName: Update a shared configuration
-      description: To update the shared configuration you need to be an admin or owner in your organization.
-      is: [withRequestItem: {item : SharedConfigPatch},
-          withResponseItem: {item : SharedConfig}, withNotFoundError]
+      displayName: Update a secret
+      description: To update the secret you need to be an admin or owner in your organization.
+      is: [withRequestItem: {item : SecretPatch},
+          withResponseItem: {item : Secret}, withNotFoundError]
 
-  /{shared_config_id}:
+  /{secret_id}:
     /projects:
       get:
-        displayName: List projects for a shared configuration
+        displayName: List projects for a secret
         is: [withResponseItems: {item : Project}, withNotFoundError]
 
     /teams:
       get:
-        displayName: List teams for a shared configuration
+        displayName: List teams for a secret
         is: [withResponseItems: {item : Team}, withNotFoundError]
 
     /env_vars:
       get:
-        displayName: List environment variables belonging to a shared configuration
+        displayName: List environment variables belonging to a secret
         is: [withResponseItems: {item : EnvVar}, withNotFoundError]
       post:
-        displayName: Create environment variable within a shared configuration
-        description: Environment variables can be only created by users who can edit the shared configuration.
+        displayName: Create environment variable within a secret
+        description: Environment variables can be only created by users who can edit the secret.
         is: [withRequestItem: {item : EnvVarPost},
             withResponseItem: {item : EnvVar}, withNotFoundError]
     /config_files:
       get:
-        displayName: List config files belonging to a shared configuration
+        displayName: List config files belonging to a secret
         is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
       post:
-        displayName: Create a config file within a shared configuration
-        description: Configuration files can be only created by users who can edit the shared configuration.
+        displayName: Create a config file within a secret
+        description: Configuration files can be only created by users who can edit the secret.
         is: [withRequestItem: {item : ConfigFilePost},
             withResponseItem: {item : ConfigFile}, withNotFoundError]
 
