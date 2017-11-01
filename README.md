@@ -1,4 +1,5 @@
 # API v2
+[![Build Status](https://semaphoreci.com/api/v1/projects/8dec2741-95b9-4746-9203-6d4acb1f06f3/548342/badge.svg)](https://semaphoreci.com/renderedtext/api)
 
 Semaphore public API v2 - RAML specification.
 
