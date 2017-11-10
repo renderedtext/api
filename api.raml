@@ -106,7 +106,7 @@ types:
         type: string
         description: "Projects URL for the team"
         example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/projects"
-      shared_configs_url:
+      secrets_url:
         type: string
         description: "Secrets URL for the team"
         example: "https://api.semaphoreci.com/v2/teams/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/secrets"
@@ -148,7 +148,7 @@ types:
         type: string
         description: "Users URL for the project"
         example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/users"
-      shared_configs_url:
+      secrets_url:
         type: string
         description: "Secrets URL for the project"
         example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/secrets"
@@ -613,12 +613,12 @@ traits:
       is: [withResponseItem: {item : EnvVar}, withNotFoundError]
     delete:
       displayName: Delete an environment variable
-      description: Environment variables can be only deleted by users who has edit access on the project or the shared configuration.
+      description: Environment variables can be only deleted by users who has edit access on the project or the secret.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
       displayName: Update an environment variable
       description: |
-        Environment variables can be only updated by users who has edit access on the project or the shared configuration. Encrypted environment variables can't be edited.
+        Environment variables can be only updated by users who has edit access on the project or the secret. Encrypted environment variables can't be edited.
       is: [withRequestItem: {item : EnvVarPatch},
           withResponseItem: {item : EnvVar}, withNotFoundError]
 
@@ -632,11 +632,11 @@ traits:
       is: [withResponseItem: {item : ConfigFile}, withNotFoundError]
     delete:
       displayName: Delete a config file
-      description: Configuration files can be only deleted by users who has edit access on the project or the shared configuration.
+      description: Configuration files can be only deleted by users who has edit access on the project or the secret.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
       displayName: Update a config file
       description: |
-        Configuration files can be only updated by users who has edit access on the project or the shared configuration. Encrypted environment variables can't be edited.
+        Configuration files can be only updated by users who has edit access on the project or the secret. Encrypted environment variables can't be edited.
       is: [withRequestItem: {item : ConfigFilePatch},
           withResponseItem: {item : ConfigFile}, withNotFoundError]
