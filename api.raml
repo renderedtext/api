@@ -152,14 +152,6 @@ types:
         type: string
         description: "Secrets URL for the project"
         example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/secrets"
-      env_vars_url:
-        type: string
-        description: "Environment Variables URL for the project"
-        example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/env_vars"
-      config_files_url:
-        type: string
-        description: "Config Files URL for the project"
-        example: "https://api.semaphoreci.com/v2/projects/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/config_files"
       updated_at: time
       created_at: time
 
@@ -526,25 +518,11 @@ traits:
       get:
         displayName: List environment variables connected to a project
         is: [withResponseItems: {item : EnvVar}, withNotFoundError]
-      /{env_var_id}:
-        post:
-          displayName: Connect a shared environment variable to a project
-          is: [withNoBodyResponse, withNotFoundError]
-        delete:
-          displayName: Disconnect a shared environment variable from a project
-          is: [withNoBodyResponse, withNotFoundError]
 
     /config_files:
       get:
         displayName: List config files connected to a project
         is: [withResponseItems: {item : ConfigFile}, withNotFoundError]
-      /{config_file_id}:
-        post:
-          displayName: Connect a shared config file to a project
-          is: [withNoBodyResponse, withNotFoundError]
-        delete:
-          displayName: Disconnect a shared config file from a project
-          is: [withNoBodyResponse, withNotFoundError]
 
     /teams:
       get:
