@@ -543,8 +543,7 @@ traits:
       is: [withResponseItem: {item : Secret}, withNotFoundError]
     delete:
       displayName: Delete a secret
-      description: Deleting secret will remove it from all projects it is used on. 
-      Deleting a secret requires at least admin permissions in the organization.
+      description: Deleting secret will remove it from all projects it is used on. Deleting a secret requires at least admin permissions in the organization.
       is: [withNoBodyResponse, withNotFoundError]
     patch:
       displayName: Update a secret
