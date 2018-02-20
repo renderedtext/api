@@ -3,6 +3,9 @@ title: Semaphore
 baseUri: https://api.semaphoreci.com/v2
 mediaType: application/json
 
+annotationTypes:
+  stability: nil | string
+
 types:
   UUID:
     type: string
@@ -392,9 +395,11 @@ traits:
             type: Error
 
 /users:
+  (stability): "development"
   displayName: "Users"
 
 /orgs:
+  (stability): "development"
   displayName: "Organizations"
 
   get:
@@ -445,6 +450,7 @@ traits:
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /teams:
+  (stability): "development"
   displayName: "Teams"
 
   /{id}:
@@ -502,6 +508,7 @@ traits:
           is: [withNoBodyResponse, withNotFoundError]
 
 /projects:
+  (stability): "development"
   displayName: "Projects"
 
   /{project_id}:
@@ -539,6 +546,7 @@ traits:
         is: [withResponseItems: {item : User}, withNotFoundError]
 
 /secrets:
+  (stability): "development"
   displayName: "Secrets"
 
   /{id}:
@@ -586,6 +594,7 @@ traits:
             withResponseItem: {item : ConfigFile}, withNotFoundError]
 
 /env_vars:
+  (stability): "development"
   displayName: "Environment Variables"
 
   /{id}:
@@ -605,6 +614,7 @@ traits:
           withResponseItem: {item : EnvVar}, withNotFoundError]
 
 /config_files:
+  (stability): "development"
   displayName: "Configuration Files"
 
   /{id}:

@@ -11,6 +11,9 @@ class RamlParser
       @routes = routes
     end
 
+    def stability
+    end
+
     def index
       routes.select(&:index?)
     end
