@@ -4,11 +4,13 @@ class RamlParser
     attr_reader :name
     attr_reader :display_name
     attr_reader :routes
+    attr_reader :stability
 
-    def initialize(name, display_name, routes)
+    def initialize(name, display_name, routes, stability)
       @name = name
       @display_name = display_name
       @routes = routes
+      @stability = stability
     end
 
     def index

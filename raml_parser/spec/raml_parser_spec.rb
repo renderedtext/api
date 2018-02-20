@@ -8,7 +8,7 @@ RSpec.describe RamlParser do
   end
 
   let(:specs) { RamlParser.load("spec/specs.json") }
-  let(:shared_configs) { specs.find_resource_by_name("shared_configs") }
+  let(:secrets) { specs.find_resource_by_name("secrets") }
 
   it "can list resource display names" do
     expect(specs.resources.map(&:name)).to match_array [
@@ -16,7 +16,7 @@ RSpec.describe RamlParser do
       "config_files",
       "env_vars",
       "projects",
-      "shared_configs",
+      "secrets",
       "teams",
       "users"
     ]
@@ -28,75 +28,83 @@ RSpec.describe RamlParser do
       "Configuration Files",
       "Environment Variables",
       "Projects",
-      "Shared Configurations",
+      "Secrets",
       "Teams",
       "Users"
     ]
   end
 
+  it "can list resource stability levels" do
+    expect(specs.resources.map(&:stability)).to all(be == "prototype")
+  end
+
   it "can display route display name" do
-    expect(shared_configs.routes.map(&:display_name)).to include("Add a shared configuration to a team")
+    expect(secrets.routes.map(&:display_name)).to include("Add a secret to a team")
   end
 
   it "can display route description" do
-    expect(shared_configs.routes.map(&:description)).to include("The user needs to be a member of the team, and to have admin permissions in the organization.")
+    expect(secrets.routes.map(&:description)).to include("The user needs to be a member of the team, and to have admin permissions in the organization.")
   end
 
   it "can list index routes" do
-    expect(shared_configs.index.map(&:verb_and_path)).to match_array [
-      "GET /orgs/{org_username}/shared_configs",
-      "GET /teams/{team_id}/shared_configs",
-      "GET /projects/{project_id}/shared_configs",
+    expect(secrets.index.map(&:verb_and_path)).to match_array [
+      "GET /orgs/{org_username}/secrets",
+      "GET /teams/{team_id}/secrets",
+      "GET /projects/{project_id}/secrets",
     ]
   end
 
   it "can list show routes" do
-    expect(shared_configs.show.map(&:verb_and_path)).to match_array [ "GET /shared_configs/{id}" ]
+    expect(secrets.show.map(&:verb_and_path)).to match_array [ "GET /secrets/{id}" ]
   end
 
   it "can list create routes" do
-    expect(shared_configs.create.map(&:verb_and_path)).to match_array [ "POST /orgs/{org_username}/shared_configs" ]
+    expect(secrets.create.map(&:verb_and_path)).to match_array [ "POST /orgs/{org_username}/secrets" ]
   end
 
   it "can list delete routes" do
-    expect(shared_configs.delete.map(&:verb_and_path)).to match_array [ "DELETE /shared_configs/{id}" ]
+    expect(secrets.delete.map(&:verb_and_path)).to match_array [ "DELETE /secrets/{id}" ]
   end
 
   it "can list update routes" do
-    expect(shared_configs.update.map(&:verb_and_path)).to match_array [ "PATCH /shared_configs/{id}" ]
+    expect(secrets.update.map(&:verb_and_path)).to match_array [ "PATCH /secrets/{id}" ]
   end
 
   it "can list connect routes" do
-    expect(shared_configs.connect.map(&:verb_and_path)).to match_array [
-      "POST /teams/{team_id}/shared_configs/{shared_config_id}",
-      "POST /projects/{project_id}/shared_configs/{shared_config_id}"
+    expect(secrets.connect.map(&:verb_and_path)).to match_array [
+      "POST /teams/{team_id}/secrets/{secret_id}",
+      "POST /projects/{project_id}/secrets/{secret_id}"
     ]
   end
 
   it "can list dissconnect routes" do
-    expect(shared_configs.dissconnect.map(&:verb_and_path)).to match_array [
-      "DELETE /teams/{team_id}/shared_configs/{shared_config_id}",
-      "DELETE /projects/{project_id}/shared_configs/{shared_config_id}"
+    expect(secrets.dissconnect.map(&:verb_and_path)).to match_array [
+      "DELETE /teams/{team_id}/secrets/{secret_id}",
+      "DELETE /projects/{project_id}/secrets/{secret_id}"
     ]
   end
 
   it "can create example responses for show" do
-    get_shared_config = specs.find_route(:get, "/shared_configs/{id}")
+    get_shared_config = specs.find_route(:get, "/secrets/{id}")
 
     expect(get_shared_config.responses.map(&:code)).to match_array([ 200, 404 ])
 
     expect(get_shared_config.succesfull_response.example).to eq(
       "id" => "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5",
       "description" => "AWS tokens for deployment",
-      "url" => "https://api.semaphoreci.com/v2/shared_configs/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5",
+      "url" => "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5",
       "name" => "AWS Tokens",
+      "config_files_url" => "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/config_files",
+      "projects_url" => "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/projects",
+      "teams_url" => "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/teams",
+      "env_vars_url" => "https://api.semaphoreci.com/v2/secrets/86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5/env_vars",
       "updated_at" => "2017-06-10 16:59:51 +0200",
       "created_at" => "2017-06-10 16:59:51 +0200"
     )
   end
 
   it "can create example response for delete" do
-    delete_shared_config = specs.find_route(:delete, "/shared_configs/{id}")
+    delete_shared_config = specs.find_route(:delete, "/secrets/{id}")
 
     expect(delete_shared_config.responses.map(&:code)).to match_array([ 204, 404 ])
     expect(delete_shared_config.succesfull_response.example).to eq(nil)
@@ -140,14 +148,14 @@ RSpec.describe RamlParser do
 
     expect(permission.type).to eq("string")
     expect(permission).to be_enum
-    expect(permission.enum_values).to eq ["read", "write", "admin"]
+    expect(permission.enum_values).to eq ["read", "edit", "admin"]
 
     name = specs.find_route(:patch, "/teams/{id}").request.properties.find { |p| p.name == "name" }
     expect(name).to_not be_enum
   end
 
   it "can display the structure of the response" do
-    index_shared_config = specs.find_route(:get, "/projects/{project_id}/shared_configs")
+    index_shared_config = specs.find_route(:get, "/projects/{project_id}/secrets")
 
     expect(index_shared_config.succesfull_response.structure).to eq([
       {
@@ -156,7 +164,13 @@ RSpec.describe RamlParser do
         "url" => "string",
         "name" => "string",
         "updated_at" => "datetime",
-        "created_at" => "datetime"
+        "created_at" => "datetime",
+        "projects_url"=>"string",
+        "teams_url" => "string",
+        "env_vars_url" => "string",
+        "config_files_url" => "string",
+        "created_at" => "datetime",
+        "updated_at" => "datetime"
       }
     ])
   end

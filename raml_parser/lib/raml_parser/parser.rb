@@ -10,10 +10,11 @@ class RamlParser
       specs["resources"].map do |resource|
         name = resource["relativeUri"][1..-1]
         display_name = resource["displayName"]
+        stability = resource["annotations"].find { |ann| ann["name"] == "stability" }["structuredValue"]
 
         routes = all_routes.select { |r| r.resource_name == name }
 
-        Resource.new(name, display_name, routes)
+        Resource.new(name, display_name, routes, stability)
       end
     end
 
