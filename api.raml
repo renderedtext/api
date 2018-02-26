@@ -350,6 +350,76 @@ types:
       created_at: time
       updated_at: time
 
+  Pipeline:
+    type: object
+    properties:
+      id:
+        type: UUID
+        description: "Unique ID of the pipeline."
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+
+  PipelineRepo:
+    type: object
+    properties:
+      owner:
+        type: string
+        required: true
+        description: "Repo owner."
+        example: "renderedtext"
+      repo_name:
+        type: string
+        required: true
+        description: "Repo name."
+        example: "wormhole"
+      branch_name:
+        type: string
+        required: true
+        description: "Git branch."
+        example: "master"
+      commit_sha:
+        type: string
+        required: true
+        description: "Git commit SHA."
+        example: "78ce7905cb571ea13d3785c1197f851d757df72c"
+
+  PipelinePost:
+    type: object
+    properties:
+      project_uuid:
+        type: UUID
+        description: "Project the pipeline is building."
+        example: "86e78b7e-2f9c-45a7-9939-ec2c9f6f64b5"
+      repo:
+        type: PipelineRepo
+        required: true
+        description: "The repository."
+      service:
+        enum: [git_hub]
+        required: true
+        description: "The repository type."
+      pipeline_request_token:
+        type: string
+        required: true
+        maxLength: 64
+        description: "Idempotency key."
+        example: "86e78b7e2f9c45a79939ec2c9f6f64b5"
+
+  PipelineDescription:
+    type: object
+    properties:
+      description:
+        type: string
+        description: "Pipeline description."
+        example: ""
+
+  PipelinePatch:
+    type: object
+    properties:
+      terminate_request:
+        enum: ["true"]
+        required: true
+        example: "true"
+
 traits:
   withRequestItem:
     body:
@@ -633,3 +703,25 @@ traits:
         Configuration files can be only updated by users who has edit access on the project or the secret. Encrypted environment variables can't be edited.
       is: [withRequestItem: {item : ConfigFilePatch},
           withResponseItem: {item : ConfigFile}, withNotFoundError]
+
+/pipelines:
+  (stability): "prototype"
+  displayName: Pipelines
+
+  get:
+    displayName: List pipelines
+    is: [withResponseItems: {item : Pipeline}, withNotFoundError]
+  post:
+    displayName: Schedule pipeline execution
+    is: [withRequestItem: {item : PipelinePost},
+        withCreateResponse: {item : Pipeline}, withNotFoundError]
+
+  /{pipeline_id}:
+    get:
+      displayName: Describe pipeline
+      is: [withResponseItem: {item : PipelineDescription}, withNotFoundError]
+
+    patch:
+      displayName: Terminate pipeline
+      is: [withRequestItem: {item : PipelinePatch},
+          withNoBodyResponse, withNotFoundError]
