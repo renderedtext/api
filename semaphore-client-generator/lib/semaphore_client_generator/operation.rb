@@ -5,6 +5,7 @@ class SemaphoreClientGenerator
     LIST_ALL = :list_all
     GET = :get
     LIST_DEPENDENT = :list_dependent
+    CREATE = :create
     CREATE_DEPENDENT = :create_dependent
     ADD = :add
     ATTACH = :attach
@@ -30,6 +31,7 @@ class SemaphoreClientGenerator
         when [1, "get"]    then LIST_ALL
         when [2, "get"]    then GET
         when [3, "get"]    then LIST_DEPENDENT
+        when [1, "post"]   then CREATE
         when [3, "post"]   then CREATE_DEPENDENT
         when [4, "post"]   then add_or_attach
         when [2, "patch"]  then UPDATE

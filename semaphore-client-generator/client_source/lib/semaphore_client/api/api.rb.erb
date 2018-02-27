@@ -47,6 +47,20 @@ class SemaphoreClient
         @http_client.delete(path, params)
       end
 
+  <%- elsif method.type == SemaphoreClientGenerator::Operation::CREATE -%>
+
+      def create(params = nil, options = {})
+        create!(params, options)
+      rescue SemaphoreClient::Exceptions::ResponseError
+      end
+
+      def create!(params = nil, options = {})
+        path = "/<%= @key.pluralize %>"
+        response = @http_client.post(path, params, options)
+
+        SemaphoreClient::Model::<%= @name %>.load(response.body)
+      end
+
   <%- elsif method.type == SemaphoreClientGenerator::Operation::CREATE_DEPENDENT -%>
 
       def create_for_<%= method.related_entity %>(<%= method.related_entity %>_id, params = nil, options = {})
